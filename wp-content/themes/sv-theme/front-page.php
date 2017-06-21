@@ -11,6 +11,7 @@
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
+						<!--
 						<div class="item active">
 							<img src="http://placehold.it/1200x400" alt="">
 							<div class="carousel-caption">
@@ -19,22 +20,40 @@
 								<a class="btn btn-default btn-lg" href="#" role="button">В корзину</a>
 							</div>
 						</div>
-						<div class="item">
-							<img src="http://placehold.it/1200x400" alt="">
-							<div class="carousel-caption">
-								<h2>Одноразовые тапочки эконом - всего 14 руб./пара!</h2>
-								<a class="btn btn-default btn-lg" href="#" role="button">Узнать больше</a>
-								<a class="btn btn-default btn-lg" href="#" role="button">В корзину</a>
-							</div>
-						</div>
-						<div class="item">
-							<img src="http://placehold.it/1200x400" alt="">
-							<div class="carousel-caption">
-								<h2>Одноразовые тапочки эконом - всего 14 руб./пара!</h2>
-								<a class="btn btn-default btn-lg" href="#" role="button">Узнать больше</a>
-								<a class="btn btn-default btn-lg" href="#" role="button">В корзину</a>
-							</div>
-						</div>
+						-->
+						
+						<?php
+							global $post;
+							
+							$args = array(
+								'numberposts' => 3,
+								'post_type' => 'big-slide',
+								'order' => 'ASC'
+							);
+							
+							$slides = get_posts( $args );
+
+							foreach ( $slides as $post ) {
+								setup_postdata( $post );
+								
+								//
+								$terms = get_the_terms( $post->ID, 'big-slide-tax' );
+								$term = array_shift( $terms );
+								?>
+								
+								<div class="item">
+									<img src="<?php echo $term->description; ?>" alt="">
+									<div class="carousel-caption">
+										<h2><?php the_title(); ?></h2>
+										<a class="btn btn-default btn-lg" href="#" role="button">Узнать больше</a>
+										<a class="btn btn-default btn-lg" href="#" role="button">В корзину</a>
+									</div>
+								</div>
+						
+								<?php
+							}
+							wp_reset_postdata();
+						?>
 					</div>
 
 					<!-- Controls -->

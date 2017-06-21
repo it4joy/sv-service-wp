@@ -29,7 +29,7 @@ function svwp_setup() {
 		'audio',
 	) );
 	
-	add_theme_support( 'post-thumbnails', array( 'post', 'movie' ) );
+	add_theme_support( 'post-thumbnails', array( 'post', 'movie', 'big-slide' ) );
 	set_post_thumbnail_size(200, 200, true); // adjust;
 	
 	register_nav_menus( array(
@@ -113,7 +113,7 @@ add_filter('xmlrpc_enabled', '__return_false');
 
 require_once('wp-bootstrap-navwalker.php');
 
-// big-slide post type;
+// custom post type;
 
 function register_post_types() {
 	register_post_type( 'big-slide', array(
@@ -134,7 +134,27 @@ function register_post_types() {
 		'public' => true,
 		'show_in_menu' => true,
 		'menu_position' => 2,
-		'supports' => array( 'title', 'editor', 'custom-fields' )
+		'supports' => array( 'title', 'editor', 'custom-fields' ),
+		'taxonomies' => array( 'big-slide-tax' )
 	) );
 }
 add_action( 'init', 'register_post_types' );
+
+// taxonomies;
+
+function create_taxonomy() {
+	register_taxonomy( 'big-slide-tax', 'big-slide', array(
+		'labels' => array(
+			'name' => 'Свойства слайдера',
+			'singular_name' => 'Свойство',
+			'edit_item' => 'Редактировать свойство',
+			'update_item' => 'Обновить свойство',
+			'add_new_item' => 'Добавить новое свойство',
+			'new_item_name' => 'Имя нового свойства', // ?
+		),
+		'description' => 'Свойства слайдера',
+		'public' => true,
+		'show_admin_column' => true
+	) );
+}
+add_action( 'init', 'create_taxonomy' );

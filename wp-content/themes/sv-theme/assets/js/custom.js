@@ -58,4 +58,7 @@ $(function() {
 	// insert callback link into footer_menu_right;
 	
 	$("#menu-footer_menu_right li:last-child a").attr("data-toggle", "modal");
+	
+	// index : big carousel;
+	$(".carousel.index .item:first-child").addClass("active");
 });
