@@ -11,22 +11,11 @@
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
-						<!--
-						<div class="item active">
-							<img src="http://placehold.it/1200x400" alt="">
-							<div class="carousel-caption">
-								<h2>Одноразовые тапочки эконом - всего 14 руб./пара!</h2>
-								<a class="btn btn-default btn-lg" href="#" role="button">Узнать больше</a>
-								<a class="btn btn-default btn-lg" href="#" role="button">В корзину</a>
-							</div>
-						</div>
-						-->
-						
 						<?php
 							global $post;
 							
 							$args = array(
-								'numberposts' => 3,
+								'numberposts' => -1,
 								'post_type' => 'big-slide',
 								'order' => 'ASC'
 							);
