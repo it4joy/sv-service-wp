@@ -62,11 +62,19 @@ $(function() {
 	// index : big carousel;
 	$(".carousel.index .item:first-child").addClass("active");
 	// test it again and upgrade for case when amount of items less than 3;
-	if ( $(".carousel.index .item").length > 3 ) {
+	$(".carousel.index .item").each(function( i ) {
+		if ( $(this).index() > 2 ) {
+			var slideIndex = $(this).index();
+			var slideIndexStr = slideIndex.toString();
+			$(".carousel-indicators li:last-child").after("<li data-target='#carousel-index-top' data-slide-to='" + slideIndexStr + "'></li>");
+		}
+	});
+
+	/* if ( $(".carousel.index .item").length > 3 ) {
 		var slideIndex = 2;
 		slideIndex++;
 		var slideIndexStr = slideIndex.toString();
 		$(".carousel-indicators li:last-child").after("<li data-target='#carousel-index-top' data-slide-to='" + slideIndexStr + "'></li>");
-		//console.log(slideIndexStr);
-	}
+		console.log(slideIndexStr);
+	} */
 });
