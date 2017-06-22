@@ -29,7 +29,7 @@ function svwp_setup() {
 		'audio',
 	) );
 	
-	add_theme_support( 'post-thumbnails', array( 'post', 'movie', 'big-slide' ) );
+	add_theme_support( 'post-thumbnails', array( 'post', 'movie', 'big-slide', 'product' ) );
 	set_post_thumbnail_size(200, 200, true); // adjust;
 	
 	register_nav_menus( array(
@@ -133,7 +133,7 @@ function register_post_types() {
 		'description' => 'Создание и редактирование слайдов на Главной',
 		'public' => true,
 		'show_in_menu' => true,
-		'menu_position' => 2,
+		'menu_position' => 3,
 		'supports' => array( 'title', 'editor', 'custom-fields' ),
 		'taxonomies' => array( 'big-slide-tax' )
 	) );

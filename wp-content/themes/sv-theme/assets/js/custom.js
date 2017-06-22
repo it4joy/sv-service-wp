@@ -69,12 +69,4 @@ $(function() {
 			$(".carousel-indicators li:last-child").after("<li data-target='#carousel-index-top' data-slide-to='" + slideIndexStr + "'></li>");
 		}
 	});
-
-	/* if ( $(".carousel.index .item").length > 3 ) {
-		var slideIndex = 2;
-		slideIndex++;
-		var slideIndexStr = slideIndex.toString();
-		$(".carousel-indicators li:last-child").after("<li data-target='#carousel-index-top' data-slide-to='" + slideIndexStr + "'></li>");
-		console.log(slideIndexStr);
-	} */
 });
