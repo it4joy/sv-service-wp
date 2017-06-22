@@ -59,42 +59,42 @@ function sc_create_taxonomy() {
 }
 add_action( 'init', 'sc_create_taxonomy' );
 
-// ======= //
-
-add_action('add_meta_boxes', 'sc_add_custom_meta_box', 1);
+// add custom meta box;
 
 function sc_add_custom_meta_box() {
-	add_meta_box( 'product_key_data', 'Ключевые параметры продукта', 'product_key_data_callback', 'product', 'normal', 'high' );
+	add_meta_box( 'product_key_data', 'Ключевые параметры продукта', 'product_key_data_callback', 'product', 'normal', 'high'  );
 }
+add_action('add_meta_boxes', 'sc_add_custom_meta_box', 1);
 
 function product_key_data_callback( $post ) {
 	?>
 	<p><label for="price">Цена:</label></p>
-	<p><input type="text" id="price" name="product_key_data[price]" value="<?php get_post_meta( $post->ID, 'price', true ); ?>"></p>
+	<p><input type="text" id="price" name="product_key_data_arr[price]" value="<?php echo get_post_meta( $post->ID, 'price', true ); ?>"></p>
 	<p><label for="art">Артикул:</label></p>
-	<p><input type="text" id="art" name="product_key_data[art]" value="<?php get_post_meta( $post->ID, 'art', true ); ?>"></p>
+	<p><input type="text" id="art" name="product_key_data_arr[art]" value="<?php echo get_post_meta( $post->ID, 'art', true ); ?>"></p>
 	<p><label for="available">Наличие:</label></p>
-	<p><input type="text" id="available" name="product_key_data[available]" value="<?php get_post_meta( $post->ID, 'available', true ); ?>"></p>
+	<p><input type="text" id="available" name="product_key_data_arr[available]" value="<?php echo get_post_meta( $post->ID, 'available', true ); ?>"></p>
 	<p><label for="packing">Фасовка, мин.:</label></p>
-	<p><input type="text" id="packing" name="product_key_data[packing]" value="<?php get_post_meta( $post->ID, 'packing', true ); ?>"></p>
-	<p><input type="hidden" name="product_key_data_nonce" value="<?php echo wp_create_nonce( 'product_key_data_nonce_key' ); ?>"></p>
+	<p><input type="text" id="packing" name="product_key_data_arr[packing]" value="<?php echo get_post_meta( $post->ID, 'packing', true ); ?>"></p>
 
+	<input type="hidden" name="product_key_data_nonce" value="<?php echo wp_create_nonce( 'product_key_data_nonce_key' ); ?>">
 	<?php
 }
 
 add_action('save_post', 'sc_add_custom_meta_box_update', 0);
 
 function sc_add_custom_meta_box_update( $post_id ) {
-	if ( !isset( $_POST['product_key_data_nonce'] ) || !wp_verify_nonce( $_POST['product_key_data_nonce'], 'product_key_data_nonce_key' ) ) return false;
+	if ( !isset($_POST['product_key_data_nonce']) || !wp_verify_nonce($_POST['product_key_data_nonce'], 'product_key_data_nonce_key' ) ) return false;
 	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE  ) return false;
 	if ( !current_user_can('edit_post', $post_id) ) return false;
 
-	if( !isset( $_POST['product_key_data'] ) ) return false;
+	if( !isset($_POST['product_key_data_arr']) ) return false; 
 
-	$_POST['product_key_data'] = array_map( 'trim', $_POST['product_key_data'] );
-	foreach( $_POST['product_key_data'] as $key=>$value ) {
-		if ( empty($value) ) {
-			delete_post_meta($post_id, $key);
+	// save / delete postdata;
+	$_POST['product_key_data_arr'] = array_map('trim', $_POST['product_key_data_arr']);
+	foreach( $_POST['product_key_data_arr'] as $key=>$value ){
+		if( empty($value) ){
+			delete_post_meta($post_id, $key); // delete if the value is empty;
 			continue;
 		}
 
