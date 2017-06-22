@@ -68,16 +68,24 @@ add_action('add_meta_boxes', 'sc_add_custom_meta_box', 1);
 
 function product_key_data_callback( $post ) {
 	?>
-	<p><label for="price">Цена:</label></p>
-	<p><input type="text" id="price" name="product_key_data_arr[price]" value="<?php echo get_post_meta( $post->ID, 'price', true ); ?>"></p>
-	<p><label for="art">Артикул:</label></p>
-	<p><input type="text" id="art" name="product_key_data_arr[art]" value="<?php echo get_post_meta( $post->ID, 'art', true ); ?>"></p>
-	<p><label for="available">Наличие:</label></p>
-	<p><input type="text" id="available" name="product_key_data_arr[available]" value="<?php echo get_post_meta( $post->ID, 'available', true ); ?>"></p>
-	<p><label for="packing">Фасовка, мин.:</label></p>
-	<p><input type="text" id="packing" name="product_key_data_arr[packing]" value="<?php echo get_post_meta( $post->ID, 'packing', true ); ?>"></p>
-
+	
+	<div class="flex-row">
+		<div class="col col-6">
+			<p><label for="price">Цена:</label></p>
+			<p><input type="text" id="price" name="product_key_data_arr[price]" value="<?php echo get_post_meta( $post->ID, 'price', true ); ?>"></p>
+			<p><label for="art">Артикул:</label></p>
+			<p><input type="text" id="art" name="product_key_data_arr[art]" value="<?php echo get_post_meta( $post->ID, 'art', true ); ?>"></p>
+		</div>
+		<div class="col col-6">
+			<p><label for="available">Наличие:</label></p>
+			<p><input type="text" id="available" name="product_key_data_arr[available]" 
+			value="<?php echo get_post_meta( $post->ID, 'available', true ); ?>"></p>
+			<p><label for="packing">Фасовка, мин.:</label></p>
+			<p><input type="text" id="packing" name="product_key_data_arr[packing]" value="<?php echo get_post_meta( $post->ID, 'packing', true ); ?>"></p>
+		</div>
+	</div>
 	<input type="hidden" name="product_key_data_nonce" value="<?php echo wp_create_nonce( 'product_key_data_nonce_key' ); ?>">
+
 	<?php
 }
 

@@ -62,6 +62,12 @@ function svwp_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'svwp_enqueue_styles' );
 
+function svwp_enqueue_admin_styles() {
+	wp_register_style( 'admin-styles', THEME_DIR . '/assets/css/admin.css', '1', 'screen' );
+	wp_enqueue_style( 'admin-styles' );
+}
+add_action( 'admin_enqueue_scripts', 'svwp_enqueue_admin_styles' );
+
 // enqueue scripts;
 
 function svwp_enqueue_scripts() {
