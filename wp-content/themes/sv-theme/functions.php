@@ -158,3 +158,10 @@ function create_taxonomy() {
 	) );
 }
 add_action( 'init', 'create_taxonomy' );
+
+// 
+
+function test() {
+	add_post_type_support( 'product', 'custom-fields' );
+}
+add_action( 'init', 'test' );

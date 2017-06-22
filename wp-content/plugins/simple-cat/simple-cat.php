@@ -59,59 +59,46 @@ function sc_create_taxonomy() {
 }
 add_action( 'init', 'sc_create_taxonomy' );
 
-/* function register_metas() {
-	register_meta( 'product', 'product_key_data', array(
-		'description' => 'Ключевые параметры продукта'
-	) );
-}
-register_metas(); */
+// ======= //
 
-add_action( 'add_meta_boxes', 'sc_add_custom_meta_box' );
+add_action('add_meta_boxes', 'sc_add_custom_meta_box', 1);
+
 function sc_add_custom_meta_box() {
-	add_meta_box( 'product_key_data', 'Ключевые параметры продукта', 'product_key_data_callback', 'product', 'high' ); // test!;
+	add_meta_box( 'product_key_data', 'Ключевые параметры продукта', 'product_key_data_callback', 'product', 'normal', 'high' );
 }
 
-// test! : try several input fields within one custom meta box;
-// q: is it necessary to place even input field into standalone meta box?..
-function product_key_data_callback() {
+function product_key_data_callback( $post ) {
 	?>
-
 	<p><label for="price">Цена:</label></p>
-	<p><input type="text" id="price" name="product_key_data[price]"></p>
+	<p><input type="text" id="price" name="product_key_data[price]" value="<?php get_post_meta( $post->ID, 'price', true ); ?>"></p>
 	<p><label for="art">Артикул:</label></p>
-	<p><input type="text" id="art" name="product_key_data[art]"></p>
+	<p><input type="text" id="art" name="product_key_data[art]" value="<?php get_post_meta( $post->ID, 'art', true ); ?>"></p>
 	<p><label for="available">Наличие:</label></p>
-	<p><input type="text" id="available" name="product_key_data[available]"></p>
+	<p><input type="text" id="available" name="product_key_data[available]" value="<?php get_post_meta( $post->ID, 'available', true ); ?>"></p>
 	<p><label for="packing">Фасовка, мин.:</label></p>
-	<p><input type="text" id="packing" name="product_key_data[packing]"></p>
+	<p><input type="text" id="packing" name="product_key_data[packing]" value="<?php get_post_meta( $post->ID, 'packing', true ); ?>"></p>
 	<p><input type="hidden" name="product_key_data_nonce" value="<?php echo wp_create_nonce( 'product_key_data_nonce_key' ); ?>"></p>
 
 	<?php
 }
 
-// save post data when post was saved;
-// use this function for other meta boxes?..
+add_action('save_post', 'sc_add_custom_meta_box_update', 0);
 
-function sc_save_postdata( $post_ID ) {
-	if ( ! wp_verify_nonce( $_POST['product_key_data_nonce'], 'product_key_data_nonce_key' ) ) {
-		return false;
-	}
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return false;
-	}
-	if ( ! isset( $_POST['product_key_data'] ) ) {
-		return false;
-	}
+function sc_add_custom_meta_box_update( $post_id ) {
+	if ( !isset( $_POST['product_key_data_nonce'] ) || !wp_verify_nonce( $_POST['product_key_data_nonce'], 'product_key_data_nonce_key' ) ) return false;
+	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE  ) return false;
+	if ( !current_user_can('edit_post', $post_id) ) return false;
+
+	if( !isset( $_POST['product_key_data'] ) ) return false;
+
 	$_POST['product_key_data'] = array_map( 'trim', $_POST['product_key_data'] );
-	
-	foreach ( $_POST['product_key_data'] as $key => $value ) {
+	foreach( $_POST['product_key_data'] as $key=>$value ) {
 		if ( empty($value) ) {
-			delete_post_meta( $post_ID, $key );
+			delete_post_meta($post_id, $key);
 			continue;
 		}
-		
-		update_post_meta( $post_ID, $key, $value ); // look: $prev_value;
+
+		update_post_meta($post_id, $key, $value);
 	}
-	return $post_ID;
+	return $post_id;
 }
-add_action( 'save_post', 'sc_save_postdata' );
