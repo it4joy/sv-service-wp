@@ -51,3 +51,7 @@
 .col-1 {
 	width: 8.33333333%;
 }
+
+.col input[type="text"] {
+	width: 70%;
+}

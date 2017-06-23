@@ -1,4 +1,4 @@
-$(function() {
+jQuery(document).ready(function($) {
 	// sticky top navigation;
 	
 	var topNavStartPosition = $(".navbar").offset();
@@ -66,7 +66,7 @@ $(function() {
 		if ( $(this).index() > 2 ) {
 			var slideIndex = $(this).index();
 			var slideIndexStr = slideIndex.toString();
-			$(".carousel-indicators li:last-child").after("<li data-target='#carousel-index-top' data-slide-to='" + slideIndexStr + "'></li>");
+			$(".carousel.index .carousel-indicators li:last-child").after("<li data-target='#carousel-index-top' data-slide-to='" + slideIndexStr + "'></li>");
 		}
 	});
 });

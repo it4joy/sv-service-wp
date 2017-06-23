@@ -35,7 +35,7 @@ function sc_custom_post_type() {
 }
 add_action( 'init', 'sc_custom_post_type' );
 
-function sc_create_taxonomy() {
+function sc_create_taxonomies() {
 	register_taxonomy( 'categories', 'product', array(
 		'labels' => array(
 			'name' => 'Категории',
@@ -56,16 +56,31 @@ function sc_create_taxonomy() {
 		'hierarchical' => true,
 		'show_admin_column' => true
 	) );
+	
+	register_taxonomy( 'brands', 'product', array(
+		'labels' => array(
+			'name' => 'Бренды',
+			'singular_name' => 'Бренд',
+			'search_items' => 'Найти бренд',
+			'popular_items' => 'Популярные бренды',
+			'all_items' => 'Все бренды',
+			'edit_item' => 'Редактировать бренд',
+			'update_item' => 'Обновить бренд',
+			'add_new_item' => 'Добавить бренд',
+			'view_item' => 'Посмотреть бренд',
+			'new_item_name' => 'Название нового бренда'
+		),
+		'show_admin_column' => true
+	) );
 }
-add_action( 'init', 'sc_create_taxonomy' );
+add_action( 'init', 'sc_create_taxonomies' );
 
-// add custom meta box;
+// add custom meta boxes;
 
 function sc_add_custom_meta_box() {
 	add_meta_box( 'product_key_data', 'Ключевые параметры продукта', 'product_key_data_callback', 'product', 'normal', 'high'  );
 }
 add_action('add_meta_boxes', 'sc_add_custom_meta_box', 1);
-
 function product_key_data_callback( $post ) {
 	?>
 	
@@ -84,28 +99,33 @@ function product_key_data_callback( $post ) {
 			<p><input type="text" id="packing" name="product_key_data_arr[packing]" value="<?php echo get_post_meta( $post->ID, 'packing', true ); ?>"></p>
 		</div>
 	</div>
+	<div class="flex-row">
+		<div class="col col-6">
+			<p><label for="main-img">Ссылка на главное изображение:</label></p>
+			<p><input type="text" id="main-img" name="product_key_data_arr[main_img]" value="<?php echo get_post_meta( $post->ID, 'main_img', true ); ?>"></p>
+		</div>
+		<div class="col col-6">
+			<p><label for="gallery">Галерея для этого продукта (gallery-id):</label></p>
+			<p><input type="text" id="gallery" name="product_key_data_arr[gallery]" value="<?php echo get_post_meta( $post->ID, 'gallery', true ); ?>"></p>
+		</div>
+	</div>
 	<input type="hidden" name="product_key_data_nonce" value="<?php echo wp_create_nonce( 'product_key_data_nonce_key' ); ?>">
 
 	<?php
 }
-
 add_action('save_post', 'sc_add_custom_meta_box_update', 0);
-
 function sc_add_custom_meta_box_update( $post_id ) {
 	if ( !isset($_POST['product_key_data_nonce']) || !wp_verify_nonce($_POST['product_key_data_nonce'], 'product_key_data_nonce_key' ) ) return false;
 	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE  ) return false;
 	if ( !current_user_can('edit_post', $post_id) ) return false;
-
 	if( !isset($_POST['product_key_data_arr']) ) return false; 
-
 	// save / delete postdata;
 	$_POST['product_key_data_arr'] = array_map('trim', $_POST['product_key_data_arr']);
-	foreach( $_POST['product_key_data_arr'] as $key=>$value ){
+	foreach( $_POST['product_key_data_arr'] as $key=>$value ) {
 		if( empty($value) ){
 			delete_post_meta($post_id, $key); // delete if the value is empty;
 			continue;
 		}
-
 		update_post_meta($post_id, $key, $value);
 	}
 	return $post_id;
