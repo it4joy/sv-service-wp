@@ -53,8 +53,8 @@ get_header(); ?>
 				<div class="col-md-12">
 					<div class="flex-row align-items-top">
 						<div class="col-xs-4">
-							<a href="<?php echo get_post_meta( $post->ID, 'main-img', true ); ?>" class="img-modal">
-								<img src="<?php echo get_post_meta( $post->ID, 'main-img', true ); ?>" class="img-responsive">
+							<a href="<?php echo get_post_meta( $post->ID, 'main_img', true ); ?>" class="img-modal">
+								<img src="<?php echo get_post_meta( $post->ID, 'main_img', true ); ?>" class="img-responsive">
 							</a>
 						</div>
 						
@@ -79,7 +79,10 @@ get_header(); ?>
 							</div>
 							
 							<div class="flex-row gallery-wrapper">
-								
+								<?php
+									$galleryID = get_post_meta( $post->ID, 'gallery', true );
+									//echo [nggallery id=$galleryID];
+								?>
 							</div>
 						</div>
 					</div>

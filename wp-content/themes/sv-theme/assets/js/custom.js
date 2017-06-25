@@ -44,6 +44,18 @@ jQuery(document).ready(function($) {
 
 	$("#navbar-sidebar").menu();
 	
+	// Magnific Popup;
+	
+	$('.img-modal').magnificPopup({
+		type: 'image',
+		disableOn: function() {
+			if ( $(window).width() < 320 ) {
+				return false;
+			}
+			return true;
+		}
+	});
+	
 	//
 
 	$(".unfold-btn").on("click", function() {
