@@ -51,12 +51,10 @@ function sc_create_taxonomies() {
 			'view_item' => 'Посмотреть категорию',
 			'new_item_name' => 'Название новой категории'
 		),
-		'public' => true,
-		'show_in_menu' => true,
 		'hierarchical' => true,
 		'show_admin_column' => true
 	) );
-	
+
 	register_taxonomy( 'brands', 'product', array(
 		'labels' => array(
 			'name' => 'Бренды',
@@ -70,6 +68,23 @@ function sc_create_taxonomies() {
 			'view_item' => 'Посмотреть бренд',
 			'new_item_name' => 'Название нового бренда'
 		),
+		'show_admin_column' => true
+	) );
+
+	register_taxonomy( 'relations', 'product', array(
+		'labels' => array(
+			'name' => 'Связанные элементы',
+			'singular_name' => 'Элемент',
+			'search_items' => 'Найти элемент',
+			'popular_items' => 'Популярные элементы',
+			'all_items' => 'Все элементы',
+			'edit_item' => 'Редактировать элемент',
+			'update_item' => 'Обновить элемент',
+			'add_new_item' => 'Добавить элемент',
+			'view_item' => 'Посмотреть элемент',
+			'new_item_name' => 'Название нового элемента'
+		),
+		'hierarchical' => true,
 		'show_admin_column' => true
 	) );
 }
@@ -105,8 +120,8 @@ function product_key_data_callback( $post ) {
 			<p><input type="text" id="main-img" name="product_key_data_arr[main_img]" value="<?php echo get_post_meta( $post->ID, 'main_img', true ); ?>"></p>
 		</div>
 		<div class="col col-6">
-			<p><label for="gallery">Галерея для этого продукта (gallery-id):</label></p>
-			<p><input type="text" id="gallery" name="product_key_data_arr[gallery]" value="<?php echo get_post_meta( $post->ID, 'gallery', true ); ?>"></p>
+			<p><label for="gallery">NextGen Gallery шорткод для вывода галереи:</label></p>
+			<p><input type="text" id="gallery" name="product_key_data_arr[gallery]" value="<?php echo get_post_meta( $post->ID, 'gallery', true ); ?>" placeholder="[nggallery id=1]"></p>
 		</div>
 	</div>
 	<input type="hidden" name="product_key_data_nonce" value="<?php echo wp_create_nonce( 'product_key_data_nonce_key' ); ?>">

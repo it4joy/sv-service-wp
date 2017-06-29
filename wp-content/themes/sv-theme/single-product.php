@@ -47,6 +47,7 @@ get_header(); ?>
 					setup_postdata($post);
 					$brands = get_the_terms( $post->ID, 'brands' );
 					$categories = get_the_terms( $post->ID, 'categories' );
+					$relations = get_the_terms( $post->ID, 'relations' );
 					$brand = array_shift( $brands );
 					$category = array_shift( $categories );
 				?>
@@ -79,10 +80,12 @@ get_header(); ?>
 							</div>
 							
 							<div class="flex-row gallery-wrapper">
-								<?php
-									$galleryID = get_post_meta( $post->ID, 'gallery', true );
-									//echo [nggallery id=$galleryID];
-								?>
+								<div class="col-xs-12">
+									<?php
+										$nggallery = get_post_meta( $post->ID, 'gallery', true );
+										echo do_shortcode( $nggallery );
+									?>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -119,24 +122,20 @@ get_header(); ?>
 							<h6>С этим продуктом часто заказывают</h6>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row related-products">
+						<?php
+							foreach ( $relations as $relation ) {
+						?>
+
 						<div class="col-sm-6 col-xs-12">
 							<div class="product-item">
-								<img src="http://placehold.it/70x70">
-								<p><a href="#">Одноразовая косметика</a></p>
-							</div>
-							<div class="product-item">
-								<img src="http://placehold.it/70x70">
-								<p><a href="#">Наборы для гостиниц</a></p>
+								<p> <?php echo $relation->name; ?> </p>
 							</div>
 						</div>
-						
-						<div class="col-sm-6 col-xs-12">
-							<div class="product-item">
-								<img src="http://placehold.it/70x70">
-								<p><a href="#">Принадлежности и аксессуары</a></p>
-							</div>
-						</div>
+
+						<?php
+							}
+						?>
 					</div>
 				</div>
 
