@@ -1,43 +1,19 @@
-			<nav class="navbar-sidebar">
-				<ul id="navbar-sidebar">
-					<li>
-						<a href="#">Одноразовые тапочки</a>
-						<ul>
-							<li><a href="#">Тапочки-вьетнамки</a></li>
-							<li><a href="#">Тапочки для сауны</a></li>
-							<li><a href="#">Тапочки для гостиниц</a></li>
-							<li><a href="#">Тапочки махровые</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Косметика для гостиниц</a></li>
-					<li><a href="#">Расходные материалы для салонов</a></li>
-					<li><a href="#">Текстиль</a></li>
-					<li><a href="#">Товары для бани</a></li>
-					<li><a href="#">Прозрачная косметичка</a></li>
-					<li><a href="#">Дорожный набор</a></li>
-				</ul>
-			</nav>
-			
-			<div class="aside-top-sales inner-simple-product-items">
-				<h3 class="text-center uppercase">Популярные товары</h3>
-				<div class="product-item">
-					<img src="http://placehold.it/70x70">
-					<p><a href="#">Продукт 1</a></p>
-				</div>
-				
-				<div class="product-item">
-					<img src="http://placehold.it/70x70">
-					<p><a href="#">Продукт 2</a></p>
-				</div>
-			</div>
-			
-			<div class="divider default"></div>
-			
-			<div class="banners-wrapper aside-banners">
-				<a href="#" class="banner">
-					<img src="http://placehold.it/240x120" class="img-responsive">
-				</a>
-				<a href="#" class="banner">
-					<img src="http://placehold.it/240x120" class="img-responsive">
-				</a>
-			</div>
+<?php
+/*
+Template Name: Sidebar
+*/
+
+// remove to standalone template file;
+wp_nav_menu( array(
+	'theme_location' => 'sidebar_menu',
+	'menu' => 'sidebar_menu',
+	'container' => 'nav',
+	'container_class' => 'navbar-sidebar',
+	'menu_id' => 'navbar-sidebar',
+	'fallback_cb' => '__return_empty_string',
+	'depth' => 0
+) );
+
+if ( is_active_sidebar( 'left-sidebar' ) ) {
+	dynamic_sidebar( 'left-sidebar' );
+}

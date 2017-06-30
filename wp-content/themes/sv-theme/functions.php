@@ -196,7 +196,8 @@ function register_widgets() {
 		'id' => 'left-sidebar',
 		'description' => 'Выводится на внутренних страницах сайта',
 		'class' => 'left-widgets-panel',
-		'before_widget' => '<li class="left-widgets-panel-item">',
+		'before_widget' => '<div class="left-widgets-panel-item">',
+		'after_widget' => '</div>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>\n'
 	) );

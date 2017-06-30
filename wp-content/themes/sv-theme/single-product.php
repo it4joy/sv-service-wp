@@ -9,20 +9,9 @@ get_header(); ?>
 <div class="container">
 	<div class="row">
 		<aside class="col-md-3">
-			<?php
-				// remove to standalone template file;
-				wp_nav_menu( array(
-					'theme_location' => 'sidebar_menu',
-					'menu' => 'sidebar_menu',
-					'container' => 'nav',
-					'container_class' => 'navbar-sidebar',
-					'menu_id' => 'navbar-sidebar',
-					'fallback_cb' => '__return_empty_string',
-					'depth' => 0
-				) );
-			?>
+			<?php get_sidebar(); ?>
 		</aside>
-		
+
 		<main class="col-md-9">
 			<div class="row">
 				<div class="col-md-12">
