@@ -305,8 +305,8 @@ p {
 	color: #333;
 }
 
-.breadcrumb li {
-	margin-bottom: 0;
+.breadcrumbs-wrapper {
+	padding: 15px 0;
 }
 
 /* Temp */
@@ -476,7 +476,7 @@ p {
 /* Inner Pages */
 
 .navbar-sidebar {
-	padding-top: 20px;
+	margin-top: 20px;
 }
 
 .inner-simple-product-items .product-item {
@@ -662,6 +662,7 @@ p {
 
 .ui-menu .ui-menu-item {
 	padding: 0;
+	list-style-image: none !important;
 }
 
 .ui-menu .ui-menu-item-wrapper {

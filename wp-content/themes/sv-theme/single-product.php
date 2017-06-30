@@ -9,19 +9,26 @@ get_header(); ?>
 <div class="container">
 	<div class="row">
 		<aside class="col-md-3">
-			
+			<?php
+				// remove to standalone template file;
+				wp_nav_menu( array(
+					'theme_location' => 'sidebar_menu',
+					'menu' => 'sidebar_menu',
+					'container' => 'nav',
+					'container_class' => 'navbar-sidebar',
+					'menu_id' => 'navbar-sidebar',
+					'fallback_cb' => '__return_empty_string',
+					'depth' => 0
+				) );
+			?>
 		</aside>
 		
 		<main class="col-md-9">
 			<div class="row">
 				<div class="col-md-12">
-					<ol class="breadcrumb">
-					  <li><a href="/">Главная</a></li>
-					  <li><a href="catalogue.php">Каталог</a></li>
-					  <li><a href="#">Одноразовые тапочки</a></li>
-					  <li><a href="#">Тапочки для гостиниц</a></li>
-					  <li class="active"><a href="#">Одноразовые флисовые тапочки 4 мм</a></li>
-					</ol>
+					<div class="breadcrumbs-wrapper">
+						<?php if ( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); ?>
+					</div>
 				</div>
 			</div>
 

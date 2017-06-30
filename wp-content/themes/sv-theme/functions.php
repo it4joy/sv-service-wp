@@ -32,9 +32,11 @@ function svwp_setup() {
 	add_theme_support( 'post-thumbnails', array( 'post', 'movie', 'big-slide', 'product' ) );
 	set_post_thumbnail_size(200, 200, true); // adjust;
 	
+	add_theme_support( 'widgets' );
+	
 	register_nav_menus( array(
 		'top_menu' => 'Верхнее меню',
-		'sidebar_menu' => 'Боковое меню', // add menu in admin;
+		'sidebar_menu' => 'Боковое меню',
 		'footer_menu_left' => 'Нижнее меню левое',
 		'footer_menu_center' => 'Нижнее меню центральное',
 		'footer_menu_right' => 'Нижнее меню правое'
@@ -185,3 +187,18 @@ add_action( 'init', 'create_taxonomy' );
 	//add_post_type_support( 'product', 'custom-fields' );
 //}
 //add_action( 'init', 'test' );
+
+// sidebar - widgets panel;
+
+function register_widgets() {
+	register_sidebar( array(
+		'name' => 'Левая боковая панель',
+		'id' => 'left-sidebar',
+		'description' => 'Выводится на внутренних страницах сайта',
+		'class' => 'left-widgets-panel',
+		'before_widget' => '<li class="left-widgets-panel-item">',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>\n'
+	) );
+}
+add_action( 'widgets_init', 'register_widgets' );
