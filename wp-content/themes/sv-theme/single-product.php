@@ -29,24 +29,17 @@ get_header(); ?>
 			</div>
 			
 			<div class="row inner-catalogue inner-ext-product-item">
-			<?php
-				global $post;
-			
-				$args = array(
-					'numberposts' => 1,
-					'post_type' => 'product'
-				);
-
-				$posts = get_posts( $args );
-
-				foreach ( $posts as $post ) {
-					setup_postdata($post);
-					$brands = get_the_terms( $post->ID, 'brands' );
-					$categories = get_the_terms( $post->ID, 'categories' );
-					$relations = get_the_terms( $post->ID, 'relations' );
-					$brand = array_shift( $brands );
-					$category = array_shift( $categories );
+				<?php
+					if ( have_posts() ) {
+						while( have_posts() ) {
+							the_post();
+							$brands = get_the_terms( $post->ID, 'brands' );
+							$categories = get_the_terms( $post->ID, 'categories' );
+							$relations = get_the_terms( $post->ID, 'relations' );
+							$brand = array_shift( $brands );
+							$category = array_shift( $categories );
 				?>
+				
 				<div class="col-md-12">
 					<div class="flex-row align-items-top">
 						<div class="col-xs-4">
@@ -134,11 +127,10 @@ get_header(); ?>
 						?>
 					</div>
 				</div>
-
+				
 				<?php
-				}
-
-				wp_reset_postdata();
+						}
+					}
 				?>
 			</div>
 		</main>
