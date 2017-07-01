@@ -184,7 +184,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="block-shim text-center">
-							<a class="btn btn-default btn-lg" href="catalogue.php" role="button">Перейти в каталог</a>
+							<a class="btn btn-default btn-lg" href="katalog" role="button">Перейти в каталог</a>
 						</div>
 					</div>
 				</div>

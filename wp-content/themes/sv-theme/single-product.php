@@ -24,7 +24,7 @@ get_header(); ?>
 			<div class="row double-heading">
 				<div class="col-md-12">
 					<h3 class="uppercase"><?php the_title(); ?></h3>
-					<h6 class="uppercase subheading">Одноразовые флисовые тапочки 4 мм</h6>
+					<!--<h6 class="uppercase subheading">Одноразовые флисовые тапочки 4 мм</h6>-->
 				</div>
 			</div>
 			
@@ -33,7 +33,7 @@ get_header(); ?>
 				global $post;
 			
 				$args = array(
-					'numberposts' => 0,
+					'numberposts' => 1,
 					'post_type' => 'product'
 				);
 

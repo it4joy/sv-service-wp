@@ -87,6 +87,22 @@ function sc_create_taxonomies() {
 		'hierarchical' => true,
 		'show_admin_column' => true
 	) );
+	
+	register_taxonomy( 'tags', 'product', array(
+		'labels' => array(
+			'name' => 'Теги',
+			'singular_name' => 'Тег',
+			'search_items' => 'Найти тег',
+			'popular_items' => 'Популярные теги',
+			'all_items' => 'Все теги',
+			'edit_item' => 'Редактировать тег',
+			'update_item' => 'Обновить тег',
+			'add_new_item' => 'Добавить тег',
+			'view_item' => 'Посмотреть тег',
+			'new_item_name' => 'Название нового тега'
+		),
+		'show_admin_column' => true
+	) );
 }
 add_action( 'init', 'sc_create_taxonomies' );
 
