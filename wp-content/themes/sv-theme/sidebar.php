@@ -17,15 +17,18 @@ wp_nav_menu( array(
 	<h3 class="text-center uppercase">Популярные товары</h3>
 
 <?php
-global $post;
+
 $args = array(
 	'numberposts' => 2,
 	'post_type' => 'product'
 );
-$popProducts = get_posts( $args );
-foreach ( $popProducts as $popProduct ) {
-	if ( has_term( 'popular', 'tags' ) ) {
-		setup_postdata( $post );
+
+$popProducts = new WP_Query( $args );
+
+if ( $popProducts->have_posts() ) {
+	while( $popProducts->have_posts() ) {
+		$popProducts->the_post();
+		if ( has_term( 'popular', 'tags' ) ) {
 ?>
 
 	<div class="product-item">
@@ -34,6 +37,7 @@ foreach ( $popProducts as $popProduct ) {
 	</div>
 
 <?php
+		}
 	}
 }
 wp_reset_postdata();
