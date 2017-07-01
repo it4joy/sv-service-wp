@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Taxonomy Categories
+Template Name: Categories
 */
 
 get_header(); ?>
