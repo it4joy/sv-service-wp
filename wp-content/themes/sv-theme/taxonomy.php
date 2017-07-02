@@ -45,8 +45,6 @@ get_header(); ?>
 							$brand = array_shift( $brands );
 							$category = array_shift( $categories );
 							$categoryName = $category->name;
-							//echo $categoryName;
-							//if ( $categoryName == 'Одноразовые тапочки' ) {
 							if ( $categoryName == $cat ) {
 								setup_postdata($post);
 					?>

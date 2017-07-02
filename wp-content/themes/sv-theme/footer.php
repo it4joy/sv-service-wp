@@ -6,9 +6,9 @@
 				<div class="row footer-form-wrapper">
 					<div class="col-xs-12">
 						<h3 class="text-center uppercase">Закажите обратный звонок</h3>
-						<form id="footer-callback-form" class="form-inline default footer-callback-form">
+						<form id="footer-callback-form" class="form-inline default footer-callback-form" method="post" action="">
 							<div class="form-group">
-								<input type="number" name="phone" pattern="[0-9]{,11}" class="form-control" placeholder="Мобильный номер, только цифры" required>
+								<input type="number" name="phone" pattern="[0-9]{,11}" id="phone" class="form-control" placeholder="Мобильный номер, только цифры" required>
 							</div>
 							<button type="submit" class="btn btn-default">Перезвоните мне</button>
 						</form>
@@ -80,7 +80,7 @@
 						<h4 class="modal-title" id="myModalLabel">Заявка на обратный звонок</h4>
 					</div>
 					<div class="modal-body">
-						<form method="post" action="" class="form-horizontal">
+						<form method="" action="" class="form-horizontal">
 							<div class="form-group">
 								<label for="name" class="col-md-2 control-label">Имя</label>
 								<div class="col-md-10">
@@ -188,6 +188,34 @@
 								</div>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Success modal -->
+		<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="success-modal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<h4 class="modal-title" id="myModalLabel">Сообщение успешно отправлено!</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Failure modal -->
+		<div class="modal fade" id="failure-modal" tabindex="-1" role="dialog" aria-labelledby="failure-modal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<h4 class="modal-title" id="myModalLabel">Произошла ошибка. Попробуйте позже.</h4>
 					</div>
 				</div>
 			</div>
