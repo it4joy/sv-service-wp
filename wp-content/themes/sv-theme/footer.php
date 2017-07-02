@@ -9,6 +9,7 @@
 						<form id="footer-callback-form" class="form-inline default footer-callback-form" method="post" action="">
 							<div class="form-group">
 								<input type="number" name="phone" pattern="[0-9]{,11}" id="phone" class="form-control" placeholder="Мобильный номер, только цифры" required>
+								<input type="hidden" name="form_type" value="footer-callback-form" class="form-type">
 							</div>
 							<button type="submit" class="btn btn-default">Перезвоните мне</button>
 						</form>

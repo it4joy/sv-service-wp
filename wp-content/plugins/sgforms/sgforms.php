@@ -12,20 +12,23 @@ function sg_forms_scripts() {
 	$url = plugin_dir_url( __FILE__ );
 
 	wp_register_script( 'sg-forms-ajax', $url . 'sgforms.js', array( 'jquery' ), '1.0', true );
-	wp_localize_script( 'sg-forms-ajax', 'sg_forms_ajax_url', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 	wp_enqueue_script( 'sg-forms-ajax' );
 }
 add_action( 'wp_enqueue_scripts', 'sg_forms_scripts' );
 
-function sgforms_ajax_callback() {
-	if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-		if ( !empty( $_POST['phone'] ) ) {
-			$to = 'drkierkegor@gmail.com';
-			$body = "\nТелефон: {$_POST['phone']}\n\n";
-			mail( $to, "Заявка на обратный звонок", $body, "From: {$_POST['phone']}" );
-		}
+function sgforms_ajax() {
+	if ( $_REQUEST['form_type'] == 'footer-callback-form' ) {
+		$phone = $_REQUEST['phone'];
+		$subject  = 'Запрос на обратный звонок';
+
+		$msg = 'Телефон: '.$phone .'<br/>';
+		$to = 'drkierkegor@gmail.com';
+		$headers  = "Content-Type: text/html; charset=utf-8\n";
+		$headers .= "From: " . $_REQUEST['phone'];
+
+		mail($to, $subject, $msg, $headers);
+		wp_die();
 	}
-	wp_die();
 }
-add_action( 'wp_ajax_sgforms_action', 'sgforms_ajax_callback' );
-add_action( 'wp_ajax_nopriv_sgforms_action', 'sgforms_ajax_callback' );
+add_action('wp_ajax_nopriv_sg_ajax', 'sgforms_ajax' );
+add_action('wp_ajax_sg_ajax', 'sgforms_ajax' );

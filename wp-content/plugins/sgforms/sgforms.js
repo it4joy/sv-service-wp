@@ -1,11 +1,13 @@
 jQuery(document).ready(function($) {
-	$("#footer-callback-form").submit(function() {
+	$("#footer-callback-form").submit(function(e) {
+		e.preventDefault();
 		$.ajax({
 			method: "POST",
-			url: sg_forms_ajax_url.ajax_url,
+			url: "/wp-admin/admin-ajax.php",
 			data: {
-				action: "sgforms_action",
-				phone: $("#phone").val()
+				action: "sg_ajax",
+				phone: $("#phone").val(),
+				form_type: $(".form-type").val()
 			},
 			success: function(data) {
 				$("#success-modal").modal("show");
