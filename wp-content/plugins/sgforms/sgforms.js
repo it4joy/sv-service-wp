@@ -4,9 +4,10 @@ jQuery(document).ready(function($) {
 		var $form = $(this);
 		$.ajax({
 			method: "POST",
-			url: "/wp-admin/admin-ajax.php",
+			url: sg_forms_ajax.ajax_url,
 			data: {
 				action: "sg_ajax",
+				nonce: sg_forms_ajax.nonce,
 				phone: $("#phone").val(),
 				form_type: $(".form-type").val()
 			},
@@ -21,7 +22,7 @@ jQuery(document).ready(function($) {
 		});
 	});
 	
-	$("#callback-form-ajax").on("submit", function(e) {
+	/* $("#callback-form-ajax").on("submit", function(e) {
 		e.preventDefault();
 		var $form = $(this);
 		$.ajax({
@@ -42,5 +43,5 @@ jQuery(document).ready(function($) {
 				$("#failure-modal").modal("show");
 			}
 		});
-	});
+	}); */
 });
