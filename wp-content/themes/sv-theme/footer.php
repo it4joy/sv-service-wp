@@ -81,7 +81,7 @@
 						<h4 class="modal-title" id="myModalLabel">Заявка на обратный звонок</h4>
 					</div>
 					<div class="modal-body">
-						<form method="" action="" class="form-horizontal">
+						<form method="" action="" id="callback-form-ajax" class="form-horizontal">
 							<div class="form-group">
 								<label for="name" class="col-md-2 control-label">Имя</label>
 								<div class="col-md-10">
@@ -94,6 +94,16 @@
 									<input type="number" name="phone" class="form-control" id="phone" 
 									pattern="[0-9]{,11}" 
 									placeholder="Мобильный номер, только цифры" required>
+									<input type="hidden" name="form_type" value="callback-form-ajax" class="form-type">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-2">
+									<div class="checkbox">
+										<label class="checkbox">
+											<input type="checkbox" name="agreement" value="yes" id="agreement" required> Согласие на обработку персональных данных
+										</label>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">
@@ -195,27 +205,29 @@
 		</div>
 		
 		<!-- Success modal -->
-		<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="success-modal">
+		<div class="modal fade ajax-msg success" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="success-modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
 					</div>
 					<div class="modal-body">
-						<h4 class="modal-title" id="myModalLabel">Сообщение успешно отправлено!</h4>
+						<h4 class="text-center"><i class="fa fa-check"></i></h4>
+						<h4 class="modal-title text-center" id="myModalLabel">Сообщение успешно отправлено!</h4>
 					</div>
 				</div>
 			</div>
 		</div>
 		
 		<!-- Failure modal -->
-		<div class="modal fade" id="failure-modal" tabindex="-1" role="dialog" aria-labelledby="failure-modal">
+		<div class="modal fade ajax-msg failure" id="failure-modal" tabindex="-1" role="dialog" aria-labelledby="failure-modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
 					</div>
 					<div class="modal-body">
+						<h4 class="text-center"><i class="fa fa-warning"></i></h4>
 						<h4 class="modal-title" id="myModalLabel">Произошла ошибка. Попробуйте позже.</h4>
 					</div>
 				</div>
