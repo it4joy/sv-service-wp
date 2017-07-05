@@ -98,6 +98,12 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label for="checking" class="col-md-6 control-label">Сколько будет 2 * 2 + 1?</label>
+								<div class="col-md-6">
+									<input type="number" name="checking" class="form-control" id="checking" placeholder="Введите ответ" required>
+								</div>
+							</div>
+							<div class="form-group">
 								<div class="col-md-10 col-md-offset-2">
 									<div class="checkbox">
 										<label class="checkbox">

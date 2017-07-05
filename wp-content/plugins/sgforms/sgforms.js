@@ -33,6 +33,8 @@ jQuery(document).ready(function($) {
 				nonce: sg_forms_ajax.nonce,
 				name: $("#name").val(),
 				phone: $("#phone2").val(),
+				checking: $("#checking").val(),
+				agreement: $("#agreement").val(),
 				form_type: $form.find(".form-type").val()
 			},
 			success: function() {

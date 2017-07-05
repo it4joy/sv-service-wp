@@ -42,15 +42,19 @@ function sgforms_ajax() {
 			mail($to, $subject, $msg, $headers);
 			wp_die();
 		} elseif ( $_REQUEST['form_type'] == 'callback-form-ajax' ) {
-			$name = $_REQUEST['name'];
-			$phone = $_REQUEST['phone'];
-			$subject  = 'Запрос на обратный звонок';
-			$msg = 'Имя: ' . $name . '<br/>' . 'Телефон: ' . $phone;
-			$headers  = "Content-Type: text/html; charset=utf-8\n";
-			$headers .= "From: " . $_REQUEST['name'];
+			if ( !empty( $_REQUEST['agreement'] ) && $_REQUEST['checking'] == 5 ) {
+				$name = $_REQUEST['name'];
+				$phone = $_REQUEST['phone'];
+				$subject  = 'Запрос на обратный звонок';
+				$msg = 'Имя: ' . $name . '<br/>' . 'Телефон: ' . $phone;
+				$headers  = "Content-Type: text/html; charset=utf-8\n";
+				$headers .= "From: " . $_REQUEST['name'];
 
-			mail($to, $subject, $msg, $headers);
-			wp_die();
+				mail($to, $subject, $msg, $headers);
+				wp_die();
+			} else {
+				wp_die();
+			}
 		}
 	}
 }
