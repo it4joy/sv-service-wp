@@ -91,7 +91,7 @@
 							<div class="form-group">
 								<label for="phone" class="col-md-2 control-label">Телефон</label>
 								<div class="col-md-10">
-									<input type="number" name="phone" class="form-control" id="phone" 
+									<input type="number" name="phone" class="form-control" id="phone2" 
 									pattern="[0-9]{,11}" 
 									placeholder="Мобильный номер, только цифры" required>
 									<input type="hidden" name="form_type" value="callback-form-ajax" class="form-type">
@@ -131,7 +131,7 @@
 							<div class="form-group">
 								<label for="name" class="col-md-2 control-label">Имя</label>
 								<div class="col-md-10">
-									<input type="text" name="name" class="form-control" id="name" placeholder="Имя">
+									<input type="text" name="name" class="form-control" id="name2" placeholder="Имя">
 								</div>
 							</div>
 							<div class="form-group">
@@ -139,6 +139,7 @@
 								<div class="col-md-10">
 									<input type="email" name="email" class="form-control" id="email"  
 									placeholder="Введите E-mail" required>
+									<input type="hidden" name="form_type" value="price-list-form" class="form-type">
 								</div>
 							</div>
 							<div class="form-group">
@@ -187,7 +188,7 @@
 							<div class="form-group">
 								<label for="phone" class="col-md-2 control-label">Телефон</label>
 								<div class="col-md-10">
-									<input type="number" name="phone" class="form-control" id="phone" 
+									<input type="number" name="phone" class="form-control" id="phone3" 
 									pattern="[0-9]{,11}" 
 									placeholder="Мобильный номер, только цифры" required>
 								</div>

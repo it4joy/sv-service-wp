@@ -22,16 +22,17 @@ jQuery(document).ready(function($) {
 		});
 	});
 	
-	/* $("#callback-form-ajax").on("submit", function(e) {
+	$("#callback-form-ajax").on("submit", function(e) {
 		e.preventDefault();
 		var $form = $(this);
 		$.ajax({
 			method: "POST",
-			url: "/wp-admin/admin-ajax.php",
+			url: sg_forms_ajax.ajax_url,
 			data: {
-				action: "sg_ajax",
+				action: "sg_ajax2",
+				nonce: sg_forms_ajax.nonce,
 				name: $("#name").val(),
-				phone: $("#phone").val(),
+				phone: $("#phone2").val(),
 				form_type: $(".form-type").val()
 			},
 			success: function() {
@@ -43,5 +44,5 @@ jQuery(document).ready(function($) {
 				$("#failure-modal").modal("show");
 			}
 		});
-	}); */
+	});
 });
