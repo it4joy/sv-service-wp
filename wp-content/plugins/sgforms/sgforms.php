@@ -32,41 +32,30 @@ function sgforms_ajax() {
 	if ( ! wp_verify_nonce( $nonce, 'sg-forms-nonce' ) ) {
 		wp_die();
 	} else {
-		$phone = $_REQUEST['phone'];
-		$subject  = 'Запрос на обратный звонок';
-		$msg = 'Телефон: '.$phone .'<br/>';
-		$headers  = "Content-Type: text/html; charset=utf-8\n";
-		$headers .= "From: " . $_REQUEST['phone'];
+		if ( $_REQUEST['form_type'] == 'footer-callback-form' ) {
+			$phone = $_REQUEST['phone'];
+			$subject  = 'Запрос на обратный звонок';
+			$msg = 'Телефон: '.$phone .'<br/>';
+			$headers  = "Content-Type: text/html; charset=utf-8\n";
+			$headers .= "From: " . $_REQUEST['phone'];
 
-		mail($to, $subject, $msg, $headers);
-		wp_die();
-	}
-}
+			mail($to, $subject, $msg, $headers);
+			wp_die();
+		} elseif ( $_REQUEST['form_type'] == 'callback-form-ajax' ) {
+			$name = $_REQUEST['name'];
+			$phone = $_REQUEST['phone'];
+			$subject  = 'Запрос на обратный звонок';
+			$msg = 'Имя: ' . $name . '<br/>' . 'Телефон: ' . $phone;
+			$headers  = "Content-Type: text/html; charset=utf-8\n";
+			$headers .= "From: " . $_REQUEST['name'];
 
-function sgforms_ajax2() {
-	global $to;
-
-	$nonce = $_REQUEST['nonce'];
-
-	if ( ! wp_verify_nonce( $nonce, 'sg-forms-nonce' ) ) {
-		wp_die();
-	} else {
-		$name = $_REQUEST['name'];
-		$phone = $_REQUEST['phone'];
-		$subject  = 'Запрос на обратный звонок';
-		$msg = 'Имя: ' . $name . '<br/>' . 'Телефон: ' . $phone;
-		$headers  = "Content-Type: text/html; charset=utf-8\n";
-		$headers .= "From: " . $_REQUEST['name'];
-
-		mail($to, $subject, $msg, $headers);
-		wp_die();
+			mail($to, $subject, $msg, $headers);
+			wp_die();
+		}
 	}
 }
 
 if ( wp_doing_ajax() ) {
 	add_action('wp_ajax_nopriv_sg_ajax', 'sgforms_ajax' );
 	add_action('wp_ajax_sg_ajax', 'sgforms_ajax' );
-	
-	add_action('wp_ajax_nopriv_sg_ajax2', 'sgforms_ajax2' );
-	add_action('wp_ajax_sg_ajax2', 'sgforms_ajax2' );
 }

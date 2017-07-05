@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
 				action: "sg_ajax",
 				nonce: sg_forms_ajax.nonce,
 				phone: $("#phone").val(),
-				form_type: $(".form-type").val()
+				form_type: $form.find(".form-type").val()
 			},
 			success: function() {
 				$form.trigger("reset");
@@ -29,18 +29,20 @@ jQuery(document).ready(function($) {
 			method: "POST",
 			url: sg_forms_ajax.ajax_url,
 			data: {
-				action: "sg_ajax2",
+				action: "sg_ajax",
 				nonce: sg_forms_ajax.nonce,
 				name: $("#name").val(),
 				phone: $("#phone2").val(),
-				form_type: $(".form-type").val()
+				form_type: $form.find(".form-type").val()
 			},
 			success: function() {
 				$form.trigger("reset");
+				$("#callback-form").modal("hide");
 				$("#success-modal").modal("show");
 			},
 			error: function() {
 				$form.trigger("reset");
+				$("#callback-form").modal("hide");
 				$("#failure-modal").modal("show");
 			}
 		});
