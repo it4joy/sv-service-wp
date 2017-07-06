@@ -133,7 +133,7 @@
 						<h4 class="modal-title" id="myModalLabel">Заявка на получение прайс-листа</h4>
 					</div>
 					<div class="modal-body">
-						<form method="post" action="" class="form-horizontal">
+						<form method="post" action="" id="price-list-form-ajax" class="form-horizontal">
 							<div class="form-group">
 								<label for="name" class="col-md-2 control-label">Имя</label>
 								<div class="col-md-10">
@@ -146,6 +146,15 @@
 									<input type="email" name="email" class="form-control" id="email"  
 									placeholder="Введите E-mail" required>
 									<input type="hidden" name="form_type" value="price-list-form" class="form-type">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-2">
+									<div class="checkbox">
+										<label class="checkbox">
+											<input type="checkbox" name="agreement" value="yes" id="agreement2" required> Согласие на обработку персональных данных
+										</label>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">

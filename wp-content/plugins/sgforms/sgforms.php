@@ -55,6 +55,20 @@ function sgforms_ajax() {
 			} else {
 				wp_die();
 			}
+		} elseif ( $_REQUEST['form_type'] == 'price-list-form' ) {
+			if ( !empty( $_REQUEST['agreement'] ) ) {
+				$name = $_REQUEST['name'];
+				$email = $_REQUEST['email'];
+				$subject  = 'Запрос на получение прайс-листа';
+				$msg = 'Имя: ' . $name . '<br/>' . 'E-mail: ' . $email;
+				$headers  = "Content-Type: text/html; charset=utf-8\n";
+				$headers .= "From: " . $_REQUEST['name'];
+
+				mail($to, $subject, $msg, $headers);
+				wp_die();
+			} else {
+				wp_die();
+			}
 		}
 	}
 }
