@@ -61,6 +61,11 @@ body {
     align-items: flex-start;
 }
 
+main {
+	padding-top: 15px;
+	padding-bottom: 30px;
+}
+
 img, a img {
 	border: 0;
 	outline: none;
