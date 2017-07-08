@@ -572,13 +572,17 @@ p {
 	text-align: center;
 }
 
-.inner-ext-product-item .input-group, .inner-ext-product-item button {
+.inner-ext-product-item .input-group, .inner-ext-product-item button, .inner-ext-product-item .ask-question {
 	margin: 0 auto;
 	width: 60%;
 }
 
 .inner-ext-product-item .input-group {
 	margin-bottom: 15px;
+}
+
+.inner-ext-product-item .ask-question {
+	margin-top: 15px;
 }
 
 .related-products .product-item {

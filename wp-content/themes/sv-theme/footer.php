@@ -89,7 +89,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="phone" class="col-md-2 control-label">Телефон</label>
+								<label for="phone2" class="col-md-2 control-label">Телефон</label>
 								<div class="col-md-10">
 									<input type="number" name="phone" class="form-control" id="phone2" 
 									pattern="[0-9]{,11}" 
@@ -135,7 +135,7 @@
 					<div class="modal-body">
 						<form method="post" action="" id="price-list-form-ajax" class="form-horizontal">
 							<div class="form-group">
-								<label for="name" class="col-md-2 control-label">Имя</label>
+								<label for="name2" class="col-md-2 control-label">Имя</label>
 								<div class="col-md-10">
 									<input type="text" name="name" class="form-control" id="name2" placeholder="Имя">
 								</div>
@@ -153,6 +153,65 @@
 									<div class="checkbox">
 										<label class="checkbox">
 											<input type="checkbox" name="agreement" value="yes" id="agreement2" required> Согласие на обработку персональных данных
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-offset-2 col-md-10">
+									<button type="reset" class="btn btn-default"><i class="fa fa-eraser"></i> Очистить</button>
+									<button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Отправить</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Ask a question about certain product -->
+		<div class="modal fade" id="product-ask-question-form" tabindex="-1" role="dialog" aria-labelledby="product-ask-question-form">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Задайте вопрос по товару</h4>
+					</div>
+					<div class="modal-body">
+						<form method="post" action="" id="product-ask-question-form-ajax" class="form-horizontal">
+							<div class="form-group">
+								<label for="question-about" class="col-md-2 control-label">Вопрос о</label>
+								<div class="col-md-10">
+									<input type="text" name="product" class="form-control" id="question-about">
+									<input type="hidden" name="articul" class="product-articul">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name3" class="col-md-2 control-label">Имя</label>
+								<div class="col-md-10">
+									<input type="text" name="name" class="form-control" id="name3" placeholder="Имя">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="phone3" class="col-md-2 control-label">Телефон</label>
+								<div class="col-md-10">
+									<input type="number" name="phone" class="form-control" id="phone3" 
+									pattern="[0-9]{,11}" 
+									placeholder="Мобильный номер, только цифры" required>
+									<input type="hidden" name="form_type" value="product-ask-question-ajax" class="form-type">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="product-question" class="col-md-2 control-label">Вопрос</label>
+								<div class="col-md-10">
+									<textarea name="question" class="form-control" rows="3" id="product-question"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-2">
+									<div class="checkbox">
+										<label class="checkbox">
+											<input type="checkbox" name="agreement" value="yes" id="agreement3" required> Согласие на обработку персональных данных
 										</label>
 									</div>
 								</div>
@@ -201,9 +260,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="phone" class="col-md-2 control-label">Телефон</label>
+								<label for="phone4" class="col-md-2 control-label">Телефон</label>
 								<div class="col-md-10">
-									<input type="number" name="phone" class="form-control" id="phone3" 
+									<input type="number" name="phone" class="form-control" id="phone4" 
 									pattern="[0-9]{,11}" 
 									placeholder="Мобильный номер, только цифры" required>
 								</div>

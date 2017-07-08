@@ -65,6 +65,13 @@ get_header(); ?>
 										<input type="number" name="amount" class="form-control">
 									</div>
 									<button type="button" class="btn btn-default">В корзину</button>
+									<div class="ask-question">
+										<p><i class="fa fa-question-circle"></i> 
+										<a href="#product-ask-question-form" class="ask-question-link" data-toggle="modal" 
+										data-art="<?php echo get_post_meta( $post->ID, 'art', true ); ?>" 
+										data-title="<?php the_title(); ?>">Задайте вопрос по товару</a>
+										</p>
+									</div>
 								</div>
 							</div>
 							

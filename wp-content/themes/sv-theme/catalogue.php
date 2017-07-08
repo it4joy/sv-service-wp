@@ -27,17 +27,31 @@ get_header(); ?>
 			</div>
 			
 			<div class="row inner-catalogue inner-simple-product-items">
-				<div class="col-xs-12">
-					<?php
-						$args = array(
-							'show_option_none' => 'Нет категорий',
-							'show_count' => true,
-							'hide_empty' => false,
-							'taxonomy' => 'categories'
-						);
-						wp_list_categories( $args );
-					?>
+				<?php
+					$args = array(
+						'taxonomy' => 'categories',
+						'orderby' => 'name',
+						'hide_empty' => false,
+						'parent' => 0
+					);
+					
+					$terms = get_terms( $args );
+					
+					if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+						foreach ( $terms as $term ) {
+				?>
+			
+				<div class="col-xs-6">
+					<div class="product-item">
+						<img src="http://placehold.it/100x100">
+						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $term->name; ?></a></h5>
+					</div>
 				</div>
+
+				<?php
+						}
+					}
+				?>
 			</div>
 		</main>
 	</div>

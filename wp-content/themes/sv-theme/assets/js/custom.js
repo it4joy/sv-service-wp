@@ -68,14 +68,22 @@ jQuery(document).ready(function($) {
 	$(".navbar-nav").after("<ul class='nav navbar-nav navbar-right'><li><a href='#' class='navbar-link'><i class='fa fa-search' data-toggle='tooltip' data-placement='left' title='Поиск'></i></a></li><li><a href='cart.php' class='navbar-link'><span class='badge'>0</span><i class='fa fa-shopping-basket' data-toggle='tooltip' data-placement='left' title='Корзина'></i></a></li><li><a href='#callback-form' class='navbar-link' data-toggle='modal'><i class='fa fa-phone' data-toggle='tooltip' data-placement='right' title='Обратный звонок'></i></a></li></ul>");
 	
 	// insert link to pop-up form for request of price (top_menu);
-	$(".navbar-nav li:nth-child(4) a").attr("data-toggle", "modal");
-	$(".navbar-nav li:nth-child(4) a").on("click", function(e) {
+	$(".navbar-nav li:nth-child(5) a").attr("data-toggle", "modal");
+	$(".navbar-nav li:nth-child(5) a").on("click", function(e) {
 		e.preventDefault();
 	});
 	
 	// insert callback link into footer_menu_right;
 	
 	$("#menu-footer_menu_right li:last-child a").attr("data-toggle", "modal");
+	
+	// insert articul of certain product into assigned form's field;
+	$(".ask-question-link").on("click", function() {
+		var articul = $(this).attr("data-art");
+		$("#product-ask-question-form-ajax input[name='articul']").val(articul);
+		var productName = $(this).attr("data-title");
+		$("#product-ask-question-form-ajax input[name='product']").val(productName);
+	});
 	
 	// index : big carousel;
 	$(".carousel.index .item:first-child").addClass("active");
