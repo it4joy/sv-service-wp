@@ -178,11 +178,11 @@
 						<h4 class="modal-title" id="myModalLabel">Задайте вопрос по товару</h4>
 					</div>
 					<div class="modal-body">
-						<form method="post" action="" id="product-ask-question-form-ajax" class="form-horizontal">
+						<form method="" action="" id="product-ask-question-form-ajax" class="form-horizontal">
 							<div class="form-group">
 								<label for="question-about" class="col-md-2 control-label">Вопрос о</label>
 								<div class="col-md-10">
-									<input type="text" name="product" class="form-control" id="question-about">
+									<input type="text" name="question_about" class="form-control" id="question-about">
 									<input type="hidden" name="articul" class="product-articul">
 								</div>
 							</div>
@@ -204,7 +204,7 @@
 							<div class="form-group">
 								<label for="product-question" class="col-md-2 control-label">Вопрос</label>
 								<div class="col-md-10">
-									<textarea name="question" class="form-control" rows="3" id="product-question"></textarea>
+									<textarea name="question_text" class="form-control" rows="3" id="product-question"></textarea>
 								</div>
 							</div>
 							<div class="form-group">

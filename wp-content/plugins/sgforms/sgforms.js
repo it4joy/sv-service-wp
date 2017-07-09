@@ -81,4 +81,34 @@ jQuery(document).ready(function($) {
 			}
 		});
 	});
+	
+	$("#product-ask-question-form-ajax").on("submit", function(e) {
+		e.preventDefault();
+		var $form = $(this);
+		$.ajax({
+			method: "POST",
+			url: sg_forms_ajax.ajax_url,
+			data: {
+				action: "sg_ajax",
+				nonce: sg_forms_ajax.nonce,
+				question_about: $("#question-about").val(),
+				articul: $form.find(".product-articul").val(),
+				name: $("#name3").val(),
+				phone: $("#phone3").val(),
+				question_text: $("#product-question").val(),
+				agreement: $("#agreement3").val(),
+				form_type: $form.find(".form-type").val()
+			},
+			success: function() {
+				$form.trigger("reset");
+				$("#product-ask-question-form").modal("hide");
+				$("#success-modal").modal("show");
+			},
+			error: function() {
+				$form.trigger("reset");
+				$("#product-ask-question-form").modal("hide");
+				$("#failure-modal").modal("show");
+			}
+		});
+	});
 });

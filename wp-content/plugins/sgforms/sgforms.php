@@ -69,6 +69,29 @@ function sgforms_ajax() {
 			} else {
 				wp_die();
 			}
+		} elseif ( $_REQUEST['form_type'] == 'product-ask-question-ajax' ) {
+			if ( !empty( $_REQUEST['agreement'] ) ) {
+				$questionAbout = $_REQUEST['question_about'];
+				$articul = $_REQUEST['articul'];
+				$name = $_REQUEST['name'];
+				$phone = $_REQUEST['phone'];
+				$questionText = $_REQUEST['question_text'];
+				$subject  = 'Вопрос по продукту';
+				$msg = "<html><body>
+					<p><strong>Вопрос о: </strong>".$questionAbout."</p>
+					<p><strong>Артикул: </strong>".$articul."</p>
+					<p><strong>Имя: </strong>".$name."</p>
+					<p><strong>Телефон: </strong>".$phone."</p>
+					<p><strong>Вопрос: </strong>".$questionText."</p>
+					</body></html>";
+				$headers  = "Content-Type: text/html; charset=utf-8\n";
+				$headers .= "From: " . $_REQUEST['name'];
+
+				mail($to, $subject, $msg, $headers);
+				wp_die();
+			} else {
+				wp_die();
+			}
 		}
 	}
 }

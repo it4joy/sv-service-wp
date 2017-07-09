@@ -82,7 +82,7 @@ jQuery(document).ready(function($) {
 		var articul = $(this).attr("data-art");
 		$("#product-ask-question-form-ajax input[name='articul']").val(articul);
 		var productName = $(this).attr("data-title");
-		$("#product-ask-question-form-ajax input[name='product']").val(productName);
+		$("#product-ask-question-form-ajax input[name='question_about']").val(productName);
 	});
 	
 	// index : big carousel;
