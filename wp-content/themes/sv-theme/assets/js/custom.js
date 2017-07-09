@@ -76,15 +76,7 @@ jQuery(document).ready(function($) {
 	// insert callback link into footer_menu_right;
 	
 	$("#menu-footer_menu_right li:last-child a").attr("data-toggle", "modal");
-	
-	// insert articul of certain product into assigned form's field;
-	$(".ask-question-link").on("click", function() {
-		var articul = $(this).attr("data-art");
-		$("#product-ask-question-form-ajax input[name='articul']").val(articul);
-		var productName = $(this).attr("data-title");
-		$("#product-ask-question-form-ajax input[name='question_about']").val(productName);
-	});
-	
+
 	// index : big carousel;
 	$(".carousel.index .item:first-child").addClass("active");
 	// test it again and upgrade for case when amount of items less than 3;

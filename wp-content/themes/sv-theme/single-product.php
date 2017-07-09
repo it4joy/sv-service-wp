@@ -53,7 +53,7 @@ get_header(); ?>
 								<div class="col-xs-6">
 									<ul>
 										<li>Цена: <?php echo get_post_meta( $post->ID, 'price', true ); ?></li>
-										<li>Артикул: <?php echo get_post_meta( $post->ID, 'art', true ); ?></li>
+										<li>Артикул: <?php $articul = get_post_meta( $post->ID, 'art', true ); echo $articul; ?></li>
 										<li>Бренд: <?php echo $brand->name; ?></li>
 										<li>Наличие: <?php echo get_post_meta( $post->ID, 'available', true ); ?></li>
 										<li>Фасовка, мин.: <?php echo get_post_meta( $post->ID, 'packing', true ); ?></li>
@@ -68,7 +68,7 @@ get_header(); ?>
 									<div class="ask-question">
 										<p><i class="fa fa-question-circle"></i> 
 										<a href="#product-ask-question-form" class="ask-question-link" data-toggle="modal" 
-										data-art="<?php echo get_post_meta( $post->ID, 'art', true ); ?>" 
+										data-art="<?php echo $articul; ?>" 
 										data-title="<?php the_title(); ?>">Задайте вопрос по товару</a>
 										</p>
 									</div>

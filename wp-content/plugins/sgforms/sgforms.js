@@ -111,4 +111,17 @@ jQuery(document).ready(function($) {
 			}
 		});
 	});
+	
+	// insert articul of certain product into assigned form's field;
+	$(".ask-question-link").on("click", function() {
+		var articul = $(this).attr("data-art");
+		$("#product-ask-question-form-ajax input[name='articul']").val(articul);
+		var productName = $(this).attr("data-title");
+		$("#product-ask-question-form-ajax input[name='question_about']").val(productName);
+	});
+
+	// fix a bag of right padding of body when bootstrap modal was shown and after sending an ajax form;
+	$(".modal").on("show.bs.modal shown.bs.modal", function(e) {
+		$("body").css("padding-right", 0);
+	});
 });
