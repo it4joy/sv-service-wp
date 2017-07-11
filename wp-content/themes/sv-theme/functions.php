@@ -30,7 +30,11 @@ function svwp_setup() {
 	) );
 	
 	add_theme_support( 'post-thumbnails', array( 'post', 'movie', 'big-slide', 'product' ) );
-	set_post_thumbnail_size(200, 200, true); // adjust;
+	set_post_thumbnail_size(150, 150, true); // before: 200, 200;
+	
+	if ( function_exists( 'add_image_size' ) ) {
+		add_image_size( 'thumb-sq70', 70, 70, true );
+	}
 	
 	add_theme_support( 'widgets' );
 	

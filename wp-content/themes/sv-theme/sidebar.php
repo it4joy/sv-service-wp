@@ -32,7 +32,7 @@ if ( $popProducts->have_posts() ) {
 ?>
 
 	<div class="product-item">
-		<?php echo get_the_post_thumbnail( $post->ID, array( 70, 70 ) ); ?>
+		<?php echo get_the_post_thumbnail( $post->ID, 'thumb-sq70' ); ?>
 		<p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
 	</div>
 
@@ -45,7 +45,15 @@ wp_reset_postdata();
 
 </div>
 
+<div class="aside-ad-wrapper">
+	<h3 class="text-center uppercase">Услуги наших партнеров</h3>
+
 <?php
+
 if ( is_active_sidebar( 'left-sidebar' ) ) {
 	dynamic_sidebar( 'left-sidebar' );
 }
+
+?>
+
+</div>

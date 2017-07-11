@@ -53,6 +53,39 @@ get_header(); ?>
 					}
 				?>
 			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<h5 class="uppercase">Популярные товары</h5>
+				</div>
+			</div>
+			<div class="row inner-simple-product-items">
+				<?php
+					$args = array(
+						'numberposts' => 10,
+						'post_type' => 'product'
+					);
+
+					$popProducts = new WP_Query( $args );
+
+					if ( $popProducts->have_posts() ) {
+						while( $popProducts->have_posts() ) {
+							$popProducts->the_post();
+							if ( has_term( 'popular', 'tags' ) ) {
+				?>
+				
+				<div class="col-xs-6">
+					<div class="product-item">
+						<?php echo get_the_post_thumbnail( $post->ID, 'thumb-sq70' ); ?>
+						<p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
+					</div>
+				</div>
+				<?php
+							}
+						}
+					}
+				?>
+			</div>
 		</main>
 	</div>
 </div>
