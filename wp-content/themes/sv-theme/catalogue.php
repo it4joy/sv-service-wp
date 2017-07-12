@@ -27,72 +27,44 @@ get_header(); ?>
 			
 			<div class="row inner-catalogue inner-simple-product-items">
 				<?php
-					$argsTerm = array(
+					$args = array(
 						'taxonomy' => 'categories',
 						'orderby' => 'name',
 						'hide_empty' => false,
 						'parent' => 0
 					);
-					
-					$terms = get_terms( $argsTerm );
-					
-					//
-					global $termsAmount;
-					
-					foreach ( $terms as $term ) {
-						$termsAmount++;
-					}
-					//
-					
-					$argsPost = array(
-						'numberposts' => -1,
-						'post_type' => 'product'
-					);
-					
-					$products = new WP_Query( $argsPost );
 
-					if ( $products->have_posts() ) {
-						while ( $products->have_posts() ) {
-							$products->the_post();
-							$categories = get_the_terms( $post->ID, 'categories' );
-							$category = array_shift( $categories );
-							$categoryName = $category->name;
-							if ( has_term( 'face', 'tags' ) ) {
-								$faceImg = get_post_meta( $post->ID, 'main_img', true );
-								foreach ( $terms as $term ) {
-									$termName = $term->name;
-									$termId = $term->ID;
-									
-									if ( $termName == $categoryName ) {
+					$terms = get_terms( $args );
+
+					if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+						foreach ( $terms as $term ) {
+							$termImgSrc = $term->description;
+							$termName = $term->name;
+							if ( $termImgSrc ) {
 				?>
-			
+
 				<div class="col-xs-6">
 					<div class="product-item">
-						<img src="<?php echo $faceImg; ?>" width="100" height="100">
+						<img src="<?php echo $termImgSrc; ?>" width="100" height="100">
 						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h5>
-					</div>
-				</div>
-
-				<?php
-									}
-								}
-							} else {
-								foreach ( $terms as $term ) {
-				?>
-
-				<div class="col-xs-6">
-					<div class="product-item">
-						<img src="http://placehold.it/100x100">
-						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $term->name; ?></a></h5>
 					</div>
  				</div>
 				
 				<?php
-								}
+							} else {
+				?>
+				
+				<div class="col-xs-6">
+					<div class="product-item">
+						<img src="http://placehold.it/100x100">
+						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h5>
+					</div>
+ 				</div>
+				
+				<?php
 							}
 						}
 					}
-					wp_reset_postdata();
 				?>
 			</div>
 
