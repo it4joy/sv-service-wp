@@ -2,7 +2,6 @@
 /*
 Template Name: Catalogue
 */
-
 get_header(); ?>
 
 <div class="container">
@@ -38,6 +37,12 @@ get_header(); ?>
 					$terms = get_terms( $argsTerm );
 					
 					//
+					global $termsAmount;
+					
+					foreach ( $terms as $term ) {
+						$termsAmount++;
+					}
+					//
 					
 					$argsPost = array(
 						'numberposts' => -1,
@@ -45,7 +50,7 @@ get_header(); ?>
 					);
 					
 					$products = new WP_Query( $argsPost );
-					
+
 					if ( $products->have_posts() ) {
 						while ( $products->have_posts() ) {
 							$products->the_post();
@@ -56,6 +61,8 @@ get_header(); ?>
 								$faceImg = get_post_meta( $post->ID, 'main_img', true );
 								foreach ( $terms as $term ) {
 									$termName = $term->name;
+									$termId = $term->ID;
+									
 									if ( $termName == $categoryName ) {
 				?>
 			
@@ -68,6 +75,19 @@ get_header(); ?>
 
 				<?php
 									}
+								}
+							} else {
+								foreach ( $terms as $term ) {
+				?>
+
+				<div class="col-xs-6">
+					<div class="product-item">
+						<img src="http://placehold.it/100x100">
+						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $term->name; ?></a></h5>
+					</div>
+ 				</div>
+				
+				<?php
 								}
 							}
 						}
@@ -87,9 +107,7 @@ get_header(); ?>
 						'numberposts' => 10,
 						'post_type' => 'product'
 					);
-
 					$popProducts = new WP_Query( $args );
-
 					if ( $popProducts->have_posts() ) {
 						while( $popProducts->have_posts() ) {
 							$popProducts->the_post();
