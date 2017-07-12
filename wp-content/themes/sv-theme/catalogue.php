@@ -28,32 +28,54 @@ get_header(); ?>
 			
 			<div class="row inner-catalogue inner-simple-product-items">
 				<?php
-					$args = array(
+					$argsTerm = array(
 						'taxonomy' => 'categories',
 						'orderby' => 'name',
 						'hide_empty' => false,
 						'parent' => 0
 					);
 					
-					$terms = get_terms( $args );
+					$terms = get_terms( $argsTerm );
 					
-					if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
-						foreach ( $terms as $term ) {
+					//
+					
+					$argsPost = array(
+						'numberposts' => -1,
+						'post_type' => 'product'
+					);
+					
+					$products = new WP_Query( $argsPost );
+					
+					if ( $products->have_posts() ) {
+						while ( $products->have_posts() ) {
+							$products->the_post();
+							$categories = get_the_terms( $post->ID, 'categories' );
+							$category = array_shift( $categories );
+							$categoryName = $category->name;
+							if ( has_term( 'face', 'tags' ) ) {
+								$faceImg = get_post_meta( $post->ID, 'main_img', true );
+								foreach ( $terms as $term ) {
+									$termName = $term->name;
+									if ( $termName == $categoryName ) {
 				?>
 			
 				<div class="col-xs-6">
 					<div class="product-item">
-						<img src="http://placehold.it/100x100">
-						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $term->name; ?></a></h5>
+						<img src="<?php echo $faceImg; ?>" width="100" height="100">
+						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h5>
 					</div>
 				</div>
 
 				<?php
+									}
+								}
+							}
 						}
 					}
+					wp_reset_postdata();
 				?>
 			</div>
-			
+
 			<div class="row">
 				<div class="col-md-12">
 					<h5 class="uppercase">Популярные товары</h5>
@@ -83,7 +105,10 @@ get_header(); ?>
 				<?php
 							}
 						}
+					} else {
+						echo "Записи для вывода не найдены";
 					}
+					wp_reset_postdata();
 				?>
 			</div>
 		</main>
