@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php
+/*
+Template Name: Front Page
+*/
+get_header(); ?>
 
 			<div class="container">
 				<div id="carousel-index-top" class="carousel slide index" data-ride="carousel">
@@ -127,7 +131,7 @@
 				<div class="row popular-items">
 					<?php
 						$args = array(
-							'numberposts' => 10,
+							'numberposts' => 4,
 							'post_type' => 'product'
 						);
 						$popProducts = new WP_Query( $args );
@@ -199,6 +203,28 @@
 							<h6 class="uppercase">Доставка - <br> 6 дней в неделю</h6>
 						</div>
 					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">
+						<h3 class="text-center uppercase">Использование одноразовых расходных материалов - <br>выгодно, современно и удобно!</h3>
+					</div>
+				</div>
+				<div class="row index-bottom-text-wrapper">
+					<?php
+						if ( have_posts() ) {
+							while ( have_posts() ) {
+								the_post();
+					?>
+
+					<div class="col-md-12">
+						<?php the_content(); ?>
+					</div>
+
+					<?php
+							}
+						}
+					?>
 				</div>
 			</div>
 

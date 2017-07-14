@@ -65,7 +65,7 @@ jQuery(document).ready(function($) {
 	
 	// insert navbar-right;
 	
-	$(".navbar-nav").after("<ul class='nav navbar-nav navbar-right'><li><a href='#' class='navbar-link'><i class='fa fa-search' data-toggle='tooltip' data-placement='left' title='Поиск'></i></a></li><li><a href='cart.php' class='navbar-link'><span class='badge'>0</span><i class='fa fa-shopping-basket' data-toggle='tooltip' data-placement='left' title='Корзина'></i></a></li><li><a href='#callback-form' class='navbar-link' data-toggle='modal'><i class='fa fa-phone' data-toggle='tooltip' data-placement='right' title='Обратный звонок'></i></a></li></ul>");
+	$(".navbar-nav").after("<ul class='nav navbar-nav navbar-right'><li><a href='#wp-searching-form' class='navbar-link' data-toggle='modal'><i class='fa fa-search' data-toggle='tooltip' data-placement='left' title='Поиск'></i></a></li><li><a href='cart.php' class='navbar-link'><span class='badge'>0</span><i class='fa fa-shopping-basket' data-toggle='tooltip' data-placement='left' title='Корзина'></i></a></li><li><a href='#callback-form' class='navbar-link' data-toggle='modal'><i class='fa fa-phone' data-toggle='tooltip' data-placement='right' title='Обратный звонок'></i></a></li></ul>");
 	
 	// insert link to pop-up form for request of price (top_menu);
 	$(".navbar-nav li:nth-child(5) a").attr("data-toggle", "modal");

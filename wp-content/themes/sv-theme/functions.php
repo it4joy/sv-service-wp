@@ -212,3 +212,43 @@ function register_widgets() {
 	) );
 }
 add_action( 'widgets_init', 'register_widgets' );
+
+// add searching;
+
+function svwp_search( $form ) {
+	$form = '
+		<form action="' . home_url( '/' ) . '" method="get" id="searchform" role="search" class="form-inline default searching-form">
+			<div class="form-group">
+				<input type="text" name="s" value="' . get_search_query() . '" id="s" class="form-control" placeholder="Введите поисковый запрос" required>
+			</div>
+			<button type="submit" class="btn btn-default">Поиск</button>
+		</form>
+	';
+	
+	return $form;
+}
+add_filter( 'get_search_form', 'svwp_search' );
+
+// pagination's output;
+
+function svwp_pagination() {
+	global $wp_query;
+	
+	$big = 99999999;
+	
+	$args = array(
+		'base' => str_replace( $big, '%#%', get_pagenum_link( $big ) ),
+		'format' => '',
+		'current' => max( 1, get_query_var('paged') ),
+		'total' => $wp_query->max_num_pages,
+		'prev_text' => '< Назад',
+		'next_text' => 'Вперед >',
+		'type' => 'list'
+	);
+	
+	$result = paginate_links( $args );
+	
+	$result = str_replace( '/page/1/', '', $result );
+	
+	echo $result;
+}

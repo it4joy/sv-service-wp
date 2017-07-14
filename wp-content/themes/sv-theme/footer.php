@@ -228,6 +228,20 @@
 			</div>
 		</div>
 		
+		<!-- Form of searching -->
+		<div class="modal fade" id="wp-searching-form" tabindex="-1" role="dialog" aria-labelledby="wp-searching-form">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<?php get_search_form(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Preorder form -->
 		<div class="modal fade" id="preorder-form" tabindex="-1" role="dialog" aria-labelledby="preorder-form">
 			<div class="modal-dialog" role="document">
