@@ -17,13 +17,13 @@
 
 			<div class="row double-heading">
 				<div class="col-md-12">
-					<h3 class="uppercase"><?php the_title(); ?></h3>
+					<h3 class="uppercase">Результаты поиска</h3>
 				</div>
 			</div>
 
 			<div class="row search-results-wrapper">
 				<div class="col-md-12">
-					<p>Результаты поиска по запросу: <?php the_search_query(); ?></p>
+					<p><strong>Результаты поиска по запросу:</strong> <?php the_search_query(); ?></p>
 					<?php
 						if ( have_posts() ) {
 							while ( have_posts() ) {
@@ -38,10 +38,9 @@
 					
 					<?php
 							}
-							endwhile;
 						} else {
 							echo "К сожалению, нет результатов, соответствующих Вашему поисковому запросу. Попробуйте снова.";
-							//get_search_form();
+							get_search_form();
 						}
 					?>
 				</div>

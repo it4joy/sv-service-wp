@@ -486,6 +486,10 @@ p {
 	width: 50%;
 }
 
+.search-results-wrapper .form-inline.default {
+	text-align: left;
+}
+
 /* Inner Pages */
 
 .navbar-sidebar {
