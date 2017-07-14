@@ -64,121 +64,48 @@
 						<h6 class="text-center uppercase subheading">Товары по категориям</h6>
 					</div>
 				</div>
-				
-				<!-- Catalogue's carousel on Index -->
-				<div id="carousel-index-cat" class="carousel slide index-catalogue" data-ride="carousel">
-					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#carousel-index-cat" data-slide-to="0" class="active"></li>
-						<li data-target="#carousel-index-cat" data-slide-to="1"></li>
-						<li data-target="#carousel-index-cat" data-slide-to="2"></li>
-						<li data-target="#carousel-index-cat" data-slide-to="3"></li>
-					</ol>
 
-					<!-- Wrapper for slides -->
-					<div class="carousel-inner" role="listbox">
-						<div class="item active">
-							<div class="product-item">
-								<div class="hidden-block div-slide-down">
-									<div class="div-as-table">
-										<div class="div-as-table-cell">
-											<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<img src="http://placehold.it/350x250">
-								<div class="sign">Одноразовые тапочки</div>
-							</div>
-							
-							<div class="product-item">
-								<div class="hidden-block div-slide-down">
-									<div class="div-as-table">
-										<div class="div-as-table-cell">
-											<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<img src="http://placehold.it/350x250">
-								<div class="sign">Косметика для гостиниц</div>
-							</div>
-						</div>
+				<div class="row inner-catalogue inner-simple-product-items">
+					<?php
+						$args = array(
+							'taxonomy' => 'categories',
+							'orderby' => 'name',
+							'hide_empty' => false,
+							'parent' => 0
+						);
 
-						<div class="item">
-							<div class="product-item">
-								<div class="hidden-block div-slide-down">
-									<div class="div-as-table">
-										<div class="div-as-table-cell">
-											<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<img src="http://placehold.it/350x250">
-								<div class="sign">Расходные материалы для салонов</div>
-							</div>
-							
-							<div class="product-item">
-								<div class="hidden-block div-slide-down">
-									<div class="div-as-table">
-										<div class="div-as-table-cell">
-											<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<img src="http://placehold.it/350x250">
-								<div class="sign">Текстиль</div>
-							</div>
-						</div>
-						
-						<div class="item">
-							<div class="product-item">
-								<div class="hidden-block div-slide-down">
-									<div class="div-as-table">
-										<div class="div-as-table-cell">
-											<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<img src="http://placehold.it/350x250">
-								<div class="sign">Товары для бани</div>
-							</div>
-													
-							<div class="product-item">
-								<div class="hidden-block div-slide-down">
-									<div class="div-as-table">
-										<div class="div-as-table-cell">
-											<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<img src="http://placehold.it/350x250">
-								<div class="sign">Прозрачная косметичка</div>
-							</div>
-						</div>
-						
-						<div class="item">
-							<div class="product-item">
-								<div class="hidden-block div-slide-down">
-									<div class="div-as-table">
-										<div class="div-as-table-cell">
-											<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<img src="http://placehold.it/350x250">
-								<div class="sign">Дорожный набор</div>
-							</div>
+						$terms = get_terms( $args );
+
+						if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+							foreach ( $terms as $term ) {
+								$termImgSrc = $term->description;
+								$termName = $term->name;
+								if ( $termImgSrc ) {
+					?>
+
+					<div class="col-xs-6">
+						<div class="product-item">
+							<img src="<?php echo $termImgSrc; ?>" width="100" height="100">
+							<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h5>
 						</div>
 					</div>
 
-					<!-- Controls -->
-					<a class="slide-btn prev" href="#carousel-index-cat" role="button" data-slide="prev">
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"><i class="fa fa-chevron-left"></i></span>
-						<span class="sr-only">Назад</span>
-					</a>
-					<a class="slide-btn next" href="#carousel-index-cat" role="button" data-slide="next">
-						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
-						<span class="sr-only">Вперед</span>
-					</a>
+					<?php
+								} else {
+					?>
+
+					<div class="col-xs-6">
+						<div class="product-item">
+							<img src="http://placehold.it/100x100">
+							<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h5>
+						</div>
+					</div>
+
+					<?php
+								}
+							}
+						}
+					?>
 				</div>
 
 				<div class="row">
@@ -198,65 +125,41 @@
 					</div>
 				</div>
 				<div class="row popular-items">
+					<?php
+						$args = array(
+							'numberposts' => 10,
+							'post_type' => 'product'
+						);
+						$popProducts = new WP_Query( $args );
+						if ( $popProducts->have_posts() ) {
+							while( $popProducts->have_posts() ) {
+								$popProducts->the_post();
+								if ( has_term( 'popular', 'tags' ) ) {
+					?>
+
 					<div class="col-md-3">
 						<div class="product-item index">
 							<div class="hidden-block div-slide-down">
 								<div class="div-as-table">
 									<div class="div-as-table-cell">
-										<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
+										<a href="<?php the_permalink(); ?>" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
 										<a href="#" data-toggle="tooltip" data-placement="top" title="Добавить в корзину" class="action-btn"><i class="fa fa-check"></i></a>
 									</div>
 								</div>
 							</div>
-							<img src="http://placehold.it/230x230">
-							<div class="sign">Одноразовые тапочки эконом</div>
+							<img src="<?php echo get_post_meta( $post->ID, 'main_img', true ); ?>" class="img-responsive">
+							<div class="sign"><?php the_title(); ?></div>
 						</div>
 					</div>
-					
-					<div class="col-md-3">
-						<div class="product-item index">
-							<div class="hidden-block div-slide-down">
-								<div class="div-as-table">
-									<div class="div-as-table-cell">
-										<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										<a href="#" data-toggle="tooltip" data-placement="top" title="Добавить в корзину" class="action-btn"><i class="fa fa-check"></i></a>
-									</div>
-								</div>
-							</div>
-							<img src="http://placehold.it/230x230">
-							<div class="sign">Одноразовые тапочки эконом</div>
-						</div>
-					</div>
-					
-					<div class="col-md-3">
-						<div class="product-item index">
-							<div class="hidden-block div-slide-down">
-								<div class="div-as-table">
-									<div class="div-as-table-cell">
-										<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										<a href="#" data-toggle="tooltip" data-placement="top" title="Добавить в корзину" class="action-btn"><i class="fa fa-check"></i></a>
-									</div>
-								</div>
-							</div>
-							<img src="http://placehold.it/230x230">
-							<div class="sign">Одноразовые тапочки эконом</div>
-						</div>
-					</div>
-					
-					<div class="col-md-3">
-						<div class="product-item index">
-							<div class="hidden-block div-slide-down">
-								<div class="div-as-table">
-									<div class="div-as-table-cell">
-										<a href="#" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										<a href="#" data-toggle="tooltip" data-placement="top" title="Добавить в корзину" class="action-btn"><i class="fa fa-check"></i></a>
-									</div>
-								</div>
-							</div>
-							<img src="http://placehold.it/230x230">
-							<div class="sign">Одноразовые тапочки эконом</div>
-						</div>
-					</div>
+
+					<?php
+								}
+							}
+						} else {
+							echo "Записи для вывода не найдены";
+						}
+						wp_reset_postdata();
+					?>
 				</div>
 				<!-- / Popular goodies -->
 				
