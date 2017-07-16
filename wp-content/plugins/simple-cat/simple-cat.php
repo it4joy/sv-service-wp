@@ -161,3 +161,39 @@ function sc_add_custom_meta_box_update( $post_id ) {
 	}
 	return $post_id;
 }
+
+function simple_cat_scripts() {
+	$url = plugin_dir_url( __FILE__ );
+	
+	wp_register_script( 'simple-cat-ajax', $url . 'simple-cat.js', array( 'jquery' ), '1.0', true );
+	wp_localize_script( 'simple-cat-ajax', 'simple_cat_ajax', 
+		array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'simple-cat-nonce' )
+		)
+	);
+	wp_enqueue_script( 'sg-forms-ajax' );
+}
+add_action( 'wp_enqueue_scripts', 'simple_cat_scripts' );
+
+function simple_cat_ajax() {
+	$nonce = $_REQUEST['nonce'];
+	
+	if ( ! wp_verify_nonce( $nonce, 'simple-cat-nonce' ) ) {
+		wp_die();
+	} else {
+		if ( ! session_id() ) {
+			session_start();
+			//$_SESSION['productTitle'] = $_POST['productTitle'];
+			$_SESSION['productTitle'] = $nonce;
+			header( 'Location: ' . home_url('/') . 'korzina' );
+		} else {
+			wp_die();
+		}
+	}
+}
+
+if ( wp_doing_ajax() ) {
+	add_action('wp_ajax_nopriv_sc_ajax', 'simple_cat_ajax' );
+	add_action('wp_ajax_sc_ajax', 'simple_cat_ajax' );
+}

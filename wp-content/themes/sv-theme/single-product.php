@@ -38,6 +38,7 @@ get_header(); ?>
 							$relations = get_the_terms( $post->ID, 'relations' );
 							$brand = array_shift( $brands );
 							$category = array_shift( $categories );
+							$thumb = get_the_post_thumbnail_url();
 				?>
 				
 				<div class="col-md-12">
@@ -52,23 +53,26 @@ get_header(); ?>
 							<div class="flex-row product-main align-items-top">
 								<div class="col-xs-6">
 									<ul>
-										<li>Цена: <?php echo get_post_meta( $post->ID, 'price', true ); ?></li>
-										<li>Артикул: <?php $articul = get_post_meta( $post->ID, 'art', true ); echo $articul; ?></li>
-										<li>Бренд: <?php echo $brand->name; ?></li>
-										<li>Наличие: <?php echo get_post_meta( $post->ID, 'available', true ); ?></li>
-										<li>Фасовка, мин.: <?php echo get_post_meta( $post->ID, 'packing', true ); ?></li>
+										<li class="price">Цена: <?php $price = get_post_meta( $post->ID, 'price', true ); echo $price; ?></li>
+										<li class="article">Артикул: <?php $article = get_post_meta( $post->ID, 'art', true ); echo $article; ?></li>
+										<li class="brand">Бренд: <?php $brandName = $brand->name; echo $brandName; ?></li>
+										<li class="availability">Наличие: <?php $availability = get_post_meta( $post->ID, 'available', true ); echo $availability; ?></li>
+										<li class="packing">Фасовка, мин.: <?php $packing = get_post_meta( $post->ID, 'packing', true ); echo $packing; ?></li>
 									</ul>
+									<input type="hidden" name="product-title" value="<?php the_title(); ?>" class="product-title">
+									<input type="hidden" name="product-thumb" value="<?php $thumb; ?>" class="product-thumb">
+									<input type="hidden" name="product-link" value="<?php the_permalink(); ?>" class="product-link">
 								</div>
 								<div class="col-xs-6">
 									<div class="input-group">
 										<span class="input-group-addon">Кол-во:</span>
-										<input type="number" name="amount" class="form-control">
+										<input type="number" name="amount" class="form-control products-amount">
 									</div>
-									<button type="button" class="btn btn-default">В корзину</button>
+									<button type="button" class="btn btn-default btn-cart">В корзину</button>
 									<div class="ask-question">
 										<p><i class="fa fa-question-circle"></i> 
 										<a href="#product-ask-question-form" class="ask-question-link" data-toggle="modal" 
-										data-art="<?php echo $articul; ?>" 
+										data-art="<?php echo $article; ?>" 
 										data-title="<?php the_title(); ?>">Задайте вопрос по товару</a>
 										</p>
 									</div>
