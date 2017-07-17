@@ -162,6 +162,17 @@ function sc_add_custom_meta_box_update( $post_id ) {
 	return $post_id;
 }
 
+//
+
+function svwp_sessions() {
+	if ( ! session_id() ) {
+		session_start();
+	}
+}
+add_action( 'init', 'svwp_sessions' );
+
+//
+
 function simple_cat_scripts() {
 	$url = plugin_dir_url( __FILE__ );
 	
@@ -172,7 +183,7 @@ function simple_cat_scripts() {
 			'nonce' => wp_create_nonce( 'simple-cat-nonce' )
 		)
 	);
-	wp_enqueue_script( 'sg-forms-ajax' );
+	wp_enqueue_script( 'simple-cat-ajax' );
 }
 add_action( 'wp_enqueue_scripts', 'simple_cat_scripts' );
 
@@ -182,14 +193,20 @@ function simple_cat_ajax() {
 	if ( ! wp_verify_nonce( $nonce, 'simple-cat-nonce' ) ) {
 		wp_die();
 	} else {
-		if ( ! session_id() ) {
-			session_start();
-			//$_SESSION['productTitle'] = $_POST['productTitle'];
-			$_SESSION['productTitle'] = $nonce;
-			header( 'Location: ' . home_url('/') . 'korzina' );
-		} else {
-			wp_die();
-		}
+		ini_set( 'session.use_strict_mode', 1 ); // must work!
+		svwp_sessions();
+		session_name( 'orderParameters' ); // must work!
+
+		$_SESSION['productTitle'] = $_POST['productTitle'];
+		$_SESSION['productLink'] = $_POST['productLink'];
+		$_SESSION['productThumb'] = $_POST['productThumb'];
+		$_SESSION['productArticle'] = $_POST['article'];
+		$_SESSION['productBrand'] = $_POST['brand'];
+		$_SESSION['productAvailability'] = $_POST['availability'];
+		$_SESSION['productPacking'] = $_POST['packing'];
+		$_SESSION['productPrice'] = $_POST['price'];
+		$_SESSION['productAmount'] = $_POST['amount'];
+		//header( 'Location: ' . home_url('/') . 'korzina' );
 	}
 }
 

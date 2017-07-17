@@ -53,14 +53,14 @@ get_header(); ?>
 							<div class="flex-row product-main align-items-top">
 								<div class="col-xs-6">
 									<ul>
-										<li class="price">Цена: <?php $price = get_post_meta( $post->ID, 'price', true ); echo $price; ?></li>
-										<li class="article">Артикул: <?php $article = get_post_meta( $post->ID, 'art', true ); echo $article; ?></li>
-										<li class="brand">Бренд: <?php $brandName = $brand->name; echo $brandName; ?></li>
-										<li class="availability">Наличие: <?php $availability = get_post_meta( $post->ID, 'available', true ); echo $availability; ?></li>
-										<li class="packing">Фасовка, мин.: <?php $packing = get_post_meta( $post->ID, 'packing', true ); echo $packing; ?></li>
+										<li class="price">Цена: <span><?php $price = get_post_meta( $post->ID, 'price', true ); echo $price; ?></span></li>
+										<li class="article">Артикул: <span><?php $article = get_post_meta( $post->ID, 'art', true ); echo $article; ?></span></li>
+										<li class="brand">Бренд: <span><?php $brandName = $brand->name; echo $brandName; ?></span></li>
+										<li class="availability">Наличие: <span><?php $availability = get_post_meta( $post->ID, 'available', true ); echo $availability; ?></span></li>
+										<li class="packing">Фасовка, мин.: <span><?php $packing = get_post_meta( $post->ID, 'packing', true ); echo $packing; ?></span></li>
 									</ul>
 									<input type="hidden" name="product-title" value="<?php the_title(); ?>" class="product-title">
-									<input type="hidden" name="product-thumb" value="<?php $thumb; ?>" class="product-thumb">
+									<input type="hidden" name="product-thumb" value="<?php echo $thumb; ?>" class="product-thumb">
 									<input type="hidden" name="product-link" value="<?php the_permalink(); ?>" class="product-link">
 								</div>
 								<div class="col-xs-6">

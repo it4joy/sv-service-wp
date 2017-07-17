@@ -5,6 +5,8 @@ Template Name: Cart
 
 get_header(); ?>
 
+<?php //print_r( $_SESSION ); ?>
+
 <div class="container">
 	<div class="row">
 		<aside class="col-md-3">
@@ -27,67 +29,56 @@ get_header(); ?>
 			</div>
 
 			<div class="row cart-product-list inner-catalogue inner-ext-product-items">
-				<div class="col-md-9">
+				<div class="col-md-10">
 					<div class="product-item">
-						<div class="row">
+						<div class="flex-row">
 							<div class="col-md-2">
 								<div class="div-as-table">
 									<div class="div-as-table-cell">
-										<img src="http://placehold.it/100x100">
+										<img src="<?php echo $_SESSION['productThumb']; ?>">
 									</div>
 								</div>
 							</div>
 							
 							<div class="col-md-7">
-								<div class="div-as-table">
-									<div class="div-as-table-cell">
-										<h6><a href="#"><?php echo $_SESSION['productTitle']; ?></a></h6>
-										<div class="row">
-											<div class="col-md-6">
-												<ul class="default text-left">
-													<li>Артикул: </li>
-													<li>Бренд: </li>
-												</ul>
-											</div>
-											<div class="col-md-6">
-												<ul class="default text-left">
-													<li>Наличие: </li>
-													<li>Фасовка, мин.: </li>
-												</ul>
-											</div>
-										</div>
-										<p><a href="#">Подробнее</a> <i class="fa fa-angle-right"></i></p>
+								<div class="flex-row">
+									<div class="col-md-12">
+										<h6 class="text-left">
+											<a href="<?php echo $_SESSION['productLink']; ?>"><?php echo $_SESSION['productTitle']; ?></a>
+										</h6>
+									</div>
+								</div>
+								<div class="flex-row">
+									<div class="col-md-6">
+										<ul class="default text-left">
+											<li>Артикул: <span><?php echo $_SESSION['productArticle']; ?></span></li>
+											<li>Бренд: <span><?php echo $_SESSION['productBrand']; ?></span></li>
+										</ul>
+									</div>
+									<div class="col-md-6">
+										<ul class="default text-left">
+											<li>Наличие: <span><?php echo $_SESSION['productAvailability']; ?></span></li>
+											<li>Фасовка, мин.: <span><?php echo $_SESSION['productPacking']; ?></span></li>
+										</ul>
 									</div>
 								</div>
 							</div>
 							
 							<div class="col-md-3">
-								<div class="div-as-table">
-									<div class="div-as-table-row">
-										<div class="div-as-table-cell">
-											<p class="price"><strong>Цена: </strong></p>
-										</div>
+								<div class="flex-row">
+									<p class="price"><strong>Цена: <span><?php echo $_SESSION['productPrice']; ?></span></strong></p>
+									<div class="input-group">
+										<span class="input-group-addon">Кол-во:</span>
+										<input type="number" name="amount" value="<?php echo $_SESSION['productAmount']; ?>" class="form-control">
 									</div>
-									<div class="div-as-table-row">
-										<div class="div-as-table-cell">
-											<div class="input-group">
-												<span class="input-group-addon">Кол-во:</span>
-												<input type="number" name="amount" value="" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="div-as-table-row">
-										<div class="div-as-table-cell">
-											<button type="button" class="btn btn-default"><i class="fa fa-close"></i></button>
-										</div>
-									</div>
+									<button type="button" class="btn btn-default"><i class="fa fa-close"></i></button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<div class="cart-common-data">
 						<p><strong>Итого: </strong> ...</p>
 						<button type="button" class="unfold-btn btn btn-default">Загрузить документы</button>
