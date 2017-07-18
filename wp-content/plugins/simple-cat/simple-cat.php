@@ -184,29 +184,54 @@ function simple_cat_scripts() {
 		)
 	);
 	wp_enqueue_script( 'simple-cat-ajax' );
+	
+	//wp_register_script( 'jquery-cookie', '//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', array( 'jquery' ), '1.4.1', true );
+	//wp_enqueue_script( 'jquery-cookie' );
 }
 add_action( 'wp_enqueue_scripts', 'simple_cat_scripts' );
 
+//
+
 function simple_cat_ajax() {
+	global $wpdb;
 	$nonce = $_REQUEST['nonce'];
-	
+
 	if ( ! wp_verify_nonce( $nonce, 'simple-cat-nonce' ) ) {
 		wp_die();
 	} else {
 		ini_set( 'session.use_strict_mode', 1 ); // must work!
 		svwp_sessions();
-		session_name( 'orderParameters' ); // must work!
+		$_SESSION['randomNum'] = rand();
+		
+		$customerRandomNum = $_SESSION['randomNum'];
+		$productTitle = $_REQUEST['productTitle'];
+		$productLink = $_REQUEST['productLink'];
+		$productThumb = $_REQUEST['productThumb'];
+		$productArticle = $_REQUEST['article'];
+		$productBrand = $_REQUEST['brand'];
+		$productAvailability = $_REQUEST['availability'];
+		$productPacking = $_REQUEST['packing'];
+		$productPrice = $_REQUEST['price'];
+		$productAmount = $_REQUEST['amount'];
 
-		$_SESSION['productTitle'] = $_POST['productTitle'];
-		$_SESSION['productLink'] = $_POST['productLink'];
-		$_SESSION['productThumb'] = $_POST['productThumb'];
-		$_SESSION['productArticle'] = $_POST['article'];
-		$_SESSION['productBrand'] = $_POST['brand'];
-		$_SESSION['productAvailability'] = $_POST['availability'];
-		$_SESSION['productPacking'] = $_POST['packing'];
-		$_SESSION['productPrice'] = $_POST['price'];
-		$_SESSION['productAmount'] = $_POST['amount'];
-		//header( 'Location: ' . home_url('/') . 'korzina' );
+		$wpdb->insert(
+			'svwp_cart',
+			array(
+				'customer_id' => $customerRandomNum,
+				'product_title' => $productTitle,
+				'product_link' => $productLink,
+				'product_thumb' => $productThumb,
+				'product_article' => $productArticle,
+				'product_brand' => $productBrand,
+				'product_availability' => $productAvailability,
+				'product_packing' => $productPacking,
+				'product_price' => $productPrice,
+				'product_amount' => $productAmount
+			),
+			array( '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d' )
+		);
+		
+		$wpdb->show_errors();
 	}
 }
 

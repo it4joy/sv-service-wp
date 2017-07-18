@@ -1,8 +1,13 @@
 jQuery(document).ready(function($) {
 	var cartVal = 0;
-	
+	var btnCartState = 0;
+
 	$(".btn-cart").on("click", function() {
 		var productMainData = $(this).parents(".product-main");
+		cartVal++;
+		btnCartState++;
+		//alert("yes");
+
 		$.ajax({
 			method: "POST",
 			url: simple_cat_ajax.ajax_url,
@@ -18,9 +23,22 @@ jQuery(document).ready(function($) {
 				productTitle: $(productMainData).find(".product-title").val(),
 				productThumb: $(productMainData).find(".product-thumb").val(),
 				productLink: $(productMainData).find(".product-link").val()
+			},
+			success: function() {
+				//$("#success-modal").modal("show");
+				alert("Продукт успешно добавлен");
+			},
+			error: function() {
+				//$("#failure-modal").modal("show");
+				alert("Произошла ошибка");
 			}
 		});
-		cartVal++;
-		$(".navbar-right .badge").text(cartVal);
+
+		/* if ( btnCartState > 1 ) {
+			alert("Продукт уже есть в корзине.");
+			return false;
+		} else {
+			
+		} */
 	});
 });

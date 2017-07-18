@@ -5,8 +5,6 @@ Template Name: Cart
 
 get_header(); ?>
 
-<?php //print_r( $_SESSION ); ?>
-
 <div class="container">
 	<div class="row">
 		<aside class="col-md-3">
@@ -29,7 +27,7 @@ get_header(); ?>
 			</div>
 
 			<div class="row cart-product-list inner-catalogue inner-ext-product-items">
-				<div class="col-md-10">
+				<div class="col-md-9">
 					<div class="product-item">
 						<div class="flex-row">
 							<div class="col-md-2">
@@ -78,10 +76,10 @@ get_header(); ?>
 					</div>
 				</div>
 
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<div class="cart-common-data">
-						<p><strong>Итого: </strong> ...</p>
-						<button type="button" class="unfold-btn btn btn-default">Загрузить документы</button>
+						<p><strong>Итого: </strong> </p>
+						<button type="button" class="unfold-btn btn btn-default btn-upload">Загрузить документы</button>
 						<div class="upload-form hidden-block">
 							<p>Допустимые форматы: изображения, .pdf, .doc</p>
 							<form enctype="multipart/form-data" method="post">
@@ -90,7 +88,7 @@ get_header(); ?>
 								<button type="submit" class="btn btn-default">Загрузить</button>
 							</form>
 						</div>
-						<a href="#preorder-form" class="btn-order btn btn-primary" data-toggle="modal">Оформить предзаказ</a>
+						<a href="#preorder-form" class="btn-order btn btn-primary btn-preorder" data-toggle="modal">Оформить предзаказ</a>
 						<p><a href="#" class="link-cart-clear">Очистить корзину</a></p>
 					</div>
 				</div>
