@@ -201,9 +201,8 @@ function simple_cat_ajax() {
 	} else {
 		ini_set( 'session.use_strict_mode', 1 ); // must work!
 		svwp_sessions();
-		$_SESSION['randomNum'] = rand();
-		
-		$customerRandomNum = $_SESSION['randomNum'];
+
+		$customerRandomNum = session_id();
 		$productTitle = $_REQUEST['productTitle'];
 		$productLink = $_REQUEST['productLink'];
 		$productThumb = $_REQUEST['productThumb'];
@@ -217,7 +216,7 @@ function simple_cat_ajax() {
 		$wpdb->insert(
 			'svwp_cart',
 			array(
-				'customer_id' => $customerRandomNum,
+				'customer_id' => (string) $customerRandomNum,
 				'product_title' => $productTitle,
 				'product_link' => $productLink,
 				'product_thumb' => $productThumb,
@@ -228,7 +227,7 @@ function simple_cat_ajax() {
 				'product_price' => $productPrice,
 				'product_amount' => $productAmount
 			),
-			array( '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d' )
+			array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d' )
 		);
 		
 		$wpdb->show_errors();
@@ -239,3 +238,16 @@ if ( wp_doing_ajax() ) {
 	add_action('wp_ajax_nopriv_sc_ajax', 'simple_cat_ajax' );
 	add_action('wp_ajax_sc_ajax', 'simple_cat_ajax' );
 }
+
+//
+
+/* function check_customer() {
+	global $wpdb;
+	$customerId = $wpdb->get_var( $wpdb->prepare("SELECT * FROM $wpdb->svwp_cart WHERE customer_id = $_SESSION['randomNum']") );
+	if ($customerId) return true;
+}
+
+function get_selected_products() {
+	global $wpdb;
+	global $selectedProducts = $wpdb->get_results("SELECT * FROM $wpdb->svwp_cart WHERE customer_id = $_SESSION['randomNum']");
+} */

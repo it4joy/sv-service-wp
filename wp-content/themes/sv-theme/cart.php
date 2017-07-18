@@ -28,12 +28,25 @@ get_header(); ?>
 
 			<div class="row cart-product-list inner-catalogue inner-ext-product-items">
 				<div class="col-md-9">
+					<?php
+						$sessionId = session_id();
+						$sessionId = (string) $sessionId;
+						
+						global $wpdb;
+
+						$customerId = $wpdb->get_results("SELECT customer_id FROM svwp_cart WHERE customer_id = '".$sessionId."'");
+
+						if ( $customerId ) {
+							$selectedProducts = $wpdb->get_results("SELECT * FROM svwp_cart WHERE customer_id = '".$sessionId."'");
+
+							foreach ( $selectedProducts as $selectedProduct ) {
+					?>
 					<div class="product-item">
 						<div class="flex-row">
 							<div class="col-md-2">
 								<div class="div-as-table">
 									<div class="div-as-table-cell">
-										<img src="<?php echo $_SESSION['productThumb']; ?>">
+										<img src="<?php echo $selectedProduct->product_thumb; ?>">
 									</div>
 								</div>
 							</div>
@@ -42,21 +55,21 @@ get_header(); ?>
 								<div class="flex-row">
 									<div class="col-md-12">
 										<h6 class="text-left">
-											<a href="<?php echo $_SESSION['productLink']; ?>"><?php echo $_SESSION['productTitle']; ?></a>
+											<a href="<?php echo $selectedProduct->product_link; ?>"><?php echo $selectedProduct->product_title; ?></a>
 										</h6>
 									</div>
 								</div>
 								<div class="flex-row">
 									<div class="col-md-6">
 										<ul class="default text-left">
-											<li>Артикул: <span><?php echo $_SESSION['productArticle']; ?></span></li>
-											<li>Бренд: <span><?php echo $_SESSION['productBrand']; ?></span></li>
+											<li>Артикул: <span><?php echo $selectedProduct->product_article; ?></span></li>
+											<li>Бренд: <span><?php echo $selectedProduct->product_brand; ?></span></li>
 										</ul>
 									</div>
 									<div class="col-md-6">
 										<ul class="default text-left">
-											<li>Наличие: <span><?php echo $_SESSION['productAvailability']; ?></span></li>
-											<li>Фасовка, мин.: <span><?php echo $_SESSION['productPacking']; ?></span></li>
+											<li>Наличие: <span><?php echo $selectedProduct->product_availability; ?></span></li>
+											<li>Фасовка, мин.: <span><?php echo $selectedProduct->product_packing; ?></span></li>
 										</ul>
 									</div>
 								</div>
@@ -64,16 +77,22 @@ get_header(); ?>
 							
 							<div class="col-md-3">
 								<div class="flex-row">
-									<p class="price"><strong>Цена: <span><?php echo $_SESSION['productPrice']; ?></span></strong></p>
+									<p class="price"><strong>Цена: <span><?php echo $selectedProduct->product_price; ?></span></strong></p>
 									<div class="input-group">
 										<span class="input-group-addon">Кол-во:</span>
-										<input type="number" name="amount" value="<?php echo $_SESSION['productAmount']; ?>" class="form-control">
+										<input type="number" name="amount" value="<?php echo $selectedProduct->product_amount; ?>" class="form-control">
 									</div>
 									<button type="button" class="btn btn-default"><i class="fa fa-close"></i></button>
 								</div>
 							</div>
 						</div>
 					</div>
+					<?php
+							}
+						} else {
+							wp_die();
+						}
+					?>
 				</div>
 
 				<div class="col-md-3">
