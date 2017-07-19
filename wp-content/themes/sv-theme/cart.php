@@ -31,8 +31,7 @@ get_header(); ?>
 					<?php
 						$sessionId = session_id();
 						$sessionId = (string) $sessionId;
-						
-						global $wpdb;
+						echo $sessionId;
 
 						$customerId = $wpdb->get_results("SELECT customer_id FROM svwp_cart WHERE customer_id = '".$sessionId."'");
 
@@ -62,14 +61,14 @@ get_header(); ?>
 								<div class="flex-row">
 									<div class="col-md-6">
 										<ul class="default text-left">
-											<li>Артикул: <span><?php echo $selectedProduct->product_article; ?></span></li>
-											<li>Бренд: <span><?php echo $selectedProduct->product_brand; ?></span></li>
+											<li class="article">Артикул: <span><?php echo $selectedProduct->product_article; ?></span></li>
+											<li class="brand">Бренд: <span><?php echo $selectedProduct->product_brand; ?></span></li>
 										</ul>
 									</div>
 									<div class="col-md-6">
 										<ul class="default text-left">
-											<li>Наличие: <span><?php echo $selectedProduct->product_availability; ?></span></li>
-											<li>Фасовка, мин.: <span><?php echo $selectedProduct->product_packing; ?></span></li>
+											<li class="availability">Наличие: <span><?php echo $selectedProduct->product_availability; ?></span></li>
+											<li class="packing">Фасовка, мин.: <span><?php echo $selectedProduct->product_packing; ?></span></li>
 										</ul>
 									</div>
 								</div>
@@ -82,7 +81,7 @@ get_header(); ?>
 										<span class="input-group-addon">Кол-во:</span>
 										<input type="number" name="amount" value="<?php echo $selectedProduct->product_amount; ?>" class="form-control">
 									</div>
-									<button type="button" class="btn btn-default"><i class="fa fa-close"></i></button>
+									<button type="button" class="btn btn-default btn-delete"><i class="fa fa-close"></i></button>
 								</div>
 							</div>
 						</div>
@@ -90,7 +89,11 @@ get_header(); ?>
 					<?php
 							}
 						} else {
-							wp_die();
+					?>
+					
+					<p class="msg-empty-cart">Корзина пуста. Добавьте товары в Вашу корзину :)</p>
+					
+					<?php
 						}
 					?>
 				</div>

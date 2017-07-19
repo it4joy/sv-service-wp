@@ -184,13 +184,12 @@ function simple_cat_scripts() {
 		)
 	);
 	wp_enqueue_script( 'simple-cat-ajax' );
-	
-	//wp_register_script( 'jquery-cookie', '//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', array( 'jquery' ), '1.4.1', true );
-	//wp_enqueue_script( 'jquery-cookie' );
 }
 add_action( 'wp_enqueue_scripts', 'simple_cat_scripts' );
 
-//
+// Interaction with DB;
+
+global $sessionId;
 
 function simple_cat_ajax() {
 	global $wpdb;
@@ -199,38 +198,65 @@ function simple_cat_ajax() {
 	if ( ! wp_verify_nonce( $nonce, 'simple-cat-nonce' ) ) {
 		wp_die();
 	} else {
+		$wpdb->show_errors(); // tmp;
 		ini_set( 'session.use_strict_mode', 1 ); // must work!
 		svwp_sessions();
 
-		$customerRandomNum = session_id();
-		$productTitle = $_REQUEST['productTitle'];
-		$productLink = $_REQUEST['productLink'];
-		$productThumb = $_REQUEST['productThumb'];
-		$productArticle = $_REQUEST['article'];
-		$productBrand = $_REQUEST['brand'];
-		$productAvailability = $_REQUEST['availability'];
-		$productPacking = $_REQUEST['packing'];
-		$productPrice = $_REQUEST['price'];
-		$productAmount = $_REQUEST['amount'];
-
-		$wpdb->insert(
-			'svwp_cart',
-			array(
-				'customer_id' => (string) $customerRandomNum,
-				'product_title' => $productTitle,
-				'product_link' => $productLink,
-				'product_thumb' => $productThumb,
-				'product_article' => $productArticle,
-				'product_brand' => $productBrand,
-				'product_availability' => $productAvailability,
-				'product_packing' => $productPacking,
-				'product_price' => $productPrice,
-				'product_amount' => $productAmount
-			),
-			array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d' )
-		);
+		$sessionId = session_id();
+		$sessionId = (string) $sessionId;
 		
-		$wpdb->show_errors();
+		if ( $_REQUEST['actionType'] == 'adding' ) {
+			$customerRandomNum = session_id();
+			$productTitle = $_REQUEST['productTitle'];
+			$productLink = $_REQUEST['productLink'];
+			$productThumb = $_REQUEST['productThumb'];
+			$productArticle = $_REQUEST['article'];
+			$productBrand = $_REQUEST['brand'];
+			$productAvailability = $_REQUEST['availability'];
+			$productPacking = $_REQUEST['packing'];
+			$productPrice = $_REQUEST['price'];
+			$productAmount = $_REQUEST['amount'];
+
+			$wpdb->insert(
+				'svwp_cart',
+				array(
+					'customer_id' => (string) $customerRandomNum,
+					'product_title' => $productTitle,
+					'product_link' => $productLink,
+					'product_thumb' => $productThumb,
+					'product_article' => $productArticle,
+					'product_brand' => $productBrand,
+					'product_availability' => $productAvailability,
+					'product_packing' => $productPacking,
+					'product_price' => $productPrice,
+					'product_amount' => $productAmount
+				),
+				array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d' )
+			);
+		} elseif ( $_REQUEST['actionType'] == 'delete' ) {
+			$productArticle = $_REQUEST['article'];
+			$customerId = $wpdb->get_results("SELECT customer_id FROM svwp_cart WHERE customer_id = '".$sessionId."'");
+			
+			if ( $customerId ) {
+				$wpdb->delete( 'svwp_cart', array( 'product_article' => $productArticle ) );
+			} else {
+				wp_die();
+			}
+		} elseif ( $_REQUEST['actionType'] == 'deleteAll' ) {
+			$articles = $_REQUEST['articles'];
+			$articlesArr = explode(", ", $articles);
+
+			$customerId = $wpdb->get_results("SELECT customer_id FROM svwp_cart WHERE customer_id = '".$sessionId."'");
+
+			if ( $customerId ) {
+				foreach ( $articlesArr as $articlesArrEl ) {
+					$wpdb->delete( 'svwp_cart', array( 'product_article' => $articlesArrEl ) );
+				}
+			} else {
+				wp_die();
+			}
+		}
+
 	}
 }
 
@@ -238,16 +264,3 @@ if ( wp_doing_ajax() ) {
 	add_action('wp_ajax_nopriv_sc_ajax', 'simple_cat_ajax' );
 	add_action('wp_ajax_sc_ajax', 'simple_cat_ajax' );
 }
-
-//
-
-/* function check_customer() {
-	global $wpdb;
-	$customerId = $wpdb->get_var( $wpdb->prepare("SELECT * FROM $wpdb->svwp_cart WHERE customer_id = $_SESSION['randomNum']") );
-	if ($customerId) return true;
-}
-
-function get_selected_products() {
-	global $wpdb;
-	global $selectedProducts = $wpdb->get_results("SELECT * FROM $wpdb->svwp_cart WHERE customer_id = $_SESSION['randomNum']");
-} */

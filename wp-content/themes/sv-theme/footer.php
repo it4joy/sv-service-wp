@@ -317,7 +317,7 @@
 					</div>
 					<div class="modal-body">
 						<h4 class="text-center"><i class="fa fa-warning"></i></h4>
-						<h4 class="modal-title" id="myModalLabel">Произошла ошибка. Попробуйте позже.</h4>
+						<h4 class="modal-title text-center" id="myModalLabel">Произошла ошибка. Попробуйте позже.</h4>
 					</div>
 				</div>
 			</div>
