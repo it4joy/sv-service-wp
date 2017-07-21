@@ -68,6 +68,8 @@ jQuery(document).ready(function($) {
 				price = Number( price.toFixed(2) );
 
 				$(totalPrice).text(price);
+			} else {
+				$(totalPrice).text("0");
 			}
 		}
 	}, 2000);
