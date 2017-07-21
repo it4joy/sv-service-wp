@@ -40,7 +40,7 @@ get_header(); ?>
 
 							foreach ( $selectedProducts as $selectedProduct ) {
 					?>
-					<div class="product-item">
+					<div class="product-item detailed">
 						<div class="flex-row">
 							<div class="col-md-2">
 								<div class="div-as-table">
@@ -76,12 +76,12 @@ get_header(); ?>
 							
 							<div class="col-md-3">
 								<div class="flex-row">
-									<p class="price"><strong>Цена: <span><?php echo $selectedProduct->product_price; ?></span></strong></p>
+									<p class="price"><strong>Цена: <span><?php echo $selectedProduct->product_price; ?></span> руб.</strong></p>
 									<div class="input-group">
 										<span class="input-group-addon">Кол-во:</span>
 										<input type="number" name="amount" value="<?php echo $selectedProduct->product_amount; ?>" class="form-control">
 									</div>
-									<button type="button" class="btn btn-default btn-delete"><i class="fa fa-close"></i></button>
+									<button type="button" class="btn btn-default btn-delete" data-toggle="tooltip" data-placement="top" title="Удалить"><i class="fa fa-trash"></i></button>
 								</div>
 							</div>
 						</div>
@@ -100,7 +100,7 @@ get_header(); ?>
 
 				<div class="col-md-3">
 					<div class="cart-common-data">
-						<p><strong>Итого: </strong> </p>
+						<p class="total"><strong>Итого: </strong><span>0</span> руб.</p>
 						<button type="button" class="unfold-btn btn btn-default btn-upload">Загрузить документы</button>
 						<div class="upload-form hidden-block">
 							<p>Допустимые форматы: изображения, .pdf, .doc</p>

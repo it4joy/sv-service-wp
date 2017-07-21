@@ -49,7 +49,7 @@ get_header(); ?>
 								setup_postdata($post);
 					?>
 
-					<div class="product-item">
+					<div class="product-item detailed">
 						<div class="flex-row">
 							<div class="col-sm-2 col-xs-3">
 								<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="">
@@ -60,10 +60,10 @@ get_header(); ?>
 								<div class="flex-row align-items-bottom">
 									<div class="col-xs-8 no-padding">
 										<ul class="default text-left">
-											<li>Артикул: <?php echo get_post_meta( $post->ID, 'art', true ); ?></li>
-											<li>Бренд: <?php echo $brand->name; ?></li>
-											<li>Наличие: <?php echo get_post_meta( $post->ID, 'available', true ); ?></li>
-											<li>Фасовка, мин.: <?php echo get_post_meta( $post->ID, 'packing', true ); ?></li>
+											<li class="article">Артикул: <span><?php echo get_post_meta( $post->ID, 'art', true ); ?></span></li>
+											<li class="brand">Бренд: <span><?php echo $brand->name; ?></span></li>
+											<li class="availability">Наличие: <span><?php echo get_post_meta( $post->ID, 'available', true ); ?></span></li>
+											<li class="packing">Фасовка, мин.: <span><?php echo get_post_meta( $post->ID, 'packing', true ); ?></span></li>
 										</ul>
 									</div>
 									<div class="col-xs-4">
@@ -73,12 +73,12 @@ get_header(); ?>
 							</div>
 							
 							<div class="col-sm-3 col-xs-8">
-								<p class="price"><?php echo get_post_meta( $post->ID, 'price', true ); ?></p>
+								<p class="price">Цена: <span><?php echo get_post_meta( $post->ID, 'price', true ); ?></span> руб.</p>
 								<div class="input-group">
 									<span class="input-group-addon">Кол-во:</span>
-									<input type="number" name="amount" class="form-control">
+									<input type="number" name="amount" value="0" class="form-control">
 								</div>
-								<button type="button" class="btn btn-default">В корзину</button>
+								<button type="button" class="btn btn-default btn-cart">В корзину</button>
 							</div>
 						</div>
 					</div>

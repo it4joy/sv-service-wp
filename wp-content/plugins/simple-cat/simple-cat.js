@@ -1,9 +1,24 @@
 jQuery(document).ready(function($) {
+	var currentHref = window.location.href;
+	
 	var cartVal = 0;
 	var btnCartCounter = 0;
+	
+	var cartCommonData = $(".cart-common-data");
+	var totalPrice = $(cartCommonData).find(".total span");
+	
+	// adding;
 
 	$(".btn-cart").on("click", function() {
-		var productMainData = $(this).parents(".product-main");
+		var productMainData;
+		
+		if ( $("div").is(".product-main") ) {
+			productMainData = $(this).parents(".product-main");
+		} else if ( $("div").is(".product-item.detailed") ) {
+			productMainData = $(this).parents(".product-item.detailed");
+		}
+
+		//var productMainData = $(this).parents(".product-main");
 		cartVal++;
 		btnCartCounter++;
 		
@@ -39,10 +54,26 @@ jQuery(document).ready(function($) {
 				$("#failure-modal").modal("show");
 			}
 		});
-
-		
 	});
 	
+	var cartPageCheck = setInterval(function() {
+		if ( currentHref.indexOf("korzina") !== -1 ) {
+			if ( $("div").is(".detailed") ) {
+				var price = 0;
+
+				$(".product-item.detailed").each(function() {
+					price = price + Number( $(this).find(".price span").text() );
+				});
+
+				price = Number( price.toFixed(2) );
+
+				$(totalPrice).text(price);
+			}
+		}
+	}, 2000);
+
+	// delete;
+
 	$(".btn-delete").on("click", function() {
 		var productItem = $(this).parents(".product-item");
 		
@@ -71,6 +102,8 @@ jQuery(document).ready(function($) {
 			}
 		});
 	});
+	
+	// deleteAll;
 	
 	$(".link-cart-clear").on("click", function(e) {
 		e.preventDefault();

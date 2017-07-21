@@ -53,7 +53,7 @@ get_header(); ?>
 							<div class="flex-row product-main align-items-top">
 								<div class="col-xs-6">
 									<ul>
-										<li class="price">Цена: <span><?php $price = get_post_meta( $post->ID, 'price', true ); echo $price; ?></span></li>
+										<li class="price">Цена: <span><?php $price = get_post_meta( $post->ID, 'price', true ); echo $price; ?></span> руб.</li>
 										<li class="article">Артикул: <span><?php $article = get_post_meta( $post->ID, 'art', true ); echo $article; ?></span></li>
 										<li class="brand">Бренд: <span><?php $brandName = $brand->name; echo $brandName; ?></span></li>
 										<li class="availability">Наличие: <span><?php $availability = get_post_meta( $post->ID, 'available', true ); echo $availability; ?></span></li>
@@ -66,7 +66,7 @@ get_header(); ?>
 								<div class="col-xs-6">
 									<div class="input-group">
 										<span class="input-group-addon">Кол-во:</span>
-										<input type="number" name="amount" class="form-control products-amount">
+										<input type="number" name="amount" value="0" class="form-control products-amount">
 									</div>
 									<button type="button" class="btn btn-default btn-cart">В корзину</button>
 									<div class="ask-question">
