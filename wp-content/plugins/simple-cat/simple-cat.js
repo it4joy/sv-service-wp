@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 	
 	var cartCommonData = $(".cart-common-data");
 	var totalPrice = $(cartCommonData).find(".total span");
-	
+
 	// adding;
 
 	$(".btn-cart").on("click", function() {
@@ -49,9 +49,14 @@ jQuery(document).ready(function($) {
 				$("#success-modal").find(".modal-title").text("Продукт успешно добавлен");
 				$("#success-modal").modal("show");
 			},
-			error: function() {
-				$("#failure-modal").find(".modal-title").text("Произошла ошибка");
-				$("#failure-modal").modal("show");
+			error: function(request, status, error) {
+				if (request.status == 500) {
+					$("#failure-modal").find(".modal-title").text("Данный продукт уже был добавлен");
+					$("#failure-modal").modal("show");
+				} else {
+					$("#failure-modal").find(".modal-title").text("Произошла ошибка");
+					$("#failure-modal").modal("show");
+				}
 			}
 		});
 	});
@@ -139,6 +144,33 @@ jQuery(document).ready(function($) {
 					$("#failure-modal").modal("show");
 				}
 			});
+		} else {
+			return false;
+		}
+	});
+	
+	// preorder;
+	$(".btn-preorder").on("click", function() {
+		var preorderForm = $("#preorder-form form");
+		
+		if ( $("tr").is(".product-data-row") ) {
+			$(".product-data-row").remove();
+		}
+
+		if ( $("div").is(".detailed") ) {
+			$(".product-item.detailed").each(function() {
+				var preorderTitle = $(this).find("h6 a").text();
+				var preorderPrice = $(this).find(".price span").text();
+				$("#preorder-form table .heading").after("<tr class='product-data-row'><td>" + preorderTitle + "</td><td>" + preorderPrice + "</td></tr>");
+			});
+		} else {
+			return false;
+		}
+		
+		var currentTotal = Number( totalPrice.text() );
+		
+		if ( currentTotal > 0 ) {
+			$("#preorder-form table .total span").text(currentTotal);
 		} else {
 			return false;
 		}

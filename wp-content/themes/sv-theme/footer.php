@@ -252,21 +252,29 @@
 					</div>
 					<div class="modal-body">
 						<h6>Ваш заказ</h6>
+						<!--
 						<table class="table table-hover">
 							<tr>
 								<th>Продукт</th>
 								<th>Стоимость</th>
-							</tr>
-							<tr>
-								<td>Одноразовые велюровые тапочки Бизнес 5,5 мм x 1</td>
-								<td>80,52 руб.</td>
 							</tr>
 							<tr class="info">
 								<td>Итого:</td>
 								<td>80,52 руб.</td>
 							</tr>
 						</table>
-						<form method="post" action="" class="form-horizontal">
+						-->
+						<table class="table table-hover">
+							<tr class="heading">
+								<th>Продукт</th>
+								<th>Стоимость</th>
+							</tr>
+							<tr class="info">
+								<td>Итого:</td>
+								<td class="total"><span></span> руб.</td>
+							</tr>
+						</table>
+						<form method="" action="" class="form-horizontal">
 							<div class="form-group">
 								<label for="fullname" class="col-md-2 control-label">Имя</label>
 								<div class="col-md-10">
@@ -279,6 +287,15 @@
 									<input type="number" name="phone" class="form-control" id="phone4" 
 									pattern="[0-9]{,11}" 
 									placeholder="Мобильный номер, только цифры" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-10 col-md-offset-2">
+									<div class="checkbox">
+										<label class="checkbox">
+											<input type="checkbox" name="agreement" value="yes" id="agreement4" required> Согласие на обработку персональных данных
+										</label>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">

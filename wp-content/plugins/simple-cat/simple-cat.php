@@ -203,10 +203,10 @@ function simple_cat_ajax() {
 		svwp_sessions();
 
 		$sessionId = session_id();
-		$sessionId = (string) $sessionId;
-		
+		//$sessionId = (string) $sessionId;
+
 		if ( $_REQUEST['actionType'] == 'adding' ) {
-			$customerRandomNum = session_id();
+			//$customerRandomSequence = $sessionId;
 			$productTitle = $_REQUEST['productTitle'];
 			$productLink = $_REQUEST['productLink'];
 			$productThumb = $_REQUEST['productThumb'];
@@ -217,22 +217,30 @@ function simple_cat_ajax() {
 			$productPrice = $_REQUEST['price'];
 			$productAmount = $_REQUEST['amount'];
 
-			$wpdb->insert(
-				'svwp_cart',
-				array(
-					'customer_id' => (string) $customerRandomNum,
-					'product_title' => $productTitle,
-					'product_link' => $productLink,
-					'product_thumb' => $productThumb,
-					'product_article' => $productArticle,
-					'product_brand' => $productBrand,
-					'product_availability' => $productAvailability,
-					'product_packing' => $productPacking,
-					'product_price' => $productPrice,
-					'product_amount' => $productAmount
-				),
-				array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d' )
-			);
+			$checkingArticle = $wpdb->get_results("SELECT product_article FROM svwp_cart WHERE customer_id = '".$sessionId."' AND product_article = '".$productArticle."'");
+
+			if ( !$checkingArticle ) {
+				$wpdb->insert(
+					'svwp_cart',
+					array(
+						//'customer_id' => $customerRandomSequence,
+						'customer_id' => $sessionId,
+						'product_title' => $productTitle,
+						'product_link' => $productLink,
+						'product_thumb' => $productThumb,
+						'product_article' => $productArticle,
+						'product_brand' => $productBrand,
+						'product_availability' => $productAvailability,
+						'product_packing' => $productPacking,
+						'product_price' => $productPrice,
+						'product_amount' => $productAmount
+					),
+					array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d' )
+				);
+			} else {
+				//wp_die();
+				header('HTTP/1.1 500 There is already exists a record with proposed values in DB');
+			}
 		} elseif ( $_REQUEST['actionType'] == 'delete' ) {
 			$productArticle = $_REQUEST['article'];
 			$customerId = $wpdb->get_results("SELECT customer_id FROM svwp_cart WHERE customer_id = '".$sessionId."'");
