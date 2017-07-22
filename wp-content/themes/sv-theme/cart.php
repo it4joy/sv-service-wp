@@ -110,7 +110,7 @@ get_header(); ?>
 								<button type="submit" class="btn btn-default">Загрузить</button>
 							</form>
 						</div>
-						<a href="#preorder-form" class="btn-order btn btn-primary btn-preorder" data-toggle="modal">Оформить предзаказ</a>
+						<a href="#preorder-form" class="btn btn-primary btn-preorder" data-toggle="modal">Оформить предзаказ</a>
 						<p><a href="#" class="link-cart-clear">Очистить корзину</a></p>
 					</div>
 				</div>

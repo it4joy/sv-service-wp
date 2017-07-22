@@ -263,6 +263,36 @@ function simple_cat_ajax() {
 			} else {
 				wp_die();
 			}
+		} elseif ( $_REQUEST['actionType'] == 'sendPreorder' ) {
+			if ( !empty( $_REQUEST['agreement'] ) ) {
+				$headers  = "Content-Type: text/html; charset=utf-8\n";
+				$headers .= "From: " . $_REQUEST['name'];
+				$to = 'drkierkegor@gmail.com';
+				$subject = 'Предзаказ на продукты';
+				$productsStr = $_REQUEST['productsTableStr'];
+				$total = $_REQUEST['total'];
+				$name = $_REQUEST['name'];
+				$phone = $_REQUEST['phone'];
+				
+				$productsArr = explode( ", ", $productsStr );
+				
+				$productsGroup;
+				
+				foreach ( $productsArr as $productsArrEl ) {
+					$productsGroup = $productsGroup . "<br>" . $productsArrEl;
+				}
+
+				$msg = "<html><body>
+							<p><strong>Имя:</strong> ".$name."</p>
+							<p><strong>Телефон:</strong> ".$phone."</p>
+							<p>Предзаказ на продукты</p>
+							<div>".$productsGroup."</div>
+						</body></html>";
+
+				mail($to, $subject, $msg, $headers);
+			} else {
+				wp_die();
+			}
 		}
 
 	}

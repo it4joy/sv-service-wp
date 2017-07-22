@@ -7,6 +7,8 @@ jQuery(document).ready(function($) {
 	var cartCommonData = $(".cart-common-data");
 	var totalPrice = $(cartCommonData).find(".total span");
 
+	var productsTableStr;
+
 	// adding;
 
 	$(".btn-cart").on("click", function() {
@@ -149,9 +151,10 @@ jQuery(document).ready(function($) {
 		}
 	});
 	
-	// preorder;
+	// preorder start;
+
 	$(".btn-preorder").on("click", function() {
-		var preorderForm = $("#preorder-form form");
+		var productsTableArr = [];
 		
 		if ( $("tr").is(".product-data-row") ) {
 			$(".product-data-row").remove();
@@ -160,12 +163,21 @@ jQuery(document).ready(function($) {
 		if ( $("div").is(".detailed") ) {
 			$(".product-item.detailed").each(function() {
 				var preorderTitle = $(this).find("h6 a").text();
+				var productArticle = $(this).find(".article span").text();
+				var preorderAmount = $(this).find("input[name='amount']").val();
 				var preorderPrice = $(this).find(".price span").text();
-				$("#preorder-form table .heading").after("<tr class='product-data-row'><td>" + preorderTitle + "</td><td>" + preorderPrice + "</td></tr>");
+				
+				var productsTableRow = preorderTitle + " / " + productArticle + " / " + preorderAmount + " / " + preorderPrice;
+				productsTableArr.push(productsTableRow);
+				
+				$("#preorder-form table .heading").after("<tr class='product-data-row'><td>" + preorderTitle + "</td><td>" + productArticle + "</td><td>" + preorderAmount + "</td><td>" + preorderPrice + "</td></tr>");
 			});
 		} else {
 			return false;
 		}
+		
+		productsTableStr = productsTableArr.join(", ");
+		console.log(productsTableStr);
 		
 		var currentTotal = Number( totalPrice.text() );
 		
@@ -174,5 +186,39 @@ jQuery(document).ready(function($) {
 		} else {
 			return false;
 		}
+	});
+
+	// final preorder form;
+
+	$("#preorder-form-ajax").on("submit", function(e) {
+		e.preventDefault();
+
+		var $form = $(this);
+
+		$.ajax({
+			method: "POST",
+			url: simple_cat_ajax.ajax_url,
+			data: {
+				action: "sc_ajax",
+				nonce: simple_cat_ajax.nonce,
+				actionType: "sendPreorder",
+				productsTableStr: productsTableStr,
+				total: $("#preorder-form table .total span").text(),
+				name: $form.find("#fullname").val(),
+				phone: $form.find("#phone4").val(),
+				agreement: $form.find("#agreement4").val()
+			},
+			success: function() {
+				$form.trigger("reset");
+				$("#preorder-form").modal("hide");
+				$("#success-modal").find(".modal-title").text("Ваша заявка отправлена");
+				$("#success-modal").modal("show");
+			},
+			error: function() {
+				$form.trigger("reset");
+				$("#preorder-form").modal("hide");
+				$("#failure-modal").modal("show");
+			}
+		});
 	});
 });

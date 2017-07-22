@@ -703,6 +703,10 @@ p {
 	color: #ff6633;
 }
 
+.table-preorder .total span {
+	font-weight: bold;
+}
+
 /* / Content */
 
 /* jQuery UI */
