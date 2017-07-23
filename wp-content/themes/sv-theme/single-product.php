@@ -66,7 +66,7 @@ get_header(); ?>
 								<div class="col-xs-6">
 									<div class="input-group">
 										<span class="input-group-addon">Кол-во:</span>
-										<input type="number" name="amount" value="0" class="form-control products-amount">
+										<input type="number" name="amount" value="1" class="form-control products-amount">
 									</div>
 									<button type="button" class="btn btn-default btn-cart">В корзину</button>
 									<div class="ask-question">

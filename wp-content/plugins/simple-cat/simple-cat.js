@@ -49,6 +49,7 @@ jQuery(document).ready(function($) {
 			},
 			success: function() {
 				$("#success-modal").find(".modal-title").text("Продукт успешно добавлен");
+				$(".modal-title").after("<p class='text-center'><a href='/korzina/'>Перейти в корзину</a></p>");
 				$("#success-modal").modal("show");
 			},
 			error: function(request, status, error) {
@@ -63,7 +64,7 @@ jQuery(document).ready(function($) {
 		});
 	});
 	
-	var cartPageCheck = setInterval(function() {
+	var cartPageChecking = setInterval(function() {
 		if ( currentHref.indexOf("korzina") !== -1 ) {
 			if ( $("div").is(".detailed") ) {
 				var price = 0;
@@ -79,6 +80,28 @@ jQuery(document).ready(function($) {
 				$(totalPrice).text("0");
 			}
 		}
+	}, 2000);
+	
+	// top cart icon indication;
+	
+	setInterval(function() {
+		$.ajax({
+			method: "POST",
+			url: simple_cat_ajax.ajax_url,
+			//dataType: "json",
+			data: {
+				action: "sc_ajax",
+				nonce: simple_cat_ajax.nonce,
+				actionType: "checkAmount"
+			},
+			success: function(data) {
+				data = JSON.parse(data);
+				$(".navbar-right .badge").text( data.cartAmount );
+			},
+			error: function() {
+				return false;
+			}
+		});
 	}, 2000);
 
 	// delete;

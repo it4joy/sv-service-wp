@@ -287,12 +287,29 @@ function simple_cat_ajax() {
 							<p><strong>Телефон:</strong> ".$phone."</p>
 							<p>Предзаказ на продукты</p>
 							<div>".$productsGroup."</div>
+							<p><strong>Итого:</strong> ".$total."</p>
 						</body></html>";
 
 				mail($to, $subject, $msg, $headers);
 			} else {
 				wp_die();
 			}
+		} elseif ( $_REQUEST['actionType'] == 'checkAmount' ) {
+			$cartAmount = $wpdb->get_results("SELECT COUNT(product_article) AS amount FROM svwp_cart WHERE customer_id = '".$sessionId."'");
+			
+			$cartAmountTransformed;
+			
+			foreach ( $cartAmount as $cartAmountObjEl ) {
+				foreach ( $cartAmountObjEl as $cartAmountObjElEl ) {
+					$cartAmountTransformed = $cartAmountObjElEl;
+				}
+			}
+			
+			$cartAmountJSON = json_encode( array(
+				cartAmount => $cartAmountTransformed
+			) );
+			
+			echo $cartAmountJSON;
 		}
 
 	}

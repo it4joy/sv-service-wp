@@ -72,7 +72,7 @@ get_header(); ?>
 							<p class="price">Цена: <span><?php echo get_post_meta( $post->ID, 'price', true ); ?></span> руб.</p>
 							<div class="input-group">
 								<span class="input-group-addon">Кол-во:</span>
-								<input type="number" name="amount" value="0" class="form-control">
+								<input type="number" name="amount" value="1" class="form-control">
 							</div>
 							<button type="button" class="btn btn-default btn-cart">В корзину</button>
 						</div>
