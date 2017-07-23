@@ -185,8 +185,8 @@ function simple_cat_scripts() {
 	);
 	wp_enqueue_script( 'simple-cat-ajax' );
 	
-	wp_register_script( 'jquery-cookie', '//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', array( 'jquery' ), '1.4.1', true );
-	wp_enqueue_script( 'jquery-cookie' );
+	//wp_register_script( 'jquery-cookie', '//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', array( 'jquery' ), '1.4.1', true );
+	//wp_enqueue_script( 'jquery-cookie' );
 }
 add_action( 'wp_enqueue_scripts', 'simple_cat_scripts' );
 

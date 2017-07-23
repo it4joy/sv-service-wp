@@ -3,9 +3,6 @@ jQuery(document).ready(function($) {
 	
 	var cartVal = 0;
 
-	//var topCartVal = 0;
-	$.cookie("topCartVal", "0", { path: '/' });
-
 	var btnCartCounter = 0;
 
 	var cartCommonData = $(".cart-common-data");
@@ -90,16 +87,20 @@ jQuery(document).ready(function($) {
 	// top cart icon indication;
 
 	function add_unit() {
-		var cookieVal = $.cookie("topCartVal");
-		cookieValInt = parseInt(cookieVal, 10);
-		//cookieValInt++;
-		$.cookie("topCartVal", cookieValInt + 1, { path: '/' });
+		var cartVal = localStorage.getItem("topCartVal");
+		if (cartVal === null) {
+			cartVal = 0;
+		}
+		cartVal++;
+		localStorage.setItem("topCartVal", cartVal);
 	}
 
 	setInterval(function() {
-		if ( $.cookie("topCartVal") !== null ) {
-			topCartValCookie = $.cookie("topCartVal");
-			$(".navbar-right .badge").text(topCartValCookie);
+		var cartVal = localStorage.getItem("topCartVal");
+
+		if (cartVal !== null) {
+			var cartVal = localStorage.getItem("topCartVal");
+			$(".navbar-right .badge").text(cartVal);
 		} else {
 			return false;
 		}
@@ -135,11 +136,13 @@ jQuery(document).ready(function($) {
 			}
 		});
 		
-		//$.removeCookie("topCartVal");
+		var cartVal = localStorage.getItem("topCartVal");
+		cartVal--;
+		localStorage.setItem("topCartVal", cartVal);
 	});
-	
+
 	// deleteAll;
-	
+
 	$(".link-cart-clear").on("click", function(e) {
 		e.preventDefault();
 
@@ -173,8 +176,10 @@ jQuery(document).ready(function($) {
 				}
 			});
 
-			if ( $.cookie("topCartVal") ) {
-				$.removeCookie("topCartVal");
+			var cartVal = localStorage.getItem("topCartVal");
+
+			if ( cartVal !== null ) {
+				localStorage.setItem("topCartVal", 0);
 			} else {
 				return false;
 			}
