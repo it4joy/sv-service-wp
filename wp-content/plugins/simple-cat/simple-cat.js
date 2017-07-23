@@ -2,8 +2,12 @@ jQuery(document).ready(function($) {
 	var currentHref = window.location.href;
 	
 	var cartVal = 0;
+
+	//var topCartVal = 0;
+	$.cookie("topCartVal", "0", { path: '/' });
+
 	var btnCartCounter = 0;
-	
+
 	var cartCommonData = $(".cart-common-data");
 	var totalPrice = $(cartCommonData).find(".total span");
 
@@ -51,6 +55,7 @@ jQuery(document).ready(function($) {
 				$("#success-modal").find(".modal-title").text("Продукт успешно добавлен");
 				$(".modal-title").after("<p class='text-center'><a href='/korzina/'>Перейти в корзину</a></p>");
 				$("#success-modal").modal("show");
+				add_unit();
 			},
 			error: function(request, status, error) {
 				if (request.status == 500) {
@@ -63,7 +68,7 @@ jQuery(document).ready(function($) {
 			}
 		});
 	});
-	
+
 	var cartPageChecking = setInterval(function() {
 		if ( currentHref.indexOf("korzina") !== -1 ) {
 			if ( $("div").is(".detailed") ) {
@@ -81,27 +86,23 @@ jQuery(document).ready(function($) {
 			}
 		}
 	}, 2000);
-	
+
 	// top cart icon indication;
-	
+
+	function add_unit() {
+		var cookieVal = $.cookie("topCartVal");
+		cookieValInt = parseInt(cookieVal, 10);
+		//cookieValInt++;
+		$.cookie("topCartVal", cookieValInt + 1, { path: '/' });
+	}
+
 	setInterval(function() {
-		$.ajax({
-			method: "POST",
-			url: simple_cat_ajax.ajax_url,
-			//dataType: "json",
-			data: {
-				action: "sc_ajax",
-				nonce: simple_cat_ajax.nonce,
-				actionType: "checkAmount"
-			},
-			success: function(data) {
-				data = JSON.parse(data);
-				$(".navbar-right .badge").text( data.cartAmount );
-			},
-			error: function() {
-				return false;
-			}
-		});
+		if ( $.cookie("topCartVal") !== null ) {
+			topCartValCookie = $.cookie("topCartVal");
+			$(".navbar-right .badge").text(topCartValCookie);
+		} else {
+			return false;
+		}
 	}, 2000);
 
 	// delete;
@@ -133,6 +134,8 @@ jQuery(document).ready(function($) {
 				}
 			}
 		});
+		
+		//$.removeCookie("topCartVal");
 	});
 	
 	// deleteAll;
@@ -169,11 +172,17 @@ jQuery(document).ready(function($) {
 					$("#failure-modal").modal("show");
 				}
 			});
+
+			if ( $.cookie("topCartVal") ) {
+				$.removeCookie("topCartVal");
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
 	});
-	
+
 	// preorder start;
 
 	$(".btn-preorder").on("click", function() {
