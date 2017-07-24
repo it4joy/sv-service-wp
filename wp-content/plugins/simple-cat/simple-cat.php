@@ -276,6 +276,13 @@ function simple_cat_ajax() {
 				$total = $_REQUEST['total'];
 				$name = $_REQUEST['name'];
 				$phone = $_REQUEST['phone'];
+				$articles = $_REQUEST['articles'];
+				
+				$articlesArr = explode(", ", $articles);
+				
+				foreach ( $articlesArr as $articlesArrEl ) {
+					$wpdb->delete( 'svwp_cart', array( 'product_article' => $articlesArrEl ) );
+				}
 				
 				$productsArr = explode( ", ", $productsStr );
 				

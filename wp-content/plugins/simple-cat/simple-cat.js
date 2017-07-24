@@ -8,6 +8,8 @@ jQuery(document).ready(function($) {
 	var cartCommonData = $(".cart-common-data");
 	var totalPrice = $(cartCommonData).find(".total span");
 
+	var articles = [];
+
 	var productsTableStr;
 
 	// adding;
@@ -147,7 +149,6 @@ jQuery(document).ready(function($) {
 		e.preventDefault();
 
 		if ( $(".cart-product-list div").is(".product-item") ) {
-			var articles = [];
 
 			$(".cart-product-list .product-item").each(function() {
 				var article = $(this).find(".article span").text();
@@ -225,12 +226,19 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	// final preorder form;
+	// preorder final;
 
 	$("#preorder-form-ajax").on("submit", function(e) {
 		e.preventDefault();
 
 		var $form = $(this);
+
+		$(".cart-product-list .product-item").each(function() {
+			var article = $(this).find(".article span").text();
+			articles.push(article);
+		});
+
+		var articlesStr = articles.join(", ");
 
 		$.ajax({
 			method: "POST",
@@ -243,9 +251,12 @@ jQuery(document).ready(function($) {
 				total: $("#preorder-form table .total span").text(),
 				name: $form.find("#fullname").val(),
 				phone: $form.find("#phone4").val(),
-				agreement: $form.find("#agreement4").val()
+				agreement: $form.find("#agreement4").val(),
+				articles: articlesStr
 			},
 			success: function() {
+				$(".cart-product-list .product-item").detach();
+				localStorage.setItem("topCartVal", 0);
 				$form.trigger("reset");
 				$("#preorder-form").modal("hide");
 				$("#success-modal").find(".modal-title").text("Ваша заявка отправлена");
