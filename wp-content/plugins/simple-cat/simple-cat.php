@@ -185,8 +185,8 @@ function simple_cat_scripts() {
 	);
 	wp_enqueue_script( 'simple-cat-ajax' );
 	
-	//wp_register_script( 'jquery-cookie', '//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', array( 'jquery' ), '1.4.1', true );
-	//wp_enqueue_script( 'jquery-cookie' );
+	wp_register_script( 'jquery-cookie', '//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', array( 'jquery' ), '1.4.1', true );
+	wp_enqueue_script( 'jquery-cookie' );
 }
 add_action( 'wp_enqueue_scripts', 'simple_cat_scripts' );
 
@@ -284,21 +284,76 @@ function simple_cat_ajax() {
 					$wpdb->delete( 'svwp_cart', array( 'product_article' => $articlesArrEl ) );
 				}
 				
+				//
+				
 				$productsArr = explode( ", ", $productsStr );
 				
-				$productsGroup;
+				$productsGroup = array();
+				
+				$products;
 				
 				foreach ( $productsArr as $productsArrEl ) {
-					$productsGroup = $productsGroup . "<br>" . $productsArrEl;
+					$productsArrElAsArr = explode( "/ ", $productsArrEl );
+
+					foreach ( $productsArrElAsArr as $productsArrElAsArrEl ) {
+						array_push( $productsGroup, $productsArrElAsArrEl );
+					}
 				}
 
-				$msg = "<html><body>
-							<p><strong>Имя:</strong> ".$name."</p>
-							<p><strong>Телефон:</strong> ".$phone."</p>
-							<p>Предзаказ на продукты</p>
-							<div>".$productsGroup."</div>
-							<p><strong>Итого:</strong> ".$total."</p>
-						</body></html>";
+				$productsGroupMultiArr = array_chunk( $productsGroup, 4 );
+
+				foreach ( $productsGroupMultiArr as $productsGroupMultiArrEl ) {
+					array_unshift( $productsGroupMultiArrEl, "<tr>" );
+					array_push( $productsGroupMultiArrEl, "</tr>" );
+					array_splice( $productsGroupMultiArrEl, 1, 0, "<td>" );
+					array_splice( $productsGroupMultiArrEl, 3, 0, "</td>" );
+					array_splice( $productsGroupMultiArrEl, 4, 0, "<td>" );
+					array_splice( $productsGroupMultiArrEl, 6, 0, "</td>" );
+					array_splice( $productsGroupMultiArrEl, 7, 0, "<td>" );
+					array_splice( $productsGroupMultiArrEl, 9, 0, "</td>" );
+					array_splice( $productsGroupMultiArrEl, 10, 0, "<td>" );
+					array_splice( $productsGroupMultiArrEl, 12, 0, "</td>" );
+
+					foreach ( $productsGroupMultiArrEl as $productsGroupMultiArrElSub ) {
+						$products = $products . $productsGroupMultiArrElSub;
+					}
+				}
+
+				//
+
+				$msg = "<html>
+							<head>
+								<style type='text/css'>
+									table.default {
+										border-collapse: collapse;       
+									}
+									table.default td {
+										padding: 10px;
+										border: 1px solid #666;
+									}
+								</style>
+							</head>
+							<body>
+								<p><strong>Имя:</strong> ".$name."</p>
+								<p><strong>Телефон:</strong> ".$phone."</p>
+								<h3>Предзаказ на продукты</h3>
+								<table class='default'>
+									<tr>
+										<td>Наименование</td>
+										<td>Артикул</td>
+										<td>Кол-во</td>
+										<td>Цена</td>
+									</tr>
+									".$products."
+									<tr>
+										<td><strong>Итого:</strong></td>
+										<td></td>
+										<td></td>
+										<td><strong>".$total."</strong></td>
+									</tr>
+								</table>
+							</body>
+						</html>";
 
 				mail($to, $subject, $msg, $headers);
 			} else {

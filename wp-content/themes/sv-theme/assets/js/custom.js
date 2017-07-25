@@ -65,9 +65,10 @@ jQuery(document).ready(function($) {
 	
 	// insert navbar-right;
 	
-	$(".navbar-nav").after("<ul class='nav navbar-nav navbar-right'><li><a href='#wp-searching-form' class='navbar-link' data-toggle='modal'><i class='fa fa-search' data-toggle='tooltip' data-placement='left' title='Поиск'></i></a></li><li><a href='/korzina' class='navbar-link'><span class='badge'>" + localStorage.getItem("cartAmount") + "</span><i class='fa fa-shopping-basket' data-toggle='tooltip' data-placement='left' title='Корзина'></i></a></li><li><a href='#callback-form' class='navbar-link' data-toggle='modal'><i class='fa fa-phone' data-toggle='tooltip' data-placement='right' title='Обратный звонок'></i></a></li></ul>");
-	
+	$(".navbar-nav").after("<ul class='nav navbar-nav navbar-right'><li><a href='#wp-searching-form' class='navbar-link' data-toggle='modal'><i class='fa fa-search' data-toggle='tooltip' data-placement='left' title='Поиск'></i></a></li><li><a href='/korzina' class='navbar-link'><span class='badge'>0</span><i class='fa fa-shopping-basket' data-toggle='tooltip' data-placement='left' title='Корзина'></i></a></li><li><a href='#callback-form' class='navbar-link' data-toggle='modal'><i class='fa fa-phone' data-toggle='tooltip' data-placement='right' title='Обратный звонок'></i></a></li></ul>");
+
 	// insert link to pop-up form for request of price (top_menu);
+
 	$(".navbar-nav li:nth-child(5) a").attr("data-toggle", "modal");
 	$(".navbar-nav li:nth-child(5) a").on("click", function(e) {
 		e.preventDefault();
@@ -78,6 +79,7 @@ jQuery(document).ready(function($) {
 	$("#menu-footer_menu_right li:last-child a").attr("data-toggle", "modal");
 
 	// index : big carousel;
+
 	$(".carousel.index .item:first-child").addClass("active");
 	// test it again and upgrade for case when amount of items less than 3;
 	$(".carousel.index .item").each(function( i ) {

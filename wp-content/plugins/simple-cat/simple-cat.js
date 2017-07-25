@@ -16,14 +16,14 @@ jQuery(document).ready(function($) {
 
 	$(".btn-cart").on("click", function() {
 		var productMainData;
-		
+
+		// TO-DO :: add logic for actions from other pages;
 		if ( $("div").is(".product-main") ) {
 			productMainData = $(this).parents(".product-main");
 		} else if ( $("div").is(".product-item.detailed") ) {
 			productMainData = $(this).parents(".product-item.detailed");
 		}
 
-		//var productMainData = $(this).parents(".product-main");
 		cartVal++;
 		btnCartCounter++;
 		
