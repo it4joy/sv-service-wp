@@ -52,7 +52,7 @@ jQuery(document).ready(function($) {
 			},
 			success: function() {
 				$("#success-modal").find(".modal-title").text("Продукт успешно добавлен");
-				$(".modal-title").after("<p class='text-center'><a href='/korzina/'>Перейти в корзину</a></p>");
+				$("#success-modal .modal-title").after("<p class='text-center'><a href='/korzina/'>Перейти в корзину</a></p>");
 				$("#success-modal").modal("show");
 				add_unit();
 			},

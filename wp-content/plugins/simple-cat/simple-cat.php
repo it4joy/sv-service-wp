@@ -268,6 +268,8 @@ function simple_cat_ajax() {
 			}
 		} elseif ( $_REQUEST['actionType'] == 'sendPreorder' ) {
 			if ( !empty( $_REQUEST['agreement'] ) ) {
+				require_once( 'email-css.php' );
+
 				$headers  = "Content-Type: text/html; charset=utf-8\n";
 				$headers .= "From: " . $_REQUEST['name'];
 				$to = 'drkierkegor@gmail.com';
@@ -323,26 +325,18 @@ function simple_cat_ajax() {
 
 				$msg = "<html>
 							<head>
-								<style type='text/css'>
-									table.default {
-										border-collapse: collapse;       
-									}
-									table.default td {
-										padding: 10px;
-										border: 1px solid #666;
-									}
-								</style>
+								".$emailStylesDefault."
 							</head>
 							<body>
 								<p><strong>Имя:</strong> ".$name."</p>
 								<p><strong>Телефон:</strong> ".$phone."</p>
 								<h3>Предзаказ на продукты</h3>
 								<table class='default'>
-									<tr>
-										<td>Наименование</td>
-										<td>Артикул</td>
-										<td>Кол-во</td>
-										<td>Цена</td>
+									<tr class='headings'>
+										<th>Наименование</th>
+										<th>Артикул</th>
+										<th>Кол-во</th>
+										<th>Цена</th>
 									</tr>
 									".$products."
 									<tr>
