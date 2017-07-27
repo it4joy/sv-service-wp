@@ -292,7 +292,7 @@ function simple_cat_ajax() {
 			} else {
 				wp_die();
 			}
-		} elseif ( $_REQUEST['actionType'] == 'sendPreorder' ) {
+		} elseif ( $_REQUEST['action_type'] == 'sendPreorder' ) {
 			if ( !empty( $_REQUEST['agreement'] ) ) {
 				require_once( 'email-css.php' );
 
@@ -300,19 +300,32 @@ function simple_cat_ajax() {
 				$headers .= "From: " . $_REQUEST['name'] . "\r\n";
 				$to = 'drkierkegor@gmail.com';
 				$subject = 'Предзаказ на продукты';
-				$productsStr = $_REQUEST['productsTableStr'];
+				$productsStr = $_REQUEST['products_table_str'];
 				$total = $_REQUEST['total'];
 				$name = $_REQUEST['name'];
 				$phone = $_REQUEST['phone'];
 				$articles = $_REQUEST['articles'];
 				
-				//*
+				//* Uploading;
+
+				require_once( ABSPATH . 'wp-admin/includes/image.php' );
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				require_once( ABSPATH . 'wp-admin/includes/media.php' );
+
+				$attachment_id = media_handle_upload( 'async_upload', 0 );
+
+				if ( is_wp_error( $attachment_id ) ) {
+					echo "Ошибка загрузки медиафайла.";
+				} else {
+					echo "Медиафайл был успешно загружен!";
+				}
+
 				$attachments;
 				
 				if ( !empty( wp_upload_dir() ) ) {
 					
 				}
-				//*
+				//* Uploading;
 				
 				$articlesArr = explode(", ", $articles);
 				
@@ -387,8 +400,6 @@ function simple_cat_ajax() {
 			} else {
 				wp_die();
 			}
-		} else if( $_REQUEST['actionType'] == 'uploadFiles' ) {
-			
 		}
 
 	}

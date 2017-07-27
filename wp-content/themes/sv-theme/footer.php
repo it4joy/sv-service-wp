@@ -266,7 +266,7 @@
 								<td class="total"><span></span> руб.</td>
 							</tr>
 						</table>
-						<form method="" action="" id="preorder-form-ajax" class="form-horizontal">
+						<form  enctype="multipart/form-data" method="" action="" id="preorder-form-ajax" class="form-horizontal">
 							<div class="form-group">
 								<label for="fullname" class="col-md-2 control-label">Имя</label>
 								<div class="col-md-10">
@@ -285,7 +285,7 @@
 							<button type="button" class="unfold-btn btn btn-default btn-upload">Прикрепить документы</button>
 							<div class="upload-form hidden-block">
 								<p>Допустимые форматы: изображения, .pdf, .doc</p>
-								<input type="file" name="async_upload" multiple accept="image/*,application/pdf,application/msword" class="uploaded-files">
+								<input type="file" name="async_upload[]" multiple accept="image/*,application/pdf,application/msword" class="uploaded-files">
 							</div>
 							<div class="form-group">
 								<div class="col-md-10 col-md-offset-2">

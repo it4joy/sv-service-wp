@@ -231,13 +231,13 @@ jQuery(document).ready(function($) {
 	var files;
 
 	$("#preorder-form-ajax .uploaded-files").on("change", function() {
-		files = $(this).prop('files')[0];
+		files = $(this).prop("files")[0];
 	});
 
 	$("#preorder-form-ajax .btn-preorder").on("click", function(e) {
 		e.preventDefault();
 
-		var $form = $(this);
+		var $form = $("#preorder-form-ajax");
 
 		$(".cart-product-list .product-item").each(function() {
 			var article = $(this).find(".article span").text();
@@ -246,20 +246,28 @@ jQuery(document).ready(function($) {
 
 		var articlesStr = articles.join(", ");
 
+		var formData = new FormData();
+		formData.append("action", "sc_ajax");
+		formData.append("nonce", simple_cat_ajax.nonce);
+		formData.append("action_type", "sendPreorder");
+		formData.append("products_table_str", productsTableStr);
+		formData.append( "total", $("#preorder-form table .total span").text() );
+		formData.append( "name", $form.find("#fullname").val() );
+		formData.append( "phone", $form.find("#phone4").val() );
+		formData.append( "agreement", $form.find("#agreement4").val() );
+		formData.append("articles", articlesStr);
+
+		if ( files ) {
+			formData.append("files", files);
+		}
+
 		$.ajax({
 			method: "POST",
 			url: simple_cat_ajax.ajax_url,
-			data: {
-				action: "sc_ajax",
-				nonce: simple_cat_ajax.nonce,
-				actionType: "sendPreorder",
-				productsTableStr: productsTableStr,
-				total: $("#preorder-form table .total span").text(),
-				name: $form.find("#fullname").val(),
-				phone: $form.find("#phone4").val(),
-				agreement: $form.find("#agreement4").val(),
-				articles: articlesStr
-			},
+			data: formData,
+			cache: false,
+            contentType: false,
+            processData: false,
 			success: function() {
 				$(".cart-product-list .product-item").detach();
 				localStorage.setItem("topCartVal", 0);
