@@ -282,6 +282,11 @@
 									<input type="hidden" name="form_type" value="preorder-ajax" class="form-type">
 								</div>
 							</div>
+							<button type="button" class="unfold-btn btn btn-default btn-upload">Прикрепить документы</button>
+							<div class="upload-form hidden-block">
+								<p>Допустимые форматы: изображения, .pdf, .doc</p>
+								<input type="file" name="async_upload" multiple accept="image/*,application/pdf,application/msword" class="uploaded-files">
+							</div>
 							<div class="form-group">
 								<div class="col-md-10 col-md-offset-2">
 									<div class="checkbox">

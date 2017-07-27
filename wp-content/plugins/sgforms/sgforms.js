@@ -124,4 +124,45 @@ jQuery(document).ready(function($) {
 	$(".modal").on("show.bs.modal shown.bs.modal", function(e) {
 		$("body").css("padding-right", 0);
 	});
+	
+	// uploading form === DELETE ===;
+	
+	var files;
+	
+	$("#upload-form .uploaded-files").on("change", function() {
+		files = $(this).prop('files')[0];
+	});
+
+	$("#upload-form").on("submit", function(e) {
+		e.preventDefault();
+
+		var data = new FormData();
+		
+		$.each(files, function(key, value) {
+			data.append(key, value);
+		});
+		
+		var action = "sg_ajax";
+		var form_type = "uploadFiles";
+		var nonce = sg_forms_ajax.nonce;
+		
+		data.append("action", action);
+		data.append("actionType", form_type);
+		data.append("nonce", nonce);
+
+		$.ajax({
+			method: "POST",
+			url: sg_forms_ajax.ajax_url,
+			data: data,
+			dataType: "json",
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				$(".uploading-status").text( data.success );
+			},
+			error: function(data) {
+				$(".uploading-status").text( data.failure );
+			}
+		});
+	});
 });

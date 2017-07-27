@@ -190,6 +190,32 @@ function simple_cat_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'simple_cat_scripts' );
 
+// === Del
+function svwp_upload_ajax() {
+	$nonce = $_REQUEST['_wpnonce'];
+	
+	if ( ! wp_verify_nonce( $nonce, 'media-form' ) ) {
+		wp_die();
+	} else {
+		$to = 'drkierkegor@gmail.com';
+		$subject = 'Добавлен новый файл';
+		$headers = array(
+			'From: user',
+			'content-type: text/html',
+		);
+		$files = $_REQUEST['async-upload'];
+		$msg = "<html>
+					<body>
+						<p>Добавлен новый файл</p>
+						<p>".wp_get_attachment_url( $files )."</p>
+					</body>
+				</html>";
+		
+		wp_mail( $to, $subject, $msg, $headers );
+	}
+}
+// === / Del;
+
 // Interaction with DB;
 
 global $sessionId;
@@ -270,8 +296,8 @@ function simple_cat_ajax() {
 			if ( !empty( $_REQUEST['agreement'] ) ) {
 				require_once( 'email-css.php' );
 
-				$headers  = "Content-Type: text/html; charset=utf-8\n";
-				$headers .= "From: " . $_REQUEST['name'];
+				$headers  = "Content-Type: text/html; charset=utf-8" . "\r\n";
+				$headers .= "From: " . $_REQUEST['name'] . "\r\n";
 				$to = 'drkierkegor@gmail.com';
 				$subject = 'Предзаказ на продукты';
 				$productsStr = $_REQUEST['productsTableStr'];
@@ -279,6 +305,14 @@ function simple_cat_ajax() {
 				$name = $_REQUEST['name'];
 				$phone = $_REQUEST['phone'];
 				$articles = $_REQUEST['articles'];
+				
+				//*
+				$attachments;
+				
+				if ( !empty( wp_upload_dir() ) ) {
+					
+				}
+				//*
 				
 				$articlesArr = explode(", ", $articles);
 				
@@ -353,9 +387,24 @@ function simple_cat_ajax() {
 			} else {
 				wp_die();
 			}
+		} else if( $_REQUEST['actionType'] == 'uploadFiles' ) {
+			
 		}
 
 	}
+}
+
+if ( ! is_admin() ) {
+	function svwp_upload_dir($upload) {
+		$sessionId = session_id();
+		$time = current_time( 'mysql' );
+		$day = substr( $time, 8, 2 );
+		$upload['subdir'] .= "/" . $sessionId;
+		$upload['path'] .= "/" . $sessionId;
+		$upload['url'] .= "/" . $sessionId;
+		return $upload;
+	}
+	add_filter('upload_dir', 'svwp_upload_dir');
 }
 
 if ( wp_doing_ajax() ) {

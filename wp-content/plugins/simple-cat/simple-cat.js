@@ -228,7 +228,13 @@ jQuery(document).ready(function($) {
 
 	// preorder final;
 
-	$("#preorder-form-ajax").on("submit", function(e) {
+	var files;
+
+	$("#preorder-form-ajax .uploaded-files").on("change", function() {
+		files = $(this).prop('files')[0];
+	});
+
+	$("#preorder-form-ajax .btn-preorder").on("click", function(e) {
 		e.preventDefault();
 
 		var $form = $(this);

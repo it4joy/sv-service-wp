@@ -92,7 +92,7 @@ get_header(); ?>
 					?>
 					
 					<p class="msg-empty-cart">Корзина пуста. Добавьте товары в Вашу корзину :)</p>
-					
+
 					<?php
 						}
 					?>
@@ -101,17 +101,8 @@ get_header(); ?>
 				<div class="col-md-3">
 					<div class="cart-common-data">
 						<p class="total"><strong>Итого: </strong><span>0</span> руб.</p>
-						<button type="button" class="unfold-btn btn btn-default btn-upload">Загрузить документы</button>
-						<div class="upload-form hidden-block">
-							<p>Допустимые форматы: изображения, .pdf, .doc</p>
-							<form enctype="multipart/form-data" method="post">
-								<input type="file" name="upload-doc" multiple accept="image/*,application/pdf,application/msword">
-								<button type="reset" class="btn btn-default">Очистить</button>
-								<button type="submit" class="btn btn-default">Загрузить</button>
-							</form>
-						</div>
 						<a href="#preorder-form" class="btn btn-primary btn-preorder" data-toggle="modal">Оформить предзаказ</a>
-						<p><a href="#" class="link-cart-clear">Очистить корзину</a></p>
+						<a href="#" class="btn btn-default link-cart-clear">Очистить корзину</a>
 					</div>
 				</div>
 			</div>
