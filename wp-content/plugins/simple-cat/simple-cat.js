@@ -230,8 +230,9 @@ jQuery(document).ready(function($) {
 
 	var files;
 
-	$("#preorder-form-ajax .uploaded-files").on("change", function() {
-		files = $(this).prop("files")[0];
+	$("#preorder-form-ajax input[type='file']").on("change", function() {
+		files = $(this).prop("files");
+		//files = $(this).files[0];
 	});
 
 	$("#preorder-form-ajax .btn-preorder").on("click", function(e) {
@@ -258,7 +259,9 @@ jQuery(document).ready(function($) {
 		formData.append("articles", articlesStr);
 
 		if ( files ) {
-			formData.append("files", files);
+			$.each(files, function(index, value) {
+				formData.append("files", value);
+			});
 		}
 
 		$.ajax({

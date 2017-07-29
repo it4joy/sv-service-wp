@@ -296,8 +296,8 @@ function simple_cat_ajax() {
 			if ( !empty( $_REQUEST['agreement'] ) ) {
 				require_once( 'email-css.php' );
 
-				$headers  = "Content-Type: text/html; charset=utf-8" . "\r\n";
-				$headers .= "From: " . $_REQUEST['name'] . "\r\n";
+				//$headers  = "Content-Type: text/html; charset=utf-8" . "\r\n";
+				//$headers .= "From: " . $_REQUEST['name'] . "\r\n";
 				$to = 'drkierkegor@gmail.com';
 				$subject = 'Предзаказ на продукты';
 				$productsStr = $_REQUEST['products_table_str'];
@@ -305,42 +305,20 @@ function simple_cat_ajax() {
 				$name = $_REQUEST['name'];
 				$phone = $_REQUEST['phone'];
 				$articles = $_REQUEST['articles'];
-				
-				//* Uploading;
+				//$attachedFiles = $_FILES['files'];
 
-				require_once( ABSPATH . 'wp-admin/includes/image.php' );
-				require_once( ABSPATH . 'wp-admin/includes/file.php' );
-				require_once( ABSPATH . 'wp-admin/includes/media.php' );
-
-				$attachment_id = media_handle_upload( 'async_upload', 0 );
-
-				if ( is_wp_error( $attachment_id ) ) {
-					echo "Ошибка загрузки медиафайла.";
-				} else {
-					echo "Медиафайл был успешно загружен!";
-				}
-
-				$attachments;
-				
-				if ( !empty( wp_upload_dir() ) ) {
-					
-				}
-				//* Uploading;
-				
 				$articlesArr = explode(", ", $articles);
-				
+
 				foreach ( $articlesArr as $articlesArrEl ) {
 					$wpdb->delete( 'svwp_cart', array( 'product_article' => $articlesArrEl ) );
 				}
-				
-				//
-				
+
 				$productsArr = explode( ", ", $productsStr );
-				
+
 				$productsGroup = array();
-				
+
 				$products;
-				
+
 				foreach ( $productsArr as $productsArrEl ) {
 					$productsArrElAsArr = explode( "/ ", $productsArrEl );
 
@@ -368,10 +346,9 @@ function simple_cat_ajax() {
 					}
 				}
 
-				//
-
 				$msg = "<html>
 							<head>
+								<title>Предзаказ на продукты</title>
 								".$emailStylesDefault."
 							</head>
 							<body>
@@ -395,27 +372,70 @@ function simple_cat_ajax() {
 								</table>
 							</body>
 						</html>";
+				
+				// Using PHPMailer for letter sending;
 
-				mail($to, $subject, $msg, $headers);
+				$url = plugin_dir_url( __FILE__ );
+
+				global $phpmailer;
+
+				if ( !is_object( $phpmailer ) || !is_a( $phpmailer, 'PHPMailer' ) ) {
+					require_once ABSPATH . WPINC . '/class-phpmailer.php';
+					require_once ABSPATH . WPINC . '/class-smtp.php';
+					$phpmailer = new PHPMailer( true );
+				}
+
+				$phpmailer->ClearAttachments();
+				$phpmailer->ClearCustomHeaders();
+				$phpmailer->ClearReplyTos(); 
+				//$phpmailer->From = $to;
+				$phpmailer->FromName = 'Посетитель сайта';
+				$phpmailer->Subject = $subject;
+				$phpmailer->ContentType = 'text/html';
+				$phpmailer->IsHTML( true );
+				$phpmailer->CharSet = 'utf-8';
+				$phpmailer->ClearAllRecipients();
+				$phpmailer->AddAddress( $to, 'Admin' );
+				$phpmailer->Body = $msg;
+				//
+				$phpmailer->SMTPDebug = 2;
+
+				if ( array_key_exists('files', $_FILES) ) {
+					for ($ct = 0; $ct < count($_FILES['files']['tmp_name']); $ct++) {
+						$uploadfile = tempnam( sys_get_temp_dir(), $_FILES['files']['name'][$ct] );
+						//chmod( sys_get_temp_dir() . $uploadfile, 0755 );
+						/* if ( is_uploaded_file( $_FILES['files']['tmp_name'] ) ) {
+							echo 'File was uploaded';
+						} else {
+							echo 'Failed to upload';
+						} */
+						//
+						$filename = $_FILES['files']['name'][$ct];
+						if ( move_uploaded_file($_FILES['files']['tmp_name'][$ct], $uploadfile) ) {
+							$phpmailer->addAttachment($uploadfile, $filename);
+						} else {
+							echo 'Failed to move file to ' . $uploadfile;
+						}
+					}
+				} else {
+					echo 'There are no such keys in array';
+				}
+				
+				//
+
+				if ( ! $phpmailer->Send() ) {
+					echo 0;
+				} else {
+					echo 1;
+				}
+
+				// end the code of PHPMailer;
 			} else {
 				wp_die();
 			}
 		}
 
 	}
-}
-
-if ( ! is_admin() ) {
-	function svwp_upload_dir($upload) {
-		$sessionId = session_id();
-		$time = current_time( 'mysql' );
-		$day = substr( $time, 8, 2 );
-		$upload['subdir'] .= "/" . $sessionId;
-		$upload['path'] .= "/" . $sessionId;
-		$upload['url'] .= "/" . $sessionId;
-		return $upload;
-	}
-	add_filter('upload_dir', 'svwp_upload_dir');
 }
 
 if ( wp_doing_ajax() ) {
