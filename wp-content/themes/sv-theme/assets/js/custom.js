@@ -36,10 +36,6 @@ jQuery(document).ready(function($) {
 		$(this).children(".div-slide-down").slideUp();
 	});
 
-	// Twitter Bootstrap tooltip;
-
-	$('[data-toggle="tooltip"]').tooltip();
-
 	// jQuery UI sidebar dropdown menu;
 
 	$("#navbar-sidebar").menu();
@@ -66,6 +62,10 @@ jQuery(document).ready(function($) {
 	// insert navbar-right;
 	
 	$(".navbar-nav").after("<ul class='nav navbar-nav navbar-right'><li><a href='#wp-searching-form' class='navbar-link' data-toggle='modal'><i class='fa fa-search' data-toggle='tooltip' data-placement='left' title='Поиск'></i></a></li><li><a href='/korzina' class='navbar-link'><span class='badge'>0</span><i class='fa fa-shopping-basket' data-toggle='tooltip' data-placement='left' title='Корзина'></i></a></li><li><a href='#callback-form' class='navbar-link' data-toggle='modal'><i class='fa fa-phone' data-toggle='tooltip' data-placement='right' title='Обратный звонок'></i></a></li></ul>");
+	
+	// Twitter Bootstrap tooltip;
+
+	$('[data-toggle="tooltip"]').tooltip();
 
 	// insert link to pop-up form for request of price (top_menu);
 

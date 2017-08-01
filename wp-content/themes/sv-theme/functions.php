@@ -219,7 +219,7 @@ function svwp_search( $form ) {
 	$form = '
 		<form action="' . home_url( '/' ) . '" method="get" id="searchform" role="search" class="form-inline default searching-form">
 			<div class="form-group">
-				<input type="text" name="s" value="' . get_search_query() . '" id="s" class="form-control" placeholder="Введите поисковый запрос" required>
+				<input type="text" name="s" value="' . get_search_query() . '" id="s" class="form-control" placeholder="Введите поисковый запрос" autofocus  required>
 			</div>
 			<button type="submit" class="btn btn-default">Поиск</button>
 		</form>

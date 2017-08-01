@@ -285,11 +285,9 @@
 							<button type="button" class="unfold-btn btn btn-default btn-upload">Прикрепить документы</button>
 							<div class="upload-form hidden-block">
 								<p>Допустимые форматы: изображения, .pdf, .doc</p>
-								<!--
 								<input type="file" name="async_upload[]" multiple="multiple" accept="image/*,application/pdf,application/msword" 
 								class="uploaded-files">
-								-->
-								<input type="file" name="async_upload[]" multiple="multiple" class="uploaded-files">
+								<!--<input type="file" name="async_upload[]" multiple="multiple" class="uploaded-files">-->
 								<input type="hidden" name="MAX_FILE_SIZE" value="100000">
 							</div>
 							<div class="form-group">

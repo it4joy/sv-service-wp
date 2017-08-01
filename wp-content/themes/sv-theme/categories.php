@@ -40,6 +40,7 @@ get_header(); ?>
 						$posts = get_posts( $postArgs );
 
 						foreach ( $posts as $post ) {
+							$thumb = get_the_post_thumbnail_url();
 							$brands = get_the_terms( $post->ID, 'brands' );
 							$categories = get_the_terms( $post->ID, 'categories' );
 							$brand = array_shift( $brands );
@@ -65,6 +66,9 @@ get_header(); ?>
 											<li class="availability">Наличие: <span><?php echo get_post_meta( $post->ID, 'available', true ); ?></span></li>
 											<li class="packing">Фасовка, мин.: <span><?php echo get_post_meta( $post->ID, 'packing', true ); ?></span></li>
 										</ul>
+										<input type="hidden" name="product-title" value="<?php the_title(); ?>" class="product-title">
+										<input type="hidden" name="product-thumb" value="<?php echo $thumb; ?>" class="product-thumb">
+										<input type="hidden" name="product-link" value="<?php the_permalink(); ?>" class="product-link">
 									</div>
 									<div class="col-xs-4">
 										<p><a href="<?php the_permalink(); ?>">Подробнее</a> <i class="fa fa-angle-right"></i></p>
@@ -76,7 +80,7 @@ get_header(); ?>
 								<p class="price">Цена: <span><?php echo get_post_meta( $post->ID, 'price', true ); ?></span> руб.</p>
 								<div class="input-group">
 									<span class="input-group-addon">Кол-во:</span>
-									<input type="number" name="amount" value="1" class="form-control">
+									<input type="number" name="amount" value="1" class="form-control products-amount">
 								</div>
 								<button type="button" class="btn btn-default btn-cart">В корзину</button>
 							</div>

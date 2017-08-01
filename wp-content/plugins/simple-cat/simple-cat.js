@@ -268,7 +268,6 @@ jQuery(document).ready(function($) {
 			method: "POST",
 			url: simple_cat_ajax.ajax_url,
 			data: formData,
-			cache: false,
             contentType: false,
             processData: false,
 			success: function() {

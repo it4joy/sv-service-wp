@@ -377,6 +377,8 @@ function simple_cat_ajax() {
 
 				$url = plugin_dir_url( __FILE__ );
 
+				// ===
+
 				global $phpmailer;
 
 				if ( !is_object( $phpmailer ) || !is_a( $phpmailer, 'PHPMailer' ) ) {
@@ -385,38 +387,31 @@ function simple_cat_ajax() {
 					$phpmailer = new PHPMailer( true );
 				}
 
-				$phpmailer->ClearAttachments();
-				$phpmailer->ClearCustomHeaders();
-				$phpmailer->ClearReplyTos(); 
-				//$phpmailer->From = $to;
-				$phpmailer->FromName = 'Посетитель сайта';
+				$phpmailer->isSMTP();
+				$phpmailer->Host = 'smtp.beget.com';
+				$phpmailer->SMTPAuth = true;
+				$phpmailer->Username = 'svwp@anyquotes.ru';
+				$phpmailer->Password = 'sv$service*';
+				$phpmailer->SMTPSecure = 'ssl';
+				$phpmailer->Port = 465;
+
+				$phpmailer->SMTPDebug = 3;
+
+				/* $phpmailer->ClearCustomHeaders();
+				$phpmailer->ClearAllRecipients();
+				$phpmailer->ClearReplyTos();
+				$phpmailer->ClearAttachments(); */
+
 				$phpmailer->Subject = $subject;
 				$phpmailer->ContentType = 'text/html';
 				$phpmailer->IsHTML( true );
 				$phpmailer->CharSet = 'utf-8';
-				$phpmailer->ClearAllRecipients();
+				$phpmailer->setFrom('svwp@anyquotes.ru', 'Сайт-каталог SV-Service');
 				$phpmailer->AddAddress( $to, 'Admin' );
 				$phpmailer->Body = $msg;
-				//
-				$phpmailer->SMTPDebug = 2;
 
 				if ( array_key_exists('files', $_FILES) ) {
-					for ($ct = 0; $ct < count($_FILES['files']['tmp_name']); $ct++) {
-						$uploadfile = tempnam( sys_get_temp_dir(), $_FILES['files']['name'][$ct] );
-						//chmod( sys_get_temp_dir() . $uploadfile, 0755 );
-						/* if ( is_uploaded_file( $_FILES['files']['tmp_name'] ) ) {
-							echo 'File was uploaded';
-						} else {
-							echo 'Failed to upload';
-						} */
-						//
-						$filename = $_FILES['files']['name'][$ct];
-						if ( move_uploaded_file($_FILES['files']['tmp_name'][$ct], $uploadfile) ) {
-							$phpmailer->addAttachment($uploadfile, $filename);
-						} else {
-							echo 'Failed to move file to ' . $uploadfile;
-						}
-					}
+					
 				} else {
 					echo 'There are no such keys in array';
 				}
@@ -424,9 +419,9 @@ function simple_cat_ajax() {
 				//
 
 				if ( ! $phpmailer->Send() ) {
-					echo 0;
+					echo "Failed sending";
 				} else {
-					echo 1;
+					echo "Message was successfully sent";
 				}
 
 				// end the code of PHPMailer;
