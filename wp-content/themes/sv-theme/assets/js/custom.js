@@ -81,6 +81,13 @@ jQuery(document).ready(function($) {
 	// index : big carousel;
 
 	$(".carousel.index .item:first-child").addClass("active");
+
+	$(".carousel.index .item").each(function() {
+		if ( $(this).find(".btn").attr("href") === "/" ) {
+			$(this).find(".btn").hide();
+		}
+	});
+
 	// test it again and upgrade for case when amount of items less than 3;
 	$(".carousel.index .item").each(function( i ) {
 		if ( $(this).index() > 2 ) {

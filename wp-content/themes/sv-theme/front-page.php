@@ -28,18 +28,30 @@ get_header(); ?>
 
 							foreach ( $slides as $post ) {
 								setup_postdata( $post );
-								
-								//
+
 								$terms = get_the_terms( $post->ID, 'big-slide-tax' );
-								$term = array_shift( $terms );
-								?>
 								
+								$imgSrc;
+								$link;
+
+								foreach ( $terms as $term ) {
+									$termName = $term->name;
+
+									if ( strpos( $termName, 'img-src' ) !== false ) {
+										$imgSrc = $term->description;
+									} elseif ( strpos( $termName, 'link' ) !== false ) {
+										$link = $term->description;
+									} else {
+										$link = home_url('/'); // do it;
+									}
+								}
+								?>
+
 								<div class="item">
-									<img src="<?php echo $term->description; ?>" alt="">
+									<img src="<?php echo $imgSrc; ?>" alt="SV Service - производство и комплексное оснащение расходными материалами  индустрии в сфере оказания услуг. Современно. Комфортно. Гигиенично.">
 									<div class="carousel-caption">
 										<h2><?php the_title(); ?></h2>
-										<a class="btn btn-default btn-lg" href="#" role="button">Узнать больше</a>
-										<a class="btn btn-default btn-lg" href="#" role="button">В корзину</a>
+										<a class="btn btn-default btn-lg" href="<?php echo $link; ?>" role="button">Узнать больше</a>
 									</div>
 								</div>
 						
