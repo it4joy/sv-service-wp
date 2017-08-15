@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Categories
+
 */
 
 get_header(); ?>
@@ -23,7 +23,7 @@ get_header(); ?>
 			<div class="row">
 				<div class="col-md-12">
 					<?php $cat = single_cat_title( '', false ); ?>
-					<h3 class="uppercase"><?php echo $cat; ?></h3>
+					<h3 class="uppercase"><?php echo $cat; ?> -TAXONOMY</h3>
 				</div>
 			</div>
 			
@@ -46,6 +46,7 @@ get_header(); ?>
 							$brand = array_shift( $brands );
 							$category = array_shift( $categories );
 							$categoryName = $category->name;
+
 							if ( $categoryName == $cat ) {
 								setup_postdata($post);
 					?>

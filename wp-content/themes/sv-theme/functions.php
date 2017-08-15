@@ -252,3 +252,6 @@ function svwp_pagination() {
 	
 	echo $result;
 }
+
+// test;
+

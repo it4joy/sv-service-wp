@@ -159,7 +159,7 @@ get_header(); ?>
 								<div class="div-as-table">
 									<div class="div-as-table-cell">
 										<a href="<?php the_permalink(); ?>" data-toggle="tooltip" data-placement="top" title="Подробнее" class="action-btn"><i class="fa fa-arrow-right"></i></a>
-										<a href="#" data-toggle="tooltip" data-placement="top" title="Добавить в корзину" class="action-btn"><i class="fa fa-check"></i></a>
+										<!--<a href="#" data-toggle="tooltip" data-placement="top" title="Добавить в корзину" class="action-btn"><i class="fa fa-check"></i></a>-->
 									</div>
 								</div>
 							</div>
