@@ -44,8 +44,23 @@ get_header(); ?>
 							$brands = get_the_terms( $post->ID, 'brands' );
 							$categories = get_the_terms( $post->ID, 'categories' );
 							$brand = array_shift( $brands );
-							$category = array_shift( $categories );
-							$categoryName = $category->name;
+							//$category = array_shift( $categories );
+							foreach ($categories as $categoriesEl) {
+								$currentCat = $categoriesEl->name;
+								if ( $categoriesEl->parent !== 0 ) {
+									the_title();
+									echo get_post_meta( $post->ID, 'art', true );
+									echo '=====================================';
+								}
+								
+								/* if ( $currentCat == 'Тапочки для гостиниц' ) {
+									the_title();
+									echo get_post_meta( $post->ID, 'art', true );
+									echo '=====================================';
+								} */
+							}
+							
+							//$categoryName = $category->name;
 
 							if ( $categoryName == $cat ) {
 								setup_postdata($post);
