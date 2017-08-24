@@ -100,7 +100,7 @@ get_header(); ?>
 					
 					<div class="row">
 						<div class="col-xs-6">
-							<p class="one-line-p"><a href="#">Посмотреть / скачать инструкцию</a> <i class="fa fa-angle-right"></i></p>
+							<p class="one-line-p"><a href="<?php echo get_post_meta( $post->ID, 'doc_link', true ); ?>" target="_blank" class="doc-link">Посмотреть / скачать инструкцию</a> <i class="fa fa-angle-right"></i></p>
 						</div>
 						<div class="col-xs-6">
 							<p class="one-line-p"><a href="#">Посмотреть всю продукцию под брендом Компания Х</a> <i class="fa fa-angle-right"></i></p>

@@ -282,4 +282,11 @@ jQuery(document).ready(function($) {
 	$("#success-modal").on("hide.bs.modal", function(e) {
 		$(this).find(".cart-link").remove();
 	});
+	
+	// no doc-link;
+	if ( $(".inner-ext-product-item").find(".doc-link").attr("href") == "" ) {
+		$(".doc-link").removeAttr("href");
+		$(".doc-link").text("Инструкция отсутствует");
+		$(".doc-link").next().remove();
+	}
 });

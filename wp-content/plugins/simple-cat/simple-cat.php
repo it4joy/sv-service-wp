@@ -134,6 +134,8 @@ function product_key_data_callback( $post ) {
 		<div class="col col-6">
 			<p><label for="main-img">Ссылка на главное изображение:</label></p>
 			<p><input type="text" id="main-img" name="product_key_data_arr[main_img]" value="<?php echo get_post_meta( $post->ID, 'main_img', true ); ?>"></p>
+			<p><label for="doc-link">Ссылка на инструкцию:</label></p>
+			<p><input type="text" id="doc-link" name="product_key_data_arr[doc_link]" value="<?php echo get_post_meta( $post->ID, 'doc_link', true ); ?>"></p>
 		</div>
 		<div class="col col-6">
 			<p><label for="gallery">NextGen Gallery шорткод для вывода галереи:</label></p>
