@@ -1,6 +1,6 @@
 <?php
 /*
-
+Template Name: Main categories
 */
 
 get_header(); ?>
@@ -22,9 +22,9 @@ get_header(); ?>
 			
 			<div class="row">
 				<div class="col-md-12">
-					<?php $cat = single_cat_title( '', false ); ?>
-					<h3 class="uppercase"><?php echo $cat; ?></h3>
-					<p>it's TAXONOMY</p>
+					<?php $title = get_the_title(); ?>
+					<h3 class="uppercase"><?php the_title(); ?></h3>
+					<p>It's MAIN-CATEGORIES</p>
 				</div>
 			</div>
 			
@@ -45,16 +45,16 @@ get_header(); ?>
 							$brands = get_the_terms( $post->ID, 'brands' );
 							$categories = get_the_terms( $post->ID, 'categories' );
 							$brand = array_shift( $brands );
-							//$category = array_shift( $categories );
-							foreach ($categories as $categoriesEl) {
-								$currentCat = $categoriesEl->name;
-								if ( $currentCat == $cat ) {
+							$category = array_shift( $categories );
+							$categoryName = $category->name;
+							if ( $categoryName == $title ) {
+								setup_postdata($post);
 					?>
 
 					<div class="product-item detailed">
 						<div class="flex-row">
 							<div class="col-sm-2 col-xs-3">
-								<img src="<?php echo $thumb; ?>" alt="">
+								<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="">
 							</div>
 							
 							<div class="col-sm-7 col-xs-9 product-key-data">
@@ -90,11 +90,19 @@ get_header(); ?>
 					<!-- /.product-item -->
 
 					<?php
-								}
 							}
 						}
 						wp_reset_postdata();
 					?>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="category-description">
+						<h3 class="text-left uppercase"><?php the_title(); ?></h3>
+						<p><?php the_content(); ?></p>
+					</div>
 				</div>
 			</div>
 		</main>
