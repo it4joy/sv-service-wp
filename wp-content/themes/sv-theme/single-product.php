@@ -37,6 +37,7 @@ get_header(); ?>
 							$categories = get_the_terms( $post->ID, 'categories' );
 							$relations = get_the_terms( $post->ID, 'relations' );
 							$brand = array_shift( $brands );
+							$brandName = $brand->name;
 							$category = array_shift( $categories );
 							$thumb = get_the_post_thumbnail_url();
 				?>
@@ -55,7 +56,7 @@ get_header(); ?>
 									<ul>
 										<li class="price">Цена: <span><?php $price = get_post_meta( $post->ID, 'price', true ); echo $price; ?></span> руб.</li>
 										<li class="article">Артикул: <span><?php $article = get_post_meta( $post->ID, 'art', true ); echo $article; ?></span></li>
-										<li class="brand">Бренд: <span><?php $brandName = $brand->name; echo $brandName; ?></span></li>
+										<li class="brand">Бренд: <span><?php echo $brandName; ?></span></li>
 										<li class="availability">Наличие: <span><?php $availability = get_post_meta( $post->ID, 'available', true ); echo $availability; ?></span></li>
 										<li class="packing">Фасовка, мин.: <span><?php $packing = get_post_meta( $post->ID, 'packing', true ); echo $packing; ?></span></li>
 									</ul>
@@ -100,10 +101,18 @@ get_header(); ?>
 					
 					<div class="row">
 						<div class="col-xs-6">
-							<p class="one-line-p"><a href="<?php echo get_post_meta( $post->ID, 'doc_link', true ); ?>" target="_blank" class="doc-link">Посмотреть / скачать инструкцию</a> <i class="fa fa-angle-right"></i></p>
+							<p class="one-line-p">
+								<a href="<?php echo get_post_meta( $post->ID, 'doc_link', true ); ?>" target="_blank" class="doc-link">Посмотреть / скачать инструкцию</a>
+								<i class="fa fa-angle-right"></i>
+							</p>
 						</div>
 						<div class="col-xs-6">
-							<p class="one-line-p"><a href="#">Посмотреть всю продукцию под брендом Компания Х</a> <i class="fa fa-angle-right"></i></p>
+							<p class="one-line-p">
+								<a href="#" class="brand-products-link">Посмотреть всю продукцию под брендом 
+									<span><?php echo $brandName; ?></span>
+								</a>
+								<i class="fa fa-angle-right"></i>
+							</p>
 						</div>
 					</div>
 

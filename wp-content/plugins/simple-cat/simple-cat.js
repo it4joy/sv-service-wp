@@ -289,4 +289,28 @@ jQuery(document).ready(function($) {
 		$(".doc-link").text("Инструкция отсутствует");
 		$(".doc-link").next().remove();
 	}
+	
+	// brand's products page;
+	$(".brand-products-link").on("click", function(e) {
+		e.preventDefault();
+		
+		var selectedBrand = $(this).find("span").text();
+		
+		$.ajax({
+			method: "POST",
+			url: simple_cat_ajax.ajax_url,
+			data: {
+				action: "sc_ajax",
+				nonce: simple_cat_ajax.nonce,
+				actionType: "watchProductsOfBrand",
+				selectedBrand: selectedBrand
+			},
+			success: function() {
+				console.log("1");
+			},
+			error: function() {
+				console.log("0");
+			}
+		});
+	});
 });
