@@ -4,10 +4,10 @@
 Template Name: Products of brand
 */
 
+get_header();
+
 global $selectedBrand;
 $selectedBrand = $_COOKIE['requestedBrand'];
-
-get_header(); 
 
 ?>
 
@@ -28,7 +28,7 @@ get_header();
 			
 			<div class="row">
 				<div class="col-md-12">
-					<h3 class="uppercase"><?php the_title() . echo $selectedBrand; ?></h3>
+					<h3 class="uppercase"><?php the_title(); echo ' ' . $selectedBrand; ?></h3>
 				</div>
 			</div>
 

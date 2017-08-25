@@ -1,5 +1,6 @@
 jQuery(document).ready(function($) {
 	var currentHref = window.location.href;
+	var hostname = window.location.hostname;
 	
 	var cartVal = 0;
 
@@ -305,11 +306,15 @@ jQuery(document).ready(function($) {
 				actionType: "watchProductsOfBrand",
 				selectedBrand: selectedBrand
 			},
+			// remove success & error;
 			success: function() {
 				console.log("1");
 			},
 			error: function() {
 				console.log("0");
+			},
+			complete: function() {
+				window.location.replace("/produkcija-brenda/");
 			}
 		});
 	});

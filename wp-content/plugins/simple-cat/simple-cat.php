@@ -431,16 +431,15 @@ function simple_cat_ajax() {
 				wp_die();
 			}
 		} elseif ( $_REQUEST['actionType'] == 'watchProductsOfBrand' ) {
-			$selectedBrand = $_POST['selectedBrand'];
+			$selectedBrand = $_REQUEST['selectedBrand'];
 			
-			if ( isset( $_COOKIE['requestedBrand'] ) ) {
+			setcookie( 'requestedBrand', $selectedBrand, time() + 3600, '/' );
+			
+			/* if ( isset( $_COOKIE['requestedBrand'] ) ) {
 				setcookie( 'requestedBrand', '', time() - 3600, '/' );
 			} else {
 				setcookie( 'requestedBrand', $selectedBrand, time() + 3600, '/' );
-			}
-			
-			wp_redirect( home_url('/') . 'produkcija-brenda/' );
-			exit;
+			} */
 		}
 
 	}
