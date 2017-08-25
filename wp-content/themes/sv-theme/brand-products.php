@@ -7,7 +7,10 @@ Template Name: Products of brand
 get_header();
 
 global $selectedBrand;
-$selectedBrand = $_COOKIE['requestedBrand'];
+
+if ( isset( $_COOKIE['requestedBrand'] ) ) {
+	$selectedBrand = $_COOKIE['requestedBrand'];
+}
 
 ?>
 
@@ -41,7 +44,7 @@ $selectedBrand = $_COOKIE['requestedBrand'];
 
 					$brandItems = new WP_Query( $args );
 
-					if ( $brandItems->have_posts() ) {
+					if ( $brandItems->have_posts() && isset( $_COOKIE['requestedBrand'] ) ) {
 						while( $brandItems->have_posts() ) {
 							$brandItems->the_post();
 
@@ -95,7 +98,7 @@ $selectedBrand = $_COOKIE['requestedBrand'];
 							}
 						}
 					} else {
-						echo 'Nothing';
+						echo 'Не выбран бренд для вывода продуктов. Перейдите на страницу какого-либо продукта.';
 					}
 					wp_reset_postdata();
 				?>
