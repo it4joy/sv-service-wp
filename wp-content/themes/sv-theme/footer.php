@@ -180,7 +180,7 @@
 					<div class="modal-body">
 						<form method="" action="" id="product-ask-question-form-ajax" class="form-horizontal">
 							<div class="form-group">
-								<label for="question-about" class="col-md-2 control-label">Вопрос о</label>
+								<label for="question-about" class="col-md-2 control-label">Товар</label>
 								<div class="col-md-10">
 									<input type="text" name="question_about" class="form-control" id="question-about">
 									<input type="hidden" name="articul" class="product-articul">
@@ -244,7 +244,7 @@
 
 		<!-- Preorder form -->
 		<div class="modal fade" id="preorder-form" tabindex="-1" role="dialog" aria-labelledby="preorder-form">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>

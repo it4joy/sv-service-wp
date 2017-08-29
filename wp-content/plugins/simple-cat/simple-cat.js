@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
 			},
 			success: function() {
 				$("#success-modal").find(".modal-title").text("Продукт успешно добавлен");
-				$("#success-modal .modal-title").after("<p class='text-center cart-link'><a href='/korzina/'>Перейти в корзину</a></p>");
+				$("#success-modal .modal-title").after("<p class='text-center cart-link'><a href='/korzina/'>Перейти в корзину</a> / <a href='#' data-dismiss='modal' aria-label='Закрыть'>Закрыть</a></p>");
 				$("#success-modal").modal("show");
 				add_unit();
 			},

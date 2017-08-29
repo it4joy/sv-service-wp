@@ -46,7 +46,7 @@ get_header(); ?>
 				<div class="col-xs-6">
 					<div class="product-item">
 						<img src="<?php echo $termImgSrc; ?>" width="100" height="100">
-						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h5>
+						<h6><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h6>
 					</div>
  				</div>
 				
@@ -57,7 +57,7 @@ get_header(); ?>
 				<div class="col-xs-6">
 					<div class="product-item">
 						<img src="http://placehold.it/100x100">
-						<h5><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h5>
+						<h6><a href="<?php echo get_term_link( $term ); ?>"><?php echo $termName; ?></a></h6>
 					</div>
  				</div>
 				
