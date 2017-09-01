@@ -1,9 +1,4 @@
-<?php
-/*
-Template Name: Main categories
-*/
-
-get_header(); ?>
+<?php get_header(); ?>
 
 <div class="container">
 	<div class="row">
@@ -19,88 +14,15 @@ get_header(); ?>
 					</div>
 				</div>
 			</div>
-
+			
 			<div class="row">
 				<div class="col-md-12">
-					<?php $title = get_the_title(); ?>
-					<h3 class="uppercase"><?php the_title(); ?></h3>
-					<p>It's MAIN-CATEGORIES</p>
+					<?php $cat = single_cat_title( '', false ); ?>
+					<h3 class="uppercase"><?php echo $cat; ?></h3>
+					<p>it's LIST OF SUBCAT</p>
 				</div>
 			</div>
-
-			<div class="row inner-catalogue inner-simple-product-items">
-				<?php
-
-					$args = array(
-						'taxonomy' => 'categories',
-						'orderby' => 'name',
-						'hide_empty' => false,
-						'parent' => 0
-					);
-
-					$terms = get_terms( $args );
-
-					$subCategories;
-					global $indicator;
-
-					foreach ( $terms as $term ) {
-						$termName = $term->name;
-
-						if ( $termName == $title ) {
-							$termId = $term->term_id;
-							//echo $termId;
-
-							$subCategories = get_categories( array(
-								'taxonomy' => 'categories',
-								'orderby' => 'name',
-								'child_of' => $termId,
-								'hide_empty' => 0
-							) );
-							
-							if ($subCategories) : $indicator = true; endif;
-						}
-					}
-
-					if ( $indicator == true ) {
-						if ( is_array($subCategories) && ! is_wp_error($subCategories) ) {
-							foreach ( $subCategories as $subCategoriesEl ) {
-								//echo $subCategoriesEl->name;
-								$termImgSrc = $subCategoriesEl->description;
-								$termName = $subCategoriesEl->name;
-								$subcatId = $subCategoriesEl->term_id;
-								if ( $termImgSrc ) {
-				?>
-
-					<div class="col-xs-6">
-						<div class="product-item">
-							<img src="<?php echo $termImgSrc; ?>" width="100" height="100">
-							<h6><a href="<?php echo get_term_link( $subcatId ); ?>"><?php echo $termName; ?></a></h6>
-						</div>
-					</div>
-
-				<?php
-								} else {
-				?>
-
-					<div class="col-xs-6">
-						<div class="product-item">
-							<img src="http://placehold.it/100x100">
-							<h6><a href="<?php echo get_term_link( $subcatId ); ?>"><?php echo $termName; ?></a></h6>
-						</div>
-					</div>
-
-				<?php
-								}
-							}
-						}
-				?>
-
-			</div>
-
-				<?php
-					} else {
-				?>
-
+			
 			<div class="row inner-catalogue inner-ext-product-items">
 				<div class="col-xs-12">
 					<?php
@@ -116,18 +38,34 @@ get_header(); ?>
 						foreach ( $posts as $post ) {
 							$thumb = get_the_post_thumbnail_url();
 							$brands = get_the_terms( $post->ID, 'brands' );
-							$categories = get_the_terms( $post->ID, 'categories' );
 							$brand = array_shift( $brands );
-							$category = array_shift( $categories );
-							$categoryName = $category->name;
-							if ( $categoryName == $title ) {
-								setup_postdata($post);
+							$categories = get_the_terms( $post->ID, 'categories' );
+							$tags = get_the_terms( $post->ID, 'tags' );
+
+							//$category = array_shift( $categories );
+							foreach ($categories as $categoriesEl) {
+								$currentCat = $categoriesEl->name;
+								if ( $currentCat == $cat ) {
 					?>
 
 					<div class="product-item detailed">
+						<?php
+							if ( is_array($tags) && ! is_wp_error($tags) ) {
+								$tag = array_shift($tags);
+								$tagName = $tag->name;
+								if ( $tagName == "new" ) {
+						?>
+
+							<div class="novelty-tag">новинка</div>
+
+						<?php
+								}
+							}
+						?>
+
 						<div class="flex-row">
 							<div class="col-sm-2 col-xs-3">
-								<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="">
+								<img src="<?php echo $thumb; ?>" alt="">
 							</div>
 							
 							<div class="col-sm-7 col-xs-9 product-key-data">
@@ -163,23 +101,11 @@ get_header(); ?>
 					<!-- /.product-item -->
 
 					<?php
+								}
 							}
 						}
 						wp_reset_postdata();
 					?>
-				</div>
-			</div>
-
-			<?php
-				}
-			?>
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="category-description">
-						<h3 class="text-left uppercase"><?php the_title(); ?></h3>
-						<p><?php the_content(); ?></p>
-					</div>
 				</div>
 			</div>
 		</main>
