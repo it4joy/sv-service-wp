@@ -24,7 +24,7 @@ get_header(); ?>
 					<h3 class="uppercase"><?php the_title(); ?></h3>
 				</div>
 			</div>
-			
+
 			<div class="row inner-catalogue inner-simple-product-items">
 				<?php
 					$args = array(

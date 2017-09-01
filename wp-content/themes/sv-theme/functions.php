@@ -217,7 +217,6 @@ add_action( 'widgets_init', 'register_widgets' );
 
 function svwp_search( $form ) {
 	$searchQuery = get_search_query();
-	//$form;
 
 	if ($searchQuery) {
 		$form = '

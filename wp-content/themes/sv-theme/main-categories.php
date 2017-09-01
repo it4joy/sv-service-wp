@@ -28,6 +28,53 @@ get_header(); ?>
 				</div>
 			</div>
 			
+			<?php
+
+				// 2017-09-01;
+				$args = array(
+					'taxonomy' => 'categories',
+					'orderby' => 'name',
+					'hide_empty' => false,
+					'parent' => 0
+				);
+
+				$terms = get_terms( $args );
+
+				foreach ( $terms as $term ) {
+					$termName = $term->name;
+
+					if ( $termName == $title ) {
+						$termId = $term->term_id;
+						//echo $termId;
+
+						$subCategories = get_categories( array(
+							'taxonomy' => 'categories',
+							'orderby' => 'name',
+							'child_of' => $termId,
+							'hide_empty' => 0
+						) );
+
+						if ( is_array($subCategories) && ! is_wp_error($subCategories) ) {
+							foreach ( $subCategories as $subCategoriesEl ) {
+								//echo $subCategoriesEl->name;
+								$termName = $subCategoriesEl->name;
+								$subcatId = $subCategoriesEl->term_id;
+			?>
+
+			<div class="row inner-catalogue inner-simple-product-items">
+				<div class="col-xs-6">
+					<div class="product-item">
+						
+						<h6><a href="<?php echo get_term_link( $subcatId ); ?>"><?php echo $termName; ?></a></h6>
+					</div>
+ 				</div>
+			</div>
+
+			<?php
+							}
+						} else {
+			?>
+
 			<div class="row inner-catalogue inner-ext-product-items">
 				<div class="col-xs-12">
 					<?php
@@ -96,7 +143,13 @@ get_header(); ?>
 					?>
 				</div>
 			</div>
-			
+
+			<?php
+						}
+					}
+				}
+			?>
+
 			<div class="row">
 				<div class="col-md-12">
 					<div class="category-description">
