@@ -434,12 +434,6 @@ function simple_cat_ajax() {
 			$selectedBrand = $_REQUEST['selectedBrand'];
 			
 			setcookie( 'requestedBrand', $selectedBrand, time() + 3600, '/' );
-			
-			/* if ( isset( $_COOKIE['requestedBrand'] ) ) {
-				setcookie( 'requestedBrand', '', time() - 3600, '/' );
-			} else {
-				setcookie( 'requestedBrand', $selectedBrand, time() + 3600, '/' );
-			} */
 		}
 
 	}

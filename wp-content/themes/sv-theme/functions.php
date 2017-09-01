@@ -216,15 +216,29 @@ add_action( 'widgets_init', 'register_widgets' );
 // add searching;
 
 function svwp_search( $form ) {
-	$form = '
-		<form action="' . home_url( '/' ) . '" method="get" id="searchform" role="search" class="form-inline default searching-form">
-			<div class="form-group">
-				<input type="text" name="s" value="' . get_search_query() . '" id="s" class="form-control" placeholder="Введите поисковый запрос" autofocus  required>
-			</div>
-			<button type="submit" class="btn btn-default">Поиск</button>
-		</form>
-	';
-	
+	$searchQuery = get_search_query();
+	//$form;
+
+	if ($searchQuery) {
+		$form = '
+			<form action="' . home_url( '/' ) . '" method="get" id="searchform" role="search" class="form-inline default searching-form">
+				<div class="form-group">
+					<input type="text" name="s" value="" id="s" class="form-control" placeholder="Введите поисковый запрос" autofocus  required>
+				</div>
+				<button type="submit" class="btn btn-default">Поиск</button>
+			</form>
+		';
+	} else {
+		$form = '
+			<form action="' . home_url( '/' ) . '" method="get" id="searchform" role="search" class="form-inline default searching-form">
+				<div class="form-group">
+					<input type="text" name="s" value="' . get_search_query() . '" id="s" class="form-control" placeholder="Введите поисковый запрос" autofocus  required>
+				</div>
+				<button type="submit" class="btn btn-default">Поиск</button>
+			</form>
+		';
+	}
+
 	return $form;
 }
 add_filter( 'get_search_form', 'svwp_search' );

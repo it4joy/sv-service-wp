@@ -38,8 +38,10 @@
 						foreach ( $posts as $post ) {
 							$thumb = get_the_post_thumbnail_url();
 							$brands = get_the_terms( $post->ID, 'brands' );
-							$categories = get_the_terms( $post->ID, 'categories' );
 							$brand = array_shift( $brands );
+							$categories = get_the_terms( $post->ID, 'categories' );
+							$tags = get_the_terms( $post->ID, 'tags' );
+
 							//$category = array_shift( $categories );
 							foreach ($categories as $categoriesEl) {
 								$currentCat = $categoriesEl->name;
@@ -47,6 +49,20 @@
 					?>
 
 					<div class="product-item detailed">
+						<?php
+							if ( is_array($tags) && ! is_wp_error($tags) ) {
+								$tag = array_shift($tags);
+								$tagName = $tag->name;
+								if ( $tagName == "new" ) {
+						?>
+
+							<div class="novelty-tag">новинка</div>
+
+						<?php
+								}
+							}
+						?>
+
 						<div class="flex-row">
 							<div class="col-sm-2 col-xs-3">
 								<img src="<?php echo $thumb; ?>" alt="">
