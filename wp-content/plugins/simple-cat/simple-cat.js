@@ -12,6 +12,10 @@ jQuery(document).ready(function($) {
 	var articles = [];
 
 	var productsTableStr;
+    
+    var totalArr = [];
+    var totalSum = 0;
+    var totalSumStr;
 
 	// adding;
 
@@ -62,23 +66,26 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	var cartPageChecking = setInterval(function() {
-		if ( currentHref.indexOf("korzina") !== -1 ) {
-			if ( $("div").is(".detailed") ) {
-				var price = 0;
+    if ( currentHref.indexOf("korzina") !== -1 ) {
+        if ( $("div").is(".detailed") ) {
+            $(".product-item.detailed").each(function() {
+                var preorderAmount = $(this).find("input[name='amount']").val();
+                var preorderPrice = $(this).find(".price span").text();
 
-				$(".product-item.detailed").each(function() {
-					price = price + Number( $(this).find(".price span").text() );
-				});
+                var currentTotal = Number(preorderPrice) * Number(preorderAmount);
+                totalArr.push(currentTotal);
+            });
 
-				price = Number( price.toFixed(2) );
+            $.each(totalArr, function(index, value) {
+                totalSum = totalSum + value;
+            });
 
-				$(totalPrice).text(price);
-			} else {
-				$(totalPrice).text("0");
-			}
-		}
-	}, 2000);
+            totalSumStr = totalSum.toFixed(2);
+            $(totalPrice).text(totalSumStr);
+        } else {
+            $(totalPrice).text("0");
+        }
+    }
 
 	// top cart icon indication;
 
@@ -187,7 +194,7 @@ jQuery(document).ready(function($) {
 
 	$(".btn-preorder").on("click", function() {
 		var productsTableArr = [];
-		
+
 		if ( $("tr").is(".product-data-row") ) {
 			$(".product-data-row").remove();
 		}
@@ -198,23 +205,21 @@ jQuery(document).ready(function($) {
 				var productArticle = $(this).find(".article span").text();
 				var preorderAmount = $(this).find("input[name='amount']").val();
 				var preorderPrice = $(this).find(".price span").text();
-				
+
 				var productsTableRow = preorderTitle + " / " + productArticle + " / " + preorderAmount + " / " + preorderPrice;
 				productsTableArr.push(productsTableRow);
-				
+
 				$("#preorder-form table .heading").after("<tr class='product-data-row'><td>" + preorderTitle + "</td><td>" + productArticle + "</td><td>" + preorderAmount + "</td><td>" + preorderPrice + "</td></tr>");
 			});
 		} else {
 			return false;
 		}
-		
+
 		productsTableStr = productsTableArr.join(", ");
 		console.log(productsTableStr);
-		
-		var currentTotal = Number( totalPrice.text() );
-		
-		if ( currentTotal > 0 ) {
-			$("#preorder-form table .total span").text(currentTotal);
+
+		if ( Number(totalSumStr) > 0 ) {
+			$("#preorder-form table .total span").text(totalSumStr);
 		} else {
 			return false;
 		}
@@ -271,6 +276,7 @@ jQuery(document).ready(function($) {
 				$("#preorder-form").modal("hide");
 				$("#success-modal").find(".modal-title").text("Ваша заявка отправлена");
 				$("#success-modal").modal("show");
+                $(totalPrice).text("0");
 			},
 			error: function() {
 				$form.trigger("reset");

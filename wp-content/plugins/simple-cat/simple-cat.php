@@ -192,31 +192,6 @@ function simple_cat_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'simple_cat_scripts' );
 
-// === Del
-function svwp_upload_ajax() {
-	$nonce = $_REQUEST['_wpnonce'];
-	
-	if ( ! wp_verify_nonce( $nonce, 'media-form' ) ) {
-		wp_die();
-	} else {
-		$to = 'drkierkegor@gmail.com';
-		$subject = 'Добавлен новый файл';
-		$headers = array(
-			'From: user',
-			'content-type: text/html',
-		);
-		$files = $_REQUEST['async-upload'];
-		$msg = "<html>
-					<body>
-						<p>Добавлен новый файл</p>
-						<p>".wp_get_attachment_url( $files )."</p>
-					</body>
-				</html>";
-		
-		wp_mail( $to, $subject, $msg, $headers );
-	}
-}
-// === / Del;
 
 // Interaction with DB;
 
@@ -379,8 +354,6 @@ function simple_cat_ajax() {
 
 				$url = plugin_dir_url( __FILE__ );
 
-				// ===
-
 				global $phpmailer;
 
 				if ( !is_object( $phpmailer ) || !is_a( $phpmailer, 'PHPMailer' ) ) {
@@ -417,8 +390,6 @@ function simple_cat_ajax() {
 				} else {
 					echo 'There are no such keys in array';
 				}
-				
-				//
 
 				if ( ! $phpmailer->Send() ) {
 					echo "Failed sending";
@@ -426,16 +397,14 @@ function simple_cat_ajax() {
 					echo "Message was successfully sent";
 				}
 
-				// end the code of PHPMailer;
+				// end of PHPMailer;
 			} else {
 				wp_die();
 			}
 		} elseif ( $_REQUEST['actionType'] == 'watchProductsOfBrand' ) {
 			$selectedBrand = $_REQUEST['selectedBrand'];
-			
 			setcookie( 'requestedBrand', $selectedBrand, time() + 3600, '/' );
 		}
-
 	}
 }
 
