@@ -79,17 +79,17 @@ get_header(); ?>
 									</div>
 								</div>
 							</div>
-							
-							<div class="flex-row gallery-wrapper">
-								<div class="col-xs-12">
-									<?php
-										$nggallery = get_post_meta( $post->ID, 'gallery', true );
-										echo do_shortcode( $nggallery );
-									?>
-								</div>
-							</div>
 						</div>
 					</div>
+
+                    <div class="flex-row gallery-wrapper">
+                        <div class="col-xs-12">
+                            <?php
+                                $nggallery = get_post_meta( $post->ID, 'gallery', true );
+                                echo do_shortcode( $nggallery );
+                            ?>
+                        </div>
+                    </div>
 
 					<div class="row">
 						<div class="col-xs-12">

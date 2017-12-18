@@ -24,7 +24,8 @@ get_header(); ?>
 				<div class="col-md-12">
 					<?php $title = get_the_title(); ?>
 					<h3 class="uppercase"><?php the_title(); ?></h3>
-					<p>It's MAIN-CATEGORIES</p>
+                    <!--<p>It's MAIN-CATEGORIES</p>-->
+                    <p>It's MAIN-CATEGORIES</p>
 				</div>
 			</div>
 

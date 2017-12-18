@@ -588,7 +588,7 @@ p {
 }
 
 .inner-ext-product-item .gallery-wrapper {
-	padding-top: 10px 0;
+	padding: 20px 0;
 }
 
 .inner-ext-product-item .product-main > *:last-child {
@@ -765,13 +765,6 @@ a.ui-button:active,
 }
 
 /* / jQuery UI */
-
-
-/* NextGen Gallery */
-
-
-
-/* / NextGen Gallery */
 
 
 /* @media */

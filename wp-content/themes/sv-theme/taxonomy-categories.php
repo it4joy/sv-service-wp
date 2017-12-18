@@ -19,10 +19,11 @@
 				<div class="col-md-12">
 					<?php $cat = single_cat_title( '', false ); ?>
 					<h3 class="uppercase"><?php echo $cat; ?></h3>
-					<p>it's LIST OF SUBCAT</p>
+                    <!--<p>it's LIST OF SUBCAT</p>-->
+                    <p>it's LIST OF SUBCAT</p>
 				</div>
 			</div>
-			
+
 			<div class="row inner-catalogue inner-ext-product-items">
 				<div class="col-xs-12">
 					<?php

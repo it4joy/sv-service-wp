@@ -267,4 +267,3 @@ function svwp_pagination() {
 }
 
 // test;
-
