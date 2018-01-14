@@ -51,7 +51,7 @@ get_header(); ?>
 									<img src="<?php echo $imgSrc; ?>" alt="SV Service - производство и комплексное оснащение расходными материалами  индустрии в сфере оказания услуг. Современно. Комфортно. Гигиенично.">
 									<div class="carousel-caption">
 										<h2><?php the_title(); ?></h2>
-										<a class="btn btn-default btn-lg" href="<?php echo $link; ?>" role="button">Узнать больше</a>
+										<a class="btn btn-theme bright btn-shadow btn-lg" href="<?php echo $link; ?>" role="button">Узнать больше</a>
 									</div>
 								</div>
 						
@@ -127,7 +127,7 @@ get_header(); ?>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="block-shim text-center">
-							<a class="btn btn-default btn-lg" href="katalog" role="button">Перейти в каталог</a>
+							<a class="btn btn-theme default btn-shadow btn-lg" href="katalog" role="button">Перейти в каталог</a>
 						</div>
 					</div>
 				</div>

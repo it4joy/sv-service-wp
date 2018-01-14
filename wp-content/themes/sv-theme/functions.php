@@ -68,6 +68,9 @@ function svwp_enqueue_styles() {
 	
 	wp_register_style( 'jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css', '1.12.1', 'all' );
     wp_enqueue_style( 'jquery-ui' );
+
+    wp_register_style( 'theme-font', '//fonts.googleapis.com/css?family=Roboto' );
+    wp_enqueue_style( 'theme-font' );
 }
 add_action( 'wp_enqueue_scripts', 'svwp_enqueue_styles' );
 
