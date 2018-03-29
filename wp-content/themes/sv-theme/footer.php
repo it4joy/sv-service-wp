@@ -11,7 +11,7 @@
 								<input type="number" name="phone" pattern="[0-9]{,11}" id="phone" class="form-control" placeholder="Мобильный номер, только цифры" required>
 								<input type="hidden" name="form_type" value="footer-callback-form" class="form-type">
 							</div>
-							<button type="submit" class="btn btn-default">Перезвоните мне</button>
+							<button type="submit" class="btn btn-theme orange">Перезвоните мне</button>
 						</form>
 					</div>
 				</div>

@@ -19,7 +19,6 @@
 				<div class="col-md-12">
 					<?php $cat = single_cat_title( '', false ); ?>
 					<h3 class="uppercase"><?php echo $cat; ?></h3>
-                    <!--<p>it's LIST OF SUBCAT</p>-->
                     <p>it's LIST OF SUBCAT</p>
 				</div>
 			</div>
@@ -39,7 +38,10 @@
 						foreach ( $posts as $post ) {
 							$thumb = get_the_post_thumbnail_url();
 							$brands = get_the_terms( $post->ID, 'brands' );
-							$brand = array_shift( $brands );
+                            $brand = "";
+                            if ($brands) {
+                              $brand = array_shift( $brands );
+                            }
 							$categories = get_the_terms( $post->ID, 'categories' );
 							$tags = get_the_terms( $post->ID, 'tags' );
 
@@ -65,17 +67,17 @@
 						?>
 
 						<div class="flex-row">
-							<div class="col-sm-2 col-xs-3">
+							<div class="col-sm-3 col-xs-12">
 								<img src="<?php echo $thumb; ?>" alt="">
 							</div>
 							
-							<div class="col-sm-7 col-xs-9 product-key-data">
+							<div class="col-sm-6 col-xs-12 product-key-data">
 								<h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
 								<div class="flex-row align-items-bottom">
 									<div class="col-xs-8 no-padding">
 										<ul class="default text-left">
 											<li class="article">Артикул: <span><?php echo get_post_meta( $post->ID, 'art', true ); ?></span></li>
-											<li class="brand">Бренд: <span><?php echo $brand->name; ?></span></li>
+											<li class="brand">Бренд: <span><?php if ($brand != "") echo $brand->name; ?></span></li>
 											<li class="availability">Наличие: <span><?php echo get_post_meta( $post->ID, 'available', true ); ?></span></li>
 											<li class="packing">Фасовка, мин.: <span><?php echo get_post_meta( $post->ID, 'packing', true ); ?></span></li>
 										</ul>
@@ -89,7 +91,7 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-3 col-xs-8">
+							<div class="col-sm-3 col-xs-12">
 								<p class="price">Цена: <span><?php echo get_post_meta( $post->ID, 'price', true ); ?></span> руб.</p>
 								<div class="input-group">
 									<span class="input-group-addon">Кол-во:</span>

@@ -34,14 +34,17 @@ get_header(); ?>
 						while( have_posts() ) {
 							the_post();
 							$brands = get_the_terms( $post->ID, 'brands' );
+                            $brandName = "";
 							$categories = get_the_terms( $post->ID, 'categories' );
 							$relations = get_the_terms( $post->ID, 'relations' );
-							$brand = array_shift( $brands );
-							$brandName = $brand->name;
+							if ($brands) {
+                              $brand = array_shift( $brands );
+							  $brandName = $brand->name;
+                            }
 							$category = array_shift( $categories );
 							$thumb = get_the_post_thumbnail_url();
 				?>
-				
+
 				<div class="col-md-12">
 					<div class="flex-row align-items-top">
 						<div class="col-xs-4">
@@ -56,7 +59,7 @@ get_header(); ?>
 									<ul>
 										<li class="price">Цена: <span><?php $price = get_post_meta( $post->ID, 'price', true ); echo $price; ?></span> руб.</li>
 										<li class="article">Артикул: <span><?php $article = get_post_meta( $post->ID, 'art', true ); echo $article; ?></span></li>
-										<li class="brand">Бренд: <span><?php echo $brandName; ?></span></li>
+										<li class="brand">Бренд: <span><?php if ($brandName) echo $brandName; ?></span></li>
 										<li class="availability">Наличие: <span><?php $availability = get_post_meta( $post->ID, 'available', true ); echo $availability; ?></span></li>
 										<li class="packing">Фасовка, мин.: <span><?php $packing = get_post_meta( $post->ID, 'packing', true ); echo $packing; ?></span></li>
 									</ul>
@@ -126,26 +129,39 @@ get_header(); ?>
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-xs-12">
-							<h6>С этим продуктом часто заказывают</h6>
-						</div>
-					</div>
-					<div class="row related-products">
-						<?php
-							foreach ( $relations as $relation ) {
-						?>
+                        <?php
+                            if ($relations) {
+                        ?>
 
-						<div class="col-sm-6 col-xs-12">
-							<div class="product-item">
-								<p> <?php echo $relation->name; ?> </p>
-							</div>
-						</div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h6>С этим продуктом часто заказывают</h6>
+                            </div>
+                        </div>
 
-						<?php
-							}
-						?>
-					</div>
+                        <div class="row">
+
+                            <?php
+                                foreach ( $relations as $relation ) {
+                            ?>
+
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="product-item">
+                                        <p> <?php echo $relation->name; ?> </p>
+                                    </div>
+                                </div>
+
+                            <?php
+                                }
+                            ?>
+
+                        </div>
+
+                        <?php
+                            } else {
+                            
+                            }
+                        ?>
 				</div>
 				
 				<?php
