@@ -27,7 +27,7 @@ get_header(); ?>
 			</div>
 
 			<div class="row cart-product-list inner-catalogue inner-ext-product-items">
-				<div class="col-md-9">
+				<div class="col-md-10">
 					<?php
 						$sessionId = session_id();
 						$sessionId = (string) $sessionId;
@@ -42,7 +42,7 @@ get_header(); ?>
 					?>
 					<div class="product-item detailed">
 						<div class="flex-row">
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<div class="div-as-table">
 									<div class="div-as-table-cell">
 										<img src="<?php echo $selectedProduct->product_thumb; ?>">
@@ -50,7 +50,7 @@ get_header(); ?>
 								</div>
 							</div>
 							
-							<div class="col-md-7">
+							<div class="col-md-6">
 								<div class="flex-row">
 									<div class="col-md-12">
 										<h6 class="text-left">
@@ -98,7 +98,7 @@ get_header(); ?>
 					?>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<div class="cart-common-data">
 						<p class="total"><strong>Итого: </strong><span>0</span> руб.</p>
 						<a href="#preorder-form" class="btn btn-primary btn-preorder" data-toggle="modal">Оформить предзаказ</a>
