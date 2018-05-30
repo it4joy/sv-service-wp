@@ -49,11 +49,12 @@ if ( isset( $_COOKIE['requestedBrand'] ) ) {
 							$brandItems->the_post();
 
 							$brands = get_the_terms( $post->ID, 'brands' );
-							$brand = array_shift( $brands );
-							$brandName = $brand->name;
+                            if ( is_array($brands) && ! is_wp_error($brands) ) {
+                                $brand = array_shift( $brands );
+                                $brandName = $brand->name;
 
-							if ( $brandName == $selectedBrand ) {
-								$thumb = get_the_post_thumbnail_url();
+                                if ( $brandName == $selectedBrand ) {
+                                    $thumb = get_the_post_thumbnail_url();
 				?>
 
 				<div class="product-item detailed">
@@ -95,7 +96,8 @@ if ( isset( $_COOKIE['requestedBrand'] ) ) {
 				<!-- /.product-item -->
 				
 				<?php
-							}
+                                }
+                            }
 						}
 					} else {
 						echo 'Не выбран бренд для вывода продуктов. Перейдите на страницу какого-либо продукта.';

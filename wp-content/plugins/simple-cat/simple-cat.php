@@ -404,7 +404,19 @@ function simple_cat_ajax() {
 		} elseif ( $_REQUEST['actionType'] == 'watchProductsOfBrand' ) {
 			$selectedBrand = $_REQUEST['selectedBrand'];
 			setcookie( 'requestedBrand', $selectedBrand, time() + 3600, '/' );
-		}
+		} elseif ( $_REQUEST['actionType'] == 'changeAmount' ) {
+            $productAmount = $_REQUEST['updatedAmount'];
+			$customerId = $wpdb->get_results("SELECT customer_id FROM svwp_cart WHERE customer_id = '".$sessionId."'");
+
+			if ( $customerId ) {
+                $previousAmount = $wpdb->get_var( $wpdb->prepare( "SELECT product_amount FROM svwp_cart WHERE customer_id = '".$sessionId."'" ) );
+
+				$wpdb->update( 'svwp_cart', array( 'product_amount' => $productAmount ), array( 'product_amount' => $previousAmount, 'customer_id' => $sessionId ), array( '%d' ), array( '%d', '%s' ) );
+                var_dump( $wpdb->last_query );
+			} else {
+				wp_die();
+			}
+        }
 	}
 }
 

@@ -6,8 +6,8 @@
         <meta charset="UTF-8">
         <meta name="description" content="<?php bloginfo('description'); ?>">
         <meta name="keywords" content="">
-        <meta name="copyright" content="">
-        <meta name="author" content="">
+        <meta name="copyright" content="SV Service">
+        <meta name="author" content="Graphical Shell - Igor Ivanov">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="HandheldFriendly" content="true">

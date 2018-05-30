@@ -19,7 +19,7 @@
 				<div class="col-md-12">
 					<?php $cat = single_cat_title( '', false ); ?>
 					<h3 class="uppercase"><?php echo $cat; ?></h3>
-                    <p>it's LIST OF SUBCAT</p>
+                    <!-- it's LIST OF SUBCAT -->
 				</div>
 			</div>
 
@@ -38,14 +38,9 @@
 						foreach ( $posts as $post ) {
 							$thumb = get_the_post_thumbnail_url();
 							$brands = get_the_terms( $post->ID, 'brands' );
-                            $brand = "";
-                            if ($brands) {
-                              $brand = array_shift( $brands );
-                            }
 							$categories = get_the_terms( $post->ID, 'categories' );
 							$tags = get_the_terms( $post->ID, 'tags' );
 
-							//$category = array_shift( $categories );
 							foreach ($categories as $categoriesEl) {
 								$currentCat = $categoriesEl->name;
 								if ( $currentCat == $cat ) {
@@ -77,7 +72,14 @@
 									<div class="col-xs-8 no-padding">
 										<ul class="default text-left">
 											<li class="article">Артикул: <span><?php echo get_post_meta( $post->ID, 'art', true ); ?></span></li>
-											<li class="brand">Бренд: <span><?php if ($brand != "") echo $brand->name; ?></span></li>
+                                            <?php
+                                                if ( is_array($brands) && ! is_wp_error($brands) ) {
+                                                    $brand = array_shift($brands);
+                                            ?>
+											<li class="brand">Бренд: <span><?php echo $brand->name; ?></span></li>
+                                            <?php
+                                                }
+                                            ?>
 											<li class="availability">Наличие: <span><?php echo get_post_meta( $post->ID, 'available', true ); ?></span></li>
 											<li class="packing">Фасовка, мин.: <span><?php echo get_post_meta( $post->ID, 'packing', true ); ?></span></li>
 										</ul>

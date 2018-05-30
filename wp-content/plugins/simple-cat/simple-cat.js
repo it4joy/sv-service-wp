@@ -65,6 +65,25 @@ jQuery(document).ready(function($) {
 			}
 		});
 	});
+    
+    // changing product's amount on the cart page
+    
+    if ( $("div").is(".detailed") ) {
+        $(".cart-products-amount").on("change", function() {
+            $.ajax({
+                method: "POST",
+                url: simple_cat_ajax.ajax_url,
+                data: {
+                    action: "sc_ajax",
+                    nonce: simple_cat_ajax.nonce,
+                    actionType: "changeAmount",
+                    updatedAmount: $(this).val()
+                }
+            });
+        });
+    }
+
+    //
 
     if ( currentHref.indexOf("korzina") !== -1 ) {
         if ( $("div").is(".detailed") ) {
@@ -98,7 +117,7 @@ jQuery(document).ready(function($) {
 		localStorage.setItem("topCartVal", cartVal);
 	}
 
-	setInterval(function() {
+	/* setInterval(function() {
 		var cartVal = localStorage.getItem("topCartVal");
 
 		if (cartVal !== null) {
@@ -107,7 +126,7 @@ jQuery(document).ready(function($) {
 		} else {
 			return false;
 		}
-	}, 2000);
+	}, 2000); */
 
 	// delete;
 

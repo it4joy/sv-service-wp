@@ -22,11 +22,17 @@
 			</div>
 
 			<div class="row">
-				<?php the_post(); ?>
+				<?php
+					the_post();
+				?>
 
 				<div class="col-md-12">
 					<?php the_content(); ?>
 				</div>
+
+				<?php
+					
+				?>
 			</div>
 		</main>
 	</div>

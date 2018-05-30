@@ -22,6 +22,7 @@ function sg_forms_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'sg_forms_scripts' );
 
+// specify recipient's email
 $to = 'drkierkegor@gmail.com';
 
 function sgforms_ajax() {

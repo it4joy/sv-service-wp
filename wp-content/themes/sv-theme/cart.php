@@ -31,7 +31,9 @@ get_header(); ?>
 					<?php
 						$sessionId = session_id();
 						$sessionId = (string) $sessionId;
-						echo $sessionId;
+                        
+                        // an unique session ID
+						//echo $sessionId;
 
 						$customerId = $wpdb->get_results("SELECT customer_id FROM svwp_cart WHERE customer_id = '".$sessionId."'");
 
@@ -79,7 +81,7 @@ get_header(); ?>
 									<p class="price"><strong>Цена: <span><?php echo $selectedProduct->product_price; ?></span> руб.</strong></p>
 									<div class="input-group">
 										<span class="input-group-addon">Кол-во:</span>
-										<input type="number" name="amount" value="<?php echo $selectedProduct->product_amount; ?>" class="form-control">
+										<input type="number" name="amount" value="<?php echo $selectedProduct->product_amount; ?>" class="form-control cart-products-amount">
 									</div>
 									<button type="button" class="btn btn-default btn-delete" data-toggle="tooltip" data-placement="top" title="Удалить"><i class="fa fa-trash"></i></button>
 								</div>
@@ -92,6 +94,7 @@ get_header(); ?>
 					?>
 					
 					<p class="msg-empty-cart">Корзина пуста. Добавьте товары в Вашу корзину :)</p>
+                    <p><a href="/katalog/">Перейти в каталог</a></p>
 
 					<?php
 						}

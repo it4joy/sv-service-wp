@@ -118,7 +118,6 @@ get_header(); ?>
 							$thumb = get_the_post_thumbnail_url();
 							$brands = get_the_terms( $post->ID, 'brands' );
 							$categories = get_the_terms( $post->ID, 'categories' );
-							$brand = array_shift( $brands );
 							$category = array_shift( $categories );
 							$categoryName = $category->name;
 							if ( $categoryName == $title ) {
@@ -137,7 +136,14 @@ get_header(); ?>
 									<div class="col-xs-8 no-padding">
 										<ul class="default text-left">
 											<li class="article">Артикул: <span><?php echo get_post_meta( $post->ID, 'art', true ); ?></span></li>
+                                            <?php
+                                                if ( is_array($brands) && ! is_wp_error($brands) ) {
+                                                    $brand = array_shift($brands);
+                                            ?>
 											<li class="brand">Бренд: <span><?php echo $brand->name; ?></span></li>
+                                            <?php
+                                                }
+                                            ?>
 											<li class="availability">Наличие: <span><?php echo get_post_meta( $post->ID, 'available', true ); ?></span></li>
 											<li class="packing">Фасовка, мин.: <span><?php echo get_post_meta( $post->ID, 'packing', true ); ?></span></li>
 										</ul>
