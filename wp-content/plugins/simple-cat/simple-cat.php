@@ -406,12 +406,13 @@ function simple_cat_ajax() {
 			setcookie( 'requestedBrand', $selectedBrand, time() + 3600, '/' );
 		} elseif ( $_REQUEST['actionType'] == 'changeAmount' ) {
             $productAmount = $_REQUEST['updatedAmount'];
+            $productArticle = $_REQUEST['article'];
 			$customerId = $wpdb->get_results("SELECT customer_id FROM svwp_cart WHERE customer_id = '".$sessionId."'");
 
 			if ( $customerId ) {
-                $previousAmount = $wpdb->get_var( $wpdb->prepare( "SELECT product_amount FROM svwp_cart WHERE customer_id = '".$sessionId."'" ) );
+                $previousAmount = $wpdb->get_var( $wpdb->prepare( "SELECT product_amount FROM svwp_cart WHERE customer_id = '".$sessionId."' AND product_article = '".$productArticle."'" ) );
 
-				$wpdb->update( 'svwp_cart', array( 'product_amount' => $productAmount ), array( 'product_amount' => $previousAmount, 'customer_id' => $sessionId ), array( '%d' ), array( '%d', '%s' ) );
+				$wpdb->update( 'svwp_cart', array( 'product_amount' => $productAmount ), array( 'product_amount' => $previousAmount, 'customer_id' => $sessionId, 'product_article' => $productArticle ), array( '%d' ), array( '%d', '%s', '%s' ) );
                 var_dump( $wpdb->last_query );
 			} else {
 				wp_die();

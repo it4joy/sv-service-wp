@@ -1,10 +1,10 @@
 jQuery(document).ready(function($) {
 	var currentHref = window.location.href;
 	var hostname = window.location.hostname;
-	
+
 	var cartVal = 0;
 
-	var btnCartCounter = 0;
+	//var btnCartCounter = 0;
 
 	var cartCommonData = $(".cart-common-data");
 	var totalPrice = $(cartCommonData).find(".total span");
@@ -13,6 +13,9 @@ jQuery(document).ready(function($) {
 
 	var productsTableStr;
     
+    var preorderAmount, preorderPrice;
+
+    var currentTotal = 0;
     var totalArr = [];
     var totalSum = 0;
     var totalSumStr;
@@ -27,9 +30,8 @@ jQuery(document).ready(function($) {
 		} else if ( $("div").is(".product-item.detailed") ) {
 			productMainData = $(this).parents(".product-item.detailed");
 		}
-		
+
 		cartVal++;
-		//btnCartCounter++;
 
 		$.ajax({
 			method: "POST",
@@ -70,6 +72,9 @@ jQuery(document).ready(function($) {
     
     if ( $("div").is(".detailed") ) {
         $(".cart-products-amount").on("change", function() {
+            // get from AJAX data;
+            var newAmount = $(this).val();
+            //
             $.ajax({
                 method: "POST",
                 url: simple_cat_ajax.ajax_url,
@@ -77,21 +82,55 @@ jQuery(document).ready(function($) {
                     action: "sc_ajax",
                     nonce: simple_cat_ajax.nonce,
                     actionType: "changeAmount",
+                    article: $(this).parents(".detailed").find(".article span").text(),
                     updatedAmount: $(this).val()
+                },
+                success: function() {
+                    updateTotalSum(newAmount);
                 }
             });
         });
     }
+    
+    function updateTotalSum(updatedAmount) {
+        if ( $(".product-item.detailed").length == 1 ) {
+           $(".product-item.detailed").each(function() {
+                preorderPrice = $(this).find(".price span").text();
 
-    //
+                currentTotal = Number(preorderPrice) * Number(updatedAmount);
+
+                totalSumStr = currentTotal.toFixed(2);
+                $(totalPrice).text(totalSumStr);
+            }); 
+        } else {
+            // test it!
+            $(".product-item.detailed").each(function() {
+                preorderPrice = $(this).find(".price span").text();
+
+                currentTotal = Number(preorderPrice) * Number(updatedAmount);
+                totalArr.push(currentTotal);
+
+                /* $.each(totalArr, function(index, value) {
+                    totalSum = totalSum + value;
+                }); */
+                
+                totalSum = totalSum + currentTotal;
+
+                totalSumStr = totalSum.toFixed(2);
+                $(totalPrice).text(totalSumStr);
+            });
+        }
+    }
+
+    // total sum;
 
     if ( currentHref.indexOf("korzina") !== -1 ) {
         if ( $("div").is(".detailed") ) {
             $(".product-item.detailed").each(function() {
-                var preorderAmount = $(this).find("input[name='amount']").val();
-                var preorderPrice = $(this).find(".price span").text();
+                preorderAmount = $(this).find("input[name='amount']").val();
+                preorderPrice = $(this).find(".price span").text();
 
-                var currentTotal = Number(preorderPrice) * Number(preorderAmount);
+                currentTotal = Number(preorderPrice) * Number(preorderAmount);
                 totalArr.push(currentTotal);
             });
 
