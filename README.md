@@ -12,4 +12,4 @@ The site-catalogue without payment.
 
 ### Company
 
-Sensitive Graphics <http://sensitivegraphics.com/>
+Graphical Shell <https://graphicalshell.ru/>
