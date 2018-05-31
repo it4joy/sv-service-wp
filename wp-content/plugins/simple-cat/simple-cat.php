@@ -244,8 +244,8 @@ function simple_cat_ajax() {
 					array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d' )
 				);
 			} else {
-				//wp_die();
-				header('HTTP/1.1 500 There is already exists a record with proposed values in DB');
+                header('HTTP/1.1 500 Internal Server Error');
+                exit();
 			}
 		} elseif ( $_REQUEST['actionType'] == 'delete' ) {
 			$productArticle = $_REQUEST['article'];

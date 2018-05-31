@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
 
 	// adding;
 
-	$(".btn-cart").one("click", function() {
+	$(".btn-cart").on("click", function() {
 		var productMainData;
 
 		if ( $("div").is(".product-main") ) {
@@ -30,8 +30,6 @@ jQuery(document).ready(function($) {
 		} else if ( $("div").is(".product-item.detailed") ) {
 			productMainData = $(this).parents(".product-item.detailed");
 		}
-
-		cartVal++;
 
 		$.ajax({
 			method: "POST",
@@ -54,14 +52,15 @@ jQuery(document).ready(function($) {
 				$("#success-modal").find(".modal-title").text("Продукт успешно добавлен");
 				$("#success-modal .modal-title").after("<p class='text-center cart-link'><a href='/korzina/'>Перейти в корзину</a> / <a href='#' data-dismiss='modal' aria-label='Закрыть'>Закрыть</a></p>");
 				$("#success-modal").modal("show");
-				add_unit();
+				cartVal++;
+                add_unit();
 			},
-			error: function(request, status, error) {
-				if (request.status == 500) {
+			error: function(jqxhr, status, error) {
+                if ( error == "Internal Server Error" ) {
 					$("#failure-modal").find(".modal-title").text("Данный продукт уже был добавлен");
 					$("#failure-modal").modal("show");
 				} else {
-					$("#failure-modal").find(".modal-title").text("Произошла ошибка");
+					$("#failure-modal").find(".modal-title").text("Произошла ошибка, попробуйте еще раз");
 					$("#failure-modal").modal("show");
 				}
 			}
@@ -69,6 +68,8 @@ jQuery(document).ready(function($) {
 	});
     
     // changing product's amount on the cart page
+    
+    var changingProductsAmount = false;
     
     if ( $("div").is(".detailed") ) {
         $(".cart-products-amount").on("change", function() {
@@ -104,17 +105,19 @@ jQuery(document).ready(function($) {
             }); 
         } else {
             // test it!
+            // remove duplicate;
             $(".product-item.detailed").each(function() {
                 preorderPrice = $(this).find(".price span").text();
 
                 currentTotal = Number(preorderPrice) * Number(updatedAmount);
-                totalArr.push(currentTotal);
-
-                /* $.each(totalArr, function(index, value) {
-                    totalSum = totalSum + value;
-                }); */
                 
                 totalSum = totalSum + currentTotal;
+                
+                /* totalArr.push(currentTotal);
+
+                $.each(totalArr, function(index, value) {
+                    totalSum = totalSum + value;
+                }); */
 
                 totalSumStr = totalSum.toFixed(2);
                 $(totalPrice).text(totalSumStr);
@@ -123,7 +126,7 @@ jQuery(document).ready(function($) {
     }
 
     // total sum;
-
+    
     if ( currentHref.indexOf("korzina") !== -1 ) {
         if ( $("div").is(".detailed") ) {
             $(".product-item.detailed").each(function() {
